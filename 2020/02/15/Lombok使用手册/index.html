@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.0"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Lombok使用手册 - sbx0&#039;s blog</title><meta description="sbx0&amp;#39;s blog"><meta property="og:type" content="blog"><meta property="og:title" content="sbx0&#039;s blog"><meta property="og:url" content="https://blog.sbx0.cn/"><meta property="og:site_name" content="sbx0&#039;s blog"><meta property="og:description" content="sbx0&amp;#39;s blog"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.sbx0.cn/img/cat.png"><meta property="article:published_time" content="2020-02-15T02:45:29.000Z"><meta property="article:modified_time" content="2020-08-30T06:48:37.809Z"><meta property="article:author" content="sbx0"><meta property="article:tag" content="Lombok"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/cat.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.sbx0.cn"},"headline":"sbx0","image":["https://blog.sbx0.cn/img/cat.png"],"datePublished":"2020-02-15T02:45:29.000Z","dateModified":"2020-08-30T06:48:37.809Z","author":{"@type":"Person","name":"sbx0"},"description":"sbx0&#39;s blog"}</script><link rel="canonical" href="https://blog.sbx0.cn/2020/02/15/Lombok%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/cat.png" alt="sbx0&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">存档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-02-15T02:45:29.000Z" title="2020-02-15T02:45:29.000Z">2020-02-15</time><span class="level-item"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a><span> / </span><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></span><span class="level-item">6 分钟 读完 (大约 856 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Lombok使用手册</h1><div class="content"><p>Lombok是一种Java实用工具，可用来帮助开发人员消除Java的冗长代码，尤其是对于简单的Java对象（POJO）。它通过注释实现这一目的。通过在开发环境中实现Lombok，开发人员可以节省构建诸如hashCode()和equals()这样的方法以及以往用来分类各种accessor和mutator的大量时间。你可以在Lombok官网 <a href="https://projectlombok.org/">https://projectlombok.org/</a> 了解更多。</p>
+<a id="more"></a>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在 <a href="https://mvnrepository.com/artifact/org.projectlombok/lombok">MVN Repository</a> 选择合适的版本添加到项目的pom.xml文件中。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.projectlombok/lombok --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>Lombok提供了一些注解：  </p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>val</td>
+<td>Finally! Hassle-free final local variables.(相当于final)</td>
+</tr>
+<tr>
+<td>var</td>
+<td>同JDK10</td>
+</tr>
+<tr>
+<td>@Data</td>
+<td>注解在类上，将类提供的所有属性都添加get、set方法，并添加、equals、canEquals、hashCode、toString方法</td>
+</tr>
+<tr>
+<td>@Setter</td>
+<td>注解在类上，为所有属性添加set方法、注解在属性上为该属性提供set方法</td>
+</tr>
+<tr>
+<td>@Getter</td>
+<td>注解在类上，为所有的属性添加get方法、注解在属性上为该属性提供get方法</td>
+</tr>
+<tr>
+<td>@NotNull</td>
+<td>在参数中使用时，如果调用时传了null值，就会抛出空指针异常</td>
+</tr>
+<tr>
+<td>@Synchronized</td>
+<td>用于方法，可以锁定指定的对象，如果不指定，则默认创建一个对象锁定</td>
+</tr>
+<tr>
+<td>@Log</td>
+<td>作用于类，创建一个log属性</td>
+</tr>
+<tr>
+<td>@Builder</td>
+<td>使用builder模式创建对象</td>
+</tr>
+<tr>
+<td>@NoArgsConstructor</td>
+<td>创建一个无参构造函数</td>
+</tr>
+<tr>
+<td>@AllArgsConstructor</td>
+<td>创建一个全参构造函数</td>
+</tr>
+<tr>
+<td>@ToString</td>
+<td>创建一个toString方法</td>
+</tr>
+<tr>
+<td>@Accessors(chain = true)</td>
+<td>使用链式设置属性，set方法返回的是this对象。</td>
+</tr>
+<tr>
+<td>@RequiredArgsConstructor</td>
+<td>创建对象, 例: 在class上添加@RequiredArgsConstructor(staticName = “of”)会创建生成一个静态方法</td>
+</tr>
+<tr>
+<td>@UtilityClass</td>
+<td>工具类</td>
+</tr>
+<tr>
+<td>@ExtensionMethod</td>
+<td>设置父类</td>
+</tr>
+<tr>
+<td>@FieldDefaults</td>
+<td>设置属性的使用范围，如private、public等，也可以设置属性是否被final修饰。</td>
+</tr>
+<tr>
+<td>@Cleanup</td>
+<td>关闭流、连接点。</td>
+</tr>
+<tr>
+<td>@EqualsAndHashCode</td>
+<td>重写equals和hashcode方法。</td>
+</tr>
+</tbody></table>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>@Setter和@Getter</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    User user = <span class="keyword">new</span> User();</span><br><span class="line">    user.setId(<span class="string">"1"</span>);</span><br><span class="line">    user.setName(<span class="string">"name"</span>);</span><br><span class="line">    user.setAge(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Accessors(chain = true)：使用链式创建:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Accessors</span>(chain = <span class="keyword">true</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//使用@Accessors(chain = true)</span></span><br><span class="line">    User userChain = <span class="keyword">new</span> User();</span><br><span class="line">    userChain.setId(<span class="string">"1"</span>).setName(<span class="string">"chain"</span>).setAge(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Builder：使用builder模式创建对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    User user = User.builder().id(<span class="string">"1"</span>).name(<span class="string">"builder"</span>).age(<span class="number">1</span>).build();</span><br><span class="line">    System.out.println(user.getId());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@UtilityClass：工具类注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@UtilityClass</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Utility</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"name"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Utility utility = new Utility(); 构造函数为私有的,</span></span><br><span class="line">    System.out.println(Utility.getName());</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@CleanUp: 清理流对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Cleanup</span></span><br><span class="line">OutputStream outStream = <span class="keyword">new</span> FileOutputStream(<span class="keyword">new</span> File(<span class="string">"text.txt"</span>));</span><br><span class="line"><span class="meta">@Cleanup</span></span><br><span class="line">InputStream inStream = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(<span class="string">"text2.txt"</span>));</span><br><span class="line"><span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">65536</span>];</span><br><span class="line"><span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">   <span class="keyword">int</span> r = inStream.read(b);</span><br><span class="line">   <span class="keyword">if</span> (r == -<span class="number">1</span>) <span class="keyword">break</span>;</span><br><span class="line">   outStream.write(b, <span class="number">0</span>, r); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="与-IntelliJ-IDEA-兼容"><a href="#与-IntelliJ-IDEA-兼容" class="headerlink" title="与 IntelliJ IDEA 兼容"></a>与 IntelliJ IDEA 兼容</h2><p>安装完lombok后，idea显示对象没有get方法。</p>
+<img src="/2020/02/15/Lombok%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/lombok_idea_error.png" class="" title="idea报错">
+
+<p>双击 <em>Shift</em> ，输入plugins，打开插件面板。</p>
+<img src="/2020/02/15/Lombok%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/lombok_idea_open_plugins.png" class="" title="打开插件面板">
+
+<p>搜索 <em>Lombok</em> 并安装。</p>
+<img src="/2020/02/15/Lombok%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/lombok_idea_plugin.png" class="" title="安装">
+
+<p>重启IntelliJ IDEA。</p>
+<img src="/2020/02/15/Lombok%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/lombok_idea_plugin_restart.png" class="" title="重启">
+
+<p>现在就不报错了。</p>
+<img src="/2020/02/15/Lombok%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/lombok_idea_success.png" class="" title="成功">
+
+<p>我的IntelliJ IDEA版本为2019.3。</p>
+<img src="/2020/02/15/Lombok%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/idea_version.png" class="" title="版本"></div><div class="article-tags size-small mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Lombok/">Lombok</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button is-info donate"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/image/alipay.jpg" alt="支付宝"></span></a><a class="button is-success donate"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/image/wechat.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/02/23/%E6%9B%B4%E5%8A%A0%E4%BC%98%E9%9B%85%E7%9A%84%E9%83%A8%E7%BD%B2/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">更加优雅的部署</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/02/11/%E5%A4%87%E5%BF%98%E5%BD%95/"><span class="level-item">备忘录</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: 'fdf8c824f5a963a711d1040d224ba9b5',
+            repo: 'sbx0.github.io',
+            owner: 'sbx0',
+            clientID: '0f65a7e9a7b838df5fe8',
+            clientSecret: '93c2fd9e0eb4584847cb528e0c30f8ac6852a099',
+            admin: "sbx0",
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true
+        })
+        gitalk.render('comment-container')</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><!--!--><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-30T07:24:18.000Z">2020-08-30</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/30/microservice/">微服务架构风格</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-26T03:25:14.000Z">2020-08-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/26/frp/">Frp内网穿透实现远程桌面</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-24T12:36:11.000Z">2020-07-24</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/24/git/">Git使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-21T07:55:10.000Z">2020-07-21</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/21/linux/">Linux使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-01T14:00:18.000Z">2020-07-01</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/01/docker-dockerfile/">Dockerfile</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a> / <a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/%E4%B8%8D%E6%87%82%E5%B0%B1%E6%9F%A5/">不懂就查</a></p></div></article></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/cat.png" alt="sbx0&#039;s blog" height="28"></a><p class="size-small"><span>&copy; 2020 sbx0</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="FontAwesome" href="https://fontawesome.com/icons?d=gallery&amp;m=free"><i class="fab fa-font-awesome-flag"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'https://blog.sbx0.cn',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script src="/js/night.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

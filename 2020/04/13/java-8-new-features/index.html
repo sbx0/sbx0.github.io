@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.0"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Java 8 新特性 - sbx0&#039;s blog</title><meta description="sbx0&amp;#39;s blog"><meta property="og:type" content="blog"><meta property="og:title" content="sbx0&#039;s blog"><meta property="og:url" content="https://blog.sbx0.cn/"><meta property="og:site_name" content="sbx0&#039;s blog"><meta property="og:description" content="sbx0&amp;#39;s blog"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.sbx0.cn/img/cat.png"><meta property="article:published_time" content="2020-04-13T05:26:30.000Z"><meta property="article:modified_time" content="2020-04-13T05:26:30.000Z"><meta property="article:author" content="sbx0"><meta property="article:tag" content="Java"><meta property="article:tag" content="Lambda"><meta property="article:tag" content="方法引用"><meta property="article:tag" content="函数式接口"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/cat.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.sbx0.cn"},"headline":"sbx0","image":["https://blog.sbx0.cn/img/cat.png"],"datePublished":"2020-04-13T05:26:30.000Z","dateModified":"2020-04-13T05:26:30.000Z","author":{"@type":"Person","name":"sbx0"},"description":"sbx0&#39;s blog"}</script><link rel="canonical" href="https://blog.sbx0.cn/2020/04/13/java-8-new-features/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/cat.png" alt="sbx0&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">存档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-13T05:26:30.000Z" title="2020-04-13T05:26:30.000Z">2020-04-13</time><span class="level-item"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a></span><span class="level-item">28 分钟 读完 (大约 4150 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Java 8 新特性</h1><div class="content"><p>Java 8 (又称为 jdk 1.8) 是 Java 语言开发的一个主要版本。 Oracle 公司于 2014 年 3 月 18 日发布 Java 8 ，它支持函数式编程，新的 JavaScript 引擎，新的日期 API，新的Stream API 等。</p>
+<a id="more"></a> 
+
+<h2 id="新特性"><a href="#新特性" class="headerlink" title="新特性"></a>新特性</h2><p>Java8 新增了非常多的特性，我们主要讨论以下几个：</p>
+<ul>
+<li><strong>Lambda 表达式</strong> − Lambda 允许把函数作为一个方法的参数（函数作为参数传递到方法中）。</li>
+<li><strong>方法引用</strong> − 方法引用提供了非常有用的语法，可以直接引用已有Java类或对象（实例）的方法或构造器。与lambda联合使用，方法引用可以使语言的构造更紧凑简洁，减少冗余代码。</li>
+<li><strong>默认方法</strong> − 默认方法就是一个在接口里面有了一个实现的方法。</li>
+<li><strong>新工具</strong> − 新的编译工具，如：Nashorn引擎 jjs、 类依赖分析器jdeps。</li>
+<li><strong>Stream API</strong> −新添加的Stream API（java.util.stream） 把真正的函数式编程风格引入到Java中。</li>
+<li><strong>Date Time API</strong> − 加强对日期与时间的处理。</li>
+<li><strong>Optional 类</strong> − Optional 类已经成为 Java 8 类库的一部分，用来解决空指针异常。</li>
+<li><strong>Nashorn, JavaScript 引擎</strong> − Java 8提供了一个新的Nashorn javascript引擎，它允许我们在JVM上运行特定的javascript应用。</li>
+</ul>
+<p>更多的新特性可以参阅官网：<a href="http://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html">What’s New in JDK 8</a></p>
+<h2 id="编程风格"><a href="#编程风格" class="headerlink" title="编程风格"></a>编程风格</h2><p>Java 8 希望有自己的编程风格，并与 Java 7 区别开，以下实例展示了 Java 7 和 Java 8 的编程格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Java8Tester</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">   </span><br><span class="line">      List&lt;String&gt; names1 = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">      names1.add(<span class="string">"Google "</span>);</span><br><span class="line">      names1.add(<span class="string">"Runoob "</span>);</span><br><span class="line">      names1.add(<span class="string">"Taobao "</span>);</span><br><span class="line">      names1.add(<span class="string">"Baidu "</span>);</span><br><span class="line">      names1.add(<span class="string">"Sina "</span>);</span><br><span class="line">        </span><br><span class="line">      List&lt;String&gt; names2 = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">      names2.add(<span class="string">"Google "</span>);</span><br><span class="line">      names2.add(<span class="string">"Runoob "</span>);</span><br><span class="line">      names2.add(<span class="string">"Taobao "</span>);</span><br><span class="line">      names2.add(<span class="string">"Baidu "</span>);</span><br><span class="line">      names2.add(<span class="string">"Sina "</span>);</span><br><span class="line">        </span><br><span class="line">      Java8Tester tester = <span class="keyword">new</span> Java8Tester();</span><br><span class="line">      System.out.println(<span class="string">"使用 Java 7 语法: "</span>);</span><br><span class="line">        </span><br><span class="line">      tester.sortUsingJava7(names1);</span><br><span class="line">      System.out.println(names1);</span><br><span class="line">      System.out.println(<span class="string">"使用 Java 8 语法: "</span>);</span><br><span class="line">        </span><br><span class="line">      tester.sortUsingJava8(names2);</span><br><span class="line">      System.out.println(names2);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 使用 java 7 排序</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sortUsingJava7</span><span class="params">(List&lt;String&gt; names)</span></span>&#123;   </span><br><span class="line">      Collections.sort(names, <span class="keyword">new</span> Comparator&lt;String&gt;() &#123;</span><br><span class="line">         <span class="meta">@Override</span></span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String s1, String s2)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> s1.compareTo(s2);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">// 使用 java 8 排序</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sortUsingJava8</span><span class="params">(List&lt;String&gt; names)</span></span>&#123;</span><br><span class="line">      Collections.sort(names, (s1, s2) -&gt; s1.compareTo(s2));</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行以上脚本，输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ javac Java8Tester.java</span><br><span class="line">$ java Java8Tester</span><br><span class="line">使用 Java 7 语法: </span><br><span class="line">[Baidu , Google , Runoob , Sina , Taobao ]</span><br><span class="line">使用 Java 8 语法: </span><br><span class="line">[Baidu , Google , Runoob , Sina , Taobao ]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Lambda-表达式"><a href="#Lambda-表达式" class="headerlink" title="Lambda 表达式"></a>Lambda 表达式</h2><p>Lambda 表达式，也可称为闭包，它是推动 Java 8 发布的最重要新特性。</p>
+<p>Lambda 允许<strong>把函数作为一个方法的参数</strong>（函数作为参数传递进方法中）。</p>
+<p>使用 Lambda 表达式可以使代码变的更加简洁紧凑。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>Lambda 表达式的语法格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(parameters) -&gt; expression</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">(parameters) -&gt; &#123; statements; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下是 Lambda 表达式的重要特征:</p>
+<ul>
+<li><strong>可选类型声明：</strong>不需要声明参数类型，编译器可以统一识别参数值。</li>
+<li><strong>可选的参数圆括号：</strong>一个参数无需定义圆括号，但多个参数需要定义圆括号。</li>
+<li><strong>可选的大括号：</strong>如果主体包含了一个语句，就不需要使用大括号。</li>
+<li><strong>可选的返回关键字：</strong>如果主体只有一个表达式返回值则编译器会自动返回值，大括号需要指定明表达式返回了一个数值。</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 不需要参数,返回值为 5  </span></span><br><span class="line">() -&gt; <span class="number">5</span>  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// 2. 接收一个参数(数字类型),返回其2倍的值  </span></span><br><span class="line">x -&gt; <span class="number">2</span> * x  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// 3. 接受2个参数(数字),并返回他们的差值  </span></span><br><span class="line">(x, y) -&gt; x – y  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// 4. 接收2个int型整数,返回他们的和  </span></span><br><span class="line">(<span class="keyword">int</span> x, <span class="keyword">int</span> y) -&gt; x + y  </span><br><span class="line">  </span><br><span class="line"><span class="comment">// 5. 接受一个 string 对象,并在控制台打印,不返回任何值(看起来像是返回void)  </span></span><br><span class="line">(String s) -&gt; System.out.print(s)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Java8Tester</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">      Java8Tester tester = <span class="keyword">new</span> Java8Tester();</span><br><span class="line">        </span><br><span class="line">      <span class="comment">// 类型声明</span></span><br><span class="line">      MathOperation addition = (<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; a + b;</span><br><span class="line">        </span><br><span class="line">      <span class="comment">// 不用类型声明</span></span><br><span class="line">      MathOperation subtraction = (a, b) -&gt; a - b;</span><br><span class="line">        </span><br><span class="line">      <span class="comment">// 大括号中的返回语句</span></span><br><span class="line">      MathOperation multiplication = (<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; &#123; <span class="keyword">return</span> a * b; &#125;;</span><br><span class="line">        </span><br><span class="line">      <span class="comment">// 没有大括号及返回语句</span></span><br><span class="line">      MathOperation division = (<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; a / b;</span><br><span class="line">        </span><br><span class="line">      System.out.println(<span class="string">"10 + 5 = "</span> + tester.operate(<span class="number">10</span>, <span class="number">5</span>, addition));</span><br><span class="line">      System.out.println(<span class="string">"10 - 5 = "</span> + tester.operate(<span class="number">10</span>, <span class="number">5</span>, subtraction));</span><br><span class="line">      System.out.println(<span class="string">"10 x 5 = "</span> + tester.operate(<span class="number">10</span>, <span class="number">5</span>, multiplication));</span><br><span class="line">      System.out.println(<span class="string">"10 / 5 = "</span> + tester.operate(<span class="number">10</span>, <span class="number">5</span>, division));</span><br><span class="line">        </span><br><span class="line">      <span class="comment">// 不用括号</span></span><br><span class="line">      GreetingService greetService1 = message -&gt;</span><br><span class="line">      System.out.println(<span class="string">"Hello "</span> + message);</span><br><span class="line">        </span><br><span class="line">      <span class="comment">// 用括号</span></span><br><span class="line">      GreetingService greetService2 = (message) -&gt;</span><br><span class="line">      System.out.println(<span class="string">"Hello "</span> + message);</span><br><span class="line">        </span><br><span class="line">      greetService1.sayMessage(<span class="string">"Runoob"</span>);</span><br><span class="line">      greetService2.sayMessage(<span class="string">"Google"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">   <span class="class"><span class="keyword">interface</span> <span class="title">MathOperation</span> </span>&#123;</span><br><span class="line">      <span class="function"><span class="keyword">int</span> <span class="title">operation</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">   <span class="class"><span class="keyword">interface</span> <span class="title">GreetingService</span> </span>&#123;</span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">sayMessage</span><span class="params">(String message)</span></span>;</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">operate</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, MathOperation mathOperation)</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> mathOperation.operation(a, b);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行以上脚本，输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ javac Java8Tester.java </span><br><span class="line">$ java Java8Tester</span><br><span class="line">10 + 5 &#x3D; 15</span><br><span class="line">10 - 5 &#x3D; 5</span><br><span class="line">10 x 5 &#x3D; 50</span><br><span class="line">10 &#x2F; 5 &#x3D; 2</span><br><span class="line">Hello Runoob</span><br><span class="line">Hello Google</span><br></pre></td></tr></table></figure>
+
+<p>使用 Lambda 表达式需要注意以下两点：</p>
+<ul>
+<li>Lambda 表达式主要用来定义行内执行的方法类型接口，例如，一个简单方法接口。在上面例子中，我们使用各种类型的Lambda表达式来定义MathOperation接口的方法。然后我们定义了sayMessage的执行。</li>
+<li>Lambda 表达式免去了使用匿名方法的麻烦，并且给予Java简单但是强大的函数化的编程能力。</li>
+</ul>
+<h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><p>Lambda 表达式只能引用标记了 final 的外层局部变量，这就是说不能在 Lambda 内部修改定义在域外的局部变量，否则会编译错误。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Java8Tester</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">final</span> <span class="keyword">static</span> String salutation = <span class="string">"Hello! "</span>;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">      GreetingService greetService1 = message -&gt; </span><br><span class="line">      System.out.println(salutation + message);</span><br><span class="line">      greetService1.sayMessage(<span class="string">"Runoob"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">   <span class="class"><span class="keyword">interface</span> <span class="title">GreetingService</span> </span>&#123;</span><br><span class="line">      <span class="function"><span class="keyword">void</span> <span class="title">sayMessage</span><span class="params">(String message)</span></span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ javac Java8Tester.java </span><br><span class="line">$ java Java8Tester</span><br><span class="line">Hello! Runoob</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以直接在 Lambda 表达式中访问外层的局部变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Java8Tester</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> num = <span class="number">1</span>;</span><br><span class="line">        Converter&lt;Integer, String&gt; s = (param) -&gt; System.out.println(String.valueOf(param + num));</span><br><span class="line">        s.convert(<span class="number">2</span>);  <span class="comment">// 输出结果为 3</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Converter</span>&lt;<span class="title">T1</span>, <span class="title">T2</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">convert</span><span class="params">(<span class="keyword">int</span> i)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Lambda 表达式的局部变量可以不用声明为 final，但是必须不可被后面的代码修改（即隐性的具有 final 的语义）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num = <span class="number">1</span>;  </span><br><span class="line">Converter&lt;Integer, String&gt; s = (param) -&gt; System.out.println(String.valueOf(param + num));</span><br><span class="line">s.convert(<span class="number">2</span>);</span><br><span class="line">num = <span class="number">5</span>;  </span><br><span class="line"><span class="comment">//报错信息：Local variable num defined in an enclosing scope must be final or effectively final</span></span><br></pre></td></tr></table></figure>
+
+<p>在 Lambda 表达式当中不允许声明一个与局部变量同名的参数或者局部变量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String first = <span class="string">""</span>;  </span><br><span class="line">Comparator&lt;String&gt; comparator = (first, second) -&gt; Integer.compare(first.length(), second.length());</span><br><span class="line"><span class="comment">// 编译会出错</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h2><p>方法引用通过方法的名字来指向一个方法。</p>
+<p>方法引用可以使语言的构造更紧凑简洁，减少冗余代码。</p>
+<p>方法引用使用一对冒号 <code>::</code> 。</p>
+<p>下面，我们在 Car 类中定义了 4 个方法作为例子来区分 Java 中 4 种不同方法的引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.runoob.main;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Supplier</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">T <span class="title">get</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Supplier是jdk1.8的接口，这里和lamda一起使用了</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Car <span class="title">create</span><span class="params">(<span class="keyword">final</span> Supplier&lt;Car&gt; supplier)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> supplier.get();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">collide</span><span class="params">(<span class="keyword">final</span> Car car)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Collided "</span> + car.toString());</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">follow</span><span class="params">(<span class="keyword">final</span> Car another)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Following the "</span> + another.toString());</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">repair</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Repaired "</span> + <span class="keyword">this</span>.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>构造器引用：</strong>它的语法是Class::new，或者更一般的Class&lt; T &gt;::new实例如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Car car = Car.create( Car::<span class="keyword">new</span> );</span><br><span class="line"><span class="keyword">final</span> List&lt; Car &gt; cars = Arrays.asList( car );</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>静态方法引用：</strong>它的语法是Class::static_method，实例如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cars.forEach( Car::collide );</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特定类的任意对象的方法引用：</strong>它的语法是Class::method实例如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cars.forEach( Car::repair );</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特定对象的方法引用：</strong>它的语法是instance::method实例如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Car police = Car.create( Car::<span class="keyword">new</span> );</span><br><span class="line">cars.forEach( police::follow );</span><br></pre></td></tr></table></figure>
+
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Java8Tester</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">      List names = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        </span><br><span class="line">      names.add(<span class="string">"Google"</span>);</span><br><span class="line">      names.add(<span class="string">"Runoob"</span>);</span><br><span class="line">      names.add(<span class="string">"Taobao"</span>);</span><br><span class="line">      names.add(<span class="string">"Baidu"</span>);</span><br><span class="line">      names.add(<span class="string">"Sina"</span>);</span><br><span class="line">        </span><br><span class="line">      names.forEach(System.out::println);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实例中我们将 System.out::println 方法作为静态方法来引用。</p>
+<p>执行以上脚本，输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ javac Java8Tester.java </span><br><span class="line">$ java Java8Tester</span><br><span class="line">Google</span><br><span class="line">Runoob</span><br><span class="line">Taobao</span><br><span class="line">Baidu</span><br><span class="line">Sina</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>函数式接口(Functional Interface)就是一个有且仅有一个抽象方法，但是可以有多个非抽象方法的接口。</p>
+<p>函数式接口可以被隐式转换为 Lambda 表达式。</p>
+<p>Lambda 表达式和方法引用（实际上也可认为是Lambda表达式）上。</p>
+<p>如定义了一个函数式接口如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">GreetingService</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sayMessage</span><span class="params">(String message)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么就可以使用Lambda表达式来表示该接口的一个实现(注：JAVA 8 之前一般是用匿名类实现的)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GreetingService greetService1 = message -&gt; System.out.println(<span class="string">"Hello "</span> + message);</span><br></pre></td></tr></table></figure>
+
+<p>函数式接口可以对现有的函数友好地支持 lambda。</p>
+<p>JDK 1.8 之前已有的函数式接口:</p>
+<ul>
+<li>java.lang.Runnable</li>
+<li>java.util.concurrent.Callable</li>
+<li>java.security.PrivilegedAction</li>
+<li>java.util.Comparator</li>
+<li>java.io.FileFilter</li>
+<li>java.nio.file.PathMatcher</li>
+<li>java.lang.reflect.InvocationHandler</li>
+<li>java.beans.PropertyChangeListener</li>
+<li>java.awt.event.ActionListener</li>
+<li>javax.swing.event.ChangeListener</li>
+</ul>
+<p>JDK 1.8 新增加的函数接口：</p>
+<ul>
+<li>java.util.function</li>
+</ul>
+<p>java.util.function 它包含了很多类，用来支持 Java的 函数式编程，该包中的函数式接口有：</p>
+<table>
+<thead>
+<tr>
+<th align="left">序号</th>
+<th align="left">接口 &amp; 描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left"><strong>BiConsumer</strong>代表了一个接受两个输入参数的操作，并且不返回任何结果</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left"><strong>BiFunction</strong>代表了一个接受两个输入参数的方法，并且返回一个结果</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left"><strong>BinaryOperator</strong>代表了一个作用于于两个同类型操作符的操作，并且返回了操作符同类型的结果</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left"><strong>BiPredicate</strong>代表了一个两个参数的boolean值方法</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left"><strong>BooleanSupplier</strong>代表了boolean值结果的提供方</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left"><strong>Consumer</strong>代表了接受一个输入参数并且无返回的操作</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left"><strong>DoubleBinaryOperator</strong>代表了作用于两个double值操作符的操作，并且返回了一个double值的结果。</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left"><strong>DoubleConsumer</strong>代表一个接受double值参数的操作，并且不返回结果。</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left"><strong>DoubleFunction</strong>代表接受一个double值参数的方法，并且返回结果</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left"><strong>DoublePredicate</strong>代表一个拥有double值参数的boolean值方法</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left"><strong>DoubleSupplier</strong>代表一个double值结构的提供方</td>
+</tr>
+<tr>
+<td align="left">12</td>
+<td align="left"><strong>DoubleToIntFunction</strong>接受一个double类型输入，返回一个int类型结果。</td>
+</tr>
+<tr>
+<td align="left">13</td>
+<td align="left"><strong>DoubleToLongFunction</strong>接受一个double类型输入，返回一个long类型结果</td>
+</tr>
+<tr>
+<td align="left">14</td>
+<td align="left"><strong>DoubleUnaryOperator</strong>接受一个参数同为类型double,返回值类型也为double 。</td>
+</tr>
+<tr>
+<td align="left">15</td>
+<td align="left"><strong>Function</strong>接受一个输入参数，返回一个结果。</td>
+</tr>
+<tr>
+<td align="left">16</td>
+<td align="left"><strong>IntBinaryOperator</strong>接受两个参数同为类型int,返回值类型也为int 。</td>
+</tr>
+<tr>
+<td align="left">17</td>
+<td align="left"><strong>IntConsumer</strong>接受一个int类型的输入参数，无返回值 。</td>
+</tr>
+<tr>
+<td align="left">18</td>
+<td align="left"><strong>IntFunction</strong>接受一个int类型输入参数，返回一个结果 。</td>
+</tr>
+<tr>
+<td align="left">19</td>
+<td align="left"><strong>IntPredicate</strong>：接受一个int输入参数，返回一个布尔值的结果。</td>
+</tr>
+<tr>
+<td align="left">20</td>
+<td align="left"><strong>IntSupplier</strong>无参数，返回一个int类型结果。</td>
+</tr>
+<tr>
+<td align="left">21</td>
+<td align="left"><strong>IntToDoubleFunction</strong>接受一个int类型输入，返回一个double类型结果 。</td>
+</tr>
+<tr>
+<td align="left">22</td>
+<td align="left"><strong>IntToLongFunction</strong>接受一个int类型输入，返回一个long类型结果。</td>
+</tr>
+<tr>
+<td align="left">23</td>
+<td align="left"><strong>IntUnaryOperator</strong>接受一个参数同为类型int,返回值类型也为int 。</td>
+</tr>
+<tr>
+<td align="left">24</td>
+<td align="left"><strong>LongBinaryOperator</strong>接受两个参数同为类型long,返回值类型也为long。</td>
+</tr>
+<tr>
+<td align="left">25</td>
+<td align="left"><strong>LongConsumer</strong>接受一个long类型的输入参数，无返回值。</td>
+</tr>
+<tr>
+<td align="left">26</td>
+<td align="left"><strong>LongFunction</strong>接受一个long类型输入参数，返回一个结果。</td>
+</tr>
+<tr>
+<td align="left">27</td>
+<td align="left"><strong>LongPredicate</strong>R接受一个long输入参数，返回一个布尔值类型结果。</td>
+</tr>
+<tr>
+<td align="left">28</td>
+<td align="left"><strong>LongSupplier</strong>无参数，返回一个结果long类型的值。</td>
+</tr>
+<tr>
+<td align="left">29</td>
+<td align="left"><strong>LongToDoubleFunction</strong>接受一个long类型输入，返回一个double类型结果。</td>
+</tr>
+<tr>
+<td align="left">30</td>
+<td align="left"><strong>LongToIntFunction</strong>接受一个long类型输入，返回一个int类型结果。</td>
+</tr>
+<tr>
+<td align="left">31</td>
+<td align="left"><strong>LongUnaryOperator</strong>接受一个参数同为类型long,返回值类型也为long。</td>
+</tr>
+<tr>
+<td align="left">32</td>
+<td align="left"><strong>ObjDoubleConsumer</strong>接受一个object类型和一个double类型的输入参数，无返回值。</td>
+</tr>
+<tr>
+<td align="left">33</td>
+<td align="left"><strong>ObjIntConsumer</strong>接受一个object类型和一个int类型的输入参数，无返回值。</td>
+</tr>
+<tr>
+<td align="left">34</td>
+<td align="left"><strong>ObjLongConsumer</strong>接受一个object类型和一个long类型的输入参数，无返回值。</td>
+</tr>
+<tr>
+<td align="left">35</td>
+<td align="left"><strong>Predicate</strong>接受一个输入参数，返回一个布尔值结果。</td>
+</tr>
+<tr>
+<td align="left">36</td>
+<td align="left"><strong>Supplier</strong>无参数，返回一个结果。</td>
+</tr>
+<tr>
+<td align="left">37</td>
+<td align="left"><strong>ToDoubleBiFunction</strong>接受两个输入参数，返回一个double类型结果</td>
+</tr>
+<tr>
+<td align="left">38</td>
+<td align="left"><strong>ToDoubleFunction</strong>接受一个输入参数，返回一个double类型结果</td>
+</tr>
+<tr>
+<td align="left">39</td>
+<td align="left"><strong>ToIntBiFunction</strong>接受两个输入参数，返回一个int类型结果。</td>
+</tr>
+<tr>
+<td align="left">40</td>
+<td align="left"><strong>ToIntFunction</strong>接受一个输入参数，返回一个int类型结果。</td>
+</tr>
+<tr>
+<td align="left">41</td>
+<td align="left"><strong>ToLongBiFunction</strong>接受两个输入参数，返回一个long类型结果。</td>
+</tr>
+<tr>
+<td align="left">42</td>
+<td align="left"><strong>ToLongFunction</strong>接受一个输入参数，返回一个long类型结果。</td>
+</tr>
+<tr>
+<td align="left">43</td>
+<td align="left"><strong>UnaryOperator</strong>接受一个参数为类型T,返回值类型也为T。</td>
+</tr>
+</tbody></table>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><p>Predicate <T> 接口是一个函数式接口，它接受一个输入参数 T，返回一个布尔值结果。</p>
+<p>该接口包含多种默认方法来将Predicate组合成其他复杂的逻辑（比如：与，或，非）。</p>
+<p>该接口用于测试对象是 true 或 false。</p>
+<p>我们可以通过以下实例（Java8Tester.java）来了解函数式接口 Predicate <T> 的使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.function.Predicate;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Java8Tester</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">      List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>);</span><br><span class="line">        </span><br><span class="line">      <span class="comment">// Predicate&lt;Integer&gt; predicate = n -&gt; true</span></span><br><span class="line">      <span class="comment">// n 是一个参数传递到 Predicate 接口的 test 方法</span></span><br><span class="line">      <span class="comment">// n 如果存在则 test 方法返回 true</span></span><br><span class="line">        </span><br><span class="line">      System.out.println(<span class="string">"输出所有数据:"</span>);</span><br><span class="line">        </span><br><span class="line">      <span class="comment">// 传递参数 n</span></span><br><span class="line">      eval(list, n-&gt;<span class="keyword">true</span>);</span><br><span class="line">        </span><br><span class="line">      <span class="comment">// Predicate&lt;Integer&gt; predicate1 = n -&gt; n%2 == 0</span></span><br><span class="line">      <span class="comment">// n 是一个参数传递到 Predicate 接口的 test 方法</span></span><br><span class="line">      <span class="comment">// 如果 n%2 为 0 test 方法返回 true</span></span><br><span class="line">        </span><br><span class="line">      System.out.println(<span class="string">"输出所有偶数:"</span>);</span><br><span class="line">      eval(list, n-&gt; n%<span class="number">2</span> == <span class="number">0</span> );</span><br><span class="line">        </span><br><span class="line">      <span class="comment">// Predicate&lt;Integer&gt; predicate2 = n -&gt; n &gt; 3</span></span><br><span class="line">      <span class="comment">// n 是一个参数传递到 Predicate 接口的 test 方法</span></span><br><span class="line">      <span class="comment">// 如果 n 大于 3 test 方法返回 true</span></span><br><span class="line">        </span><br><span class="line">      System.out.println(<span class="string">"输出大于 3 的所有数字:"</span>);</span><br><span class="line">      eval(list, n-&gt; n &gt; <span class="number">3</span> );</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">eval</span><span class="params">(List&lt;Integer&gt; list, Predicate&lt;Integer&gt; predicate)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">for</span>(Integer n: list) &#123;</span><br><span class="line">        </span><br><span class="line">         <span class="keyword">if</span>(predicate.test(n)) &#123;</span><br><span class="line">            System.out.println(n + <span class="string">" "</span>);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行以上脚本，输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ javac Java8Tester.java </span><br><span class="line">$ java Java8Tester</span><br><span class="line">输出所有数据:</span><br><span class="line">1 </span><br><span class="line">2 </span><br><span class="line">3 </span><br><span class="line">4 </span><br><span class="line">5 </span><br><span class="line">6 </span><br><span class="line">7 </span><br><span class="line">8 </span><br><span class="line">9 </span><br><span class="line">输出所有偶数:</span><br><span class="line">2 </span><br><span class="line">4 </span><br><span class="line">6 </span><br><span class="line">8 </span><br><span class="line">输出大于 3 的所有数字:</span><br><span class="line">4 </span><br><span class="line">5 </span><br><span class="line">6 </span><br><span class="line">7 </span><br><span class="line">8 </span><br><span class="line">9</span><br></pre></td></tr></table></figure>
+
+<h2 id="默认方法"><a href="#默认方法" class="headerlink" title="默认方法"></a>默认方法</h2><p>Java 8 新增了接口的默认方法。</p>
+<p>简单说，默认方法就是接口可以有实现方法，而且不需要实现类去实现其方法。</p>
+<p>我们只需在方法名前面加个 default 关键字即可实现默认方法。</p>
+<h3 id="为什么要有这个特性？"><a href="#为什么要有这个特性？" class="headerlink" title="为什么要有这个特性？"></a>为什么要有这个特性？</h3><p>首先，之前的接口是个双刃剑，好处是面向抽象而不是面向具体编程，缺陷是，当需要修改接口时候，需要修改全部实现该接口的类，目前的 Java 8 之前的集合框架没有 foreach 方法，通常能想到的解决办法是在JDK里给相关的接口添加新的方法及实现。然而，对于已经发布的版本，是没法在给接口添加新方法的同时不影响已有的实现。所以引进的默认方法。他们的目的是为了解决接口的修改与现有的实现不兼容的问题。</p>
+<h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><h4 id="一个默认方法"><a href="#一个默认方法" class="headerlink" title="一个默认方法"></a>一个默认方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="多个默认方法"><a href="#多个默认方法" class="headerlink" title="多个默认方法"></a>多个默认方法</h4><p>一个接口有默认方法，考虑这样的情况，一个类实现了多个接口，且这些接口有相同的默认方法，以下实例说明了这种情况的解决方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FourWheeler</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆四轮车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第一个解决方案是创建自己的默认方法，来覆盖重写接口的默认方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">Vehicle</span>, <span class="title">FourWheeler</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆四轮汽车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二种解决方案可以使用 super 来调用指定接口的默认方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">Vehicle</span>, <span class="title">FourWheeler</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      Vehicle.<span class="keyword">super</span>.print();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="静态默认方法"><a href="#静态默认方法" class="headerlink" title="静态默认方法"></a>静态默认方法</h3><p>Java 8 的另一个特性是接口可以声明（并且可以提供实现）静态方法。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="comment">// 静态方法</span></span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">blowHorn</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"按喇叭!!!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Java8Tester</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</span><br><span class="line">      Vehicle vehicle = <span class="keyword">new</span> Car();</span><br><span class="line">      vehicle.print();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">    </span><br><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">blowHorn</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"按喇叭!!!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">FourWheeler</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"我是一辆四轮车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">Vehicle</span>, <span class="title">FourWheeler</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">      Vehicle.<span class="keyword">super</span>.print();</span><br><span class="line">      FourWheeler.<span class="keyword">super</span>.print();</span><br><span class="line">      Vehicle.blowHorn();</span><br><span class="line">      System.out.println(<span class="string">"我是一辆汽车!"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行以上脚本，输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ javac Java8Tester.java </span><br><span class="line">$ java Java8Tester</span><br><span class="line">我是一辆车!</span><br><span class="line">我是一辆四轮车!</span><br><span class="line">按喇叭!!!</span><br><span class="line">我是一辆汽车!</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://www.runoob.com/java/java8-new-features.html">菜鸟教程</a></p>
+</div><div class="article-tags size-small mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Java/">Java</a><a class="link-muted mr-2" rel="tag" href="/tags/Lambda/">Lambda</a><a class="link-muted mr-2" rel="tag" href="/tags/%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8/">方法引用</a><a class="link-muted mr-2" rel="tag" href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/">函数式接口</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button is-info donate"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/image/alipay.jpg" alt="支付宝"></span></a><a class="button is-success donate"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/image/wechat.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/04/13/new-coder-note/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">牛客网刷题笔记</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/04/12/synchronized/"><span class="level-item">synchronized</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: 'c156da19a68233879939d8a8b716141e',
+            repo: 'sbx0.github.io',
+            owner: 'sbx0',
+            clientID: '0f65a7e9a7b838df5fe8',
+            clientSecret: '93c2fd9e0eb4584847cb528e0c30f8ac6852a099',
+            admin: "sbx0",
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true
+        })
+        gitalk.render('comment-container')</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex" href="#新特性"><span class="mr-2">1</span><span>新特性</span></a></li><li><a class="is-flex" href="#编程风格"><span class="mr-2">2</span><span>编程风格</span></a></li><li><a class="is-flex" href="#Lambda-表达式"><span class="mr-2">3</span><span>Lambda 表达式</span></a><ul class="menu-list"><li><a class="is-flex" href="#语法"><span class="mr-2">3.1</span><span>语法</span></a></li><li><a class="is-flex" href="#例子"><span class="mr-2">3.2</span><span>例子</span></a></li><li><a class="is-flex" href="#变量作用域"><span class="mr-2">3.3</span><span>变量作用域</span></a></li></ul></li><li><a class="is-flex" href="#方法引用"><span class="mr-2">4</span><span>方法引用</span></a><ul class="menu-list"><li><a class="is-flex" href="#示例"><span class="mr-2">4.1</span><span>示例</span></a></li></ul></li><li><a class="is-flex" href="#函数式接口"><span class="mr-2">5</span><span>函数式接口</span></a><ul class="menu-list"><li><a class="is-flex" href="#示例-1"><span class="mr-2">5.1</span><span>示例</span></a></li></ul></li><li><a class="is-flex" href="#默认方法"><span class="mr-2">6</span><span>默认方法</span></a><ul class="menu-list"><li><a class="is-flex" href="#为什么要有这个特性？"><span class="mr-2">6.1</span><span>为什么要有这个特性？</span></a></li><li><a class="is-flex" href="#语法-1"><span class="mr-2">6.2</span><span>语法</span></a><ul class="menu-list"><li><a class="is-flex" href="#一个默认方法"><span class="mr-2">6.2.1</span><span>一个默认方法</span></a></li><li><a class="is-flex" href="#多个默认方法"><span class="mr-2">6.2.2</span><span>多个默认方法</span></a></li></ul></li><li><a class="is-flex" href="#静态默认方法"><span class="mr-2">6.3</span><span>静态默认方法</span></a></li><li><a class="is-flex" href="#示例-2"><span class="mr-2">6.4</span><span>示例</span></a></li></ul></li><li><a class="is-flex" href="#参考文献"><span class="mr-2">7</span><span>参考文献</span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-30T07:24:18.000Z">2020-08-30</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/30/microservice/">微服务架构风格</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-26T03:25:14.000Z">2020-08-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/26/frp/">Frp内网穿透实现远程桌面</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-24T12:36:11.000Z">2020-07-24</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/24/git/">Git使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-21T07:55:10.000Z">2020-07-21</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/21/linux/">Linux使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-01T14:00:18.000Z">2020-07-01</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/01/docker-dockerfile/">Dockerfile</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a> / <a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/%E4%B8%8D%E6%87%82%E5%B0%B1%E6%9F%A5/">不懂就查</a></p></div></article></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/cat.png" alt="sbx0&#039;s blog" height="28"></a><p class="size-small"><span>&copy; 2020 sbx0</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="FontAwesome" href="https://fontawesome.com/icons?d=gallery&amp;m=free"><i class="fab fa-font-awesome-flag"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'https://blog.sbx0.cn',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script src="/js/night.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

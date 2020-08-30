@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.0"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>牛客网刷题笔记 - sbx0&#039;s blog</title><meta description="sbx0&amp;#39;s blog"><meta property="og:type" content="blog"><meta property="og:title" content="sbx0&#039;s blog"><meta property="og:url" content="https://blog.sbx0.cn/"><meta property="og:site_name" content="sbx0&#039;s blog"><meta property="og:description" content="sbx0&amp;#39;s blog"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.sbx0.cn/img/cat.png"><meta property="article:published_time" content="2020-04-13T08:43:53.000Z"><meta property="article:modified_time" content="2020-04-13T08:43:53.000Z"><meta property="article:author" content="sbx0"><meta property="article:tag" content="刷题"><meta property="article:tag" content="笔记"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/cat.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.sbx0.cn"},"headline":"sbx0","image":["https://blog.sbx0.cn/img/cat.png"],"datePublished":"2020-04-13T08:43:53.000Z","dateModified":"2020-04-13T08:43:53.000Z","author":{"@type":"Person","name":"sbx0"},"description":"sbx0&#39;s blog"}</script><link rel="canonical" href="https://blog.sbx0.cn/2020/04/13/new-coder-note/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/cat.png" alt="sbx0&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">存档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-13T08:43:53.000Z" title="2020-04-13T08:43:53.000Z">2020-04-13</time><span class="level-item"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a></span><span class="level-item">21 分钟 读完 (大约 3146 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">牛客网刷题笔记</h1><div class="content"><p>练练不忘，必有回响。</p>
+<a id="more"></a>
+
+<h2 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h2><p>以前我是堆，你是栈</p>
+<p>你总是能精准的找到我，给我指明出路</p>
+<p>后来有一天我明白了</p>
+<p>我变成了栈，你却隐身堆海</p>
+<p>我却找不到你了，空指针了</p>
+<p>我不愿意如此，在下一轮 full gc 前</p>
+<p>我找到了 object 家的 finalize</p>
+<p>又找到了你，这次我不会放手</p>
+<p>在世界重启前，一边躲着 full gc 一边老去</p>
+<blockquote>
+<p><a href="https://www.nowcoder.com/profile/153516329">虾滑</a></p>
+</blockquote>
+<ol>
+<li><p>一个对象成为垃圾，是因为没有引用指向它</p>
+</li>
+<li><p>一个对象成为垃圾之后，等待垃圾回收器收集</p>
+</li>
+<li><p>finalize方法也可以主动使用</p>
+</li>
+<li><p>在java中，对象的内存在哪个时刻回收，取决于垃圾回收器何时运行</p>
+</li>
+<li><p>一旦垃圾回收器准备好释放对象占用的存储空间，将首先调用其finalize()方法， 并且在下一次垃圾回收动作发生时，才会真正的回收对象占用的内存（《java 编程思想》）</p>
+</li>
+<li><p>在C++中，对象的内存在哪个时刻被回收，是可以确定的，在C++中，析构函数和资源的释放息息相关，能不能正确处理析构函数，关乎能否正确回收对象内存资源。</p>
+<p>在java中，对象的内存在哪个时刻回收，取决于垃圾回收器何时运行，在java中，所有的对象，包括对象中包含的其他对象，它们所占的内存的回收都依靠垃圾回收器，因此不需要一个函数如C++析构函数那样来做必要的垃圾回收工作。当然存在本地方法时需要finalize()方法来清理本地对象。在《java编程思想》中提及，finalize()方法的一个作用是用来回收“本地方法”中的本地对象</p>
+</li>
+</ol>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ol>
+<li>Java在运行时才进行翻译指令</li>
+<li>Java程序在运行时字节码才会被JVM翻译成机器码</li>
+</ol>
+<h2 id="对象序列化"><a href="#对象序列化" class="headerlink" title="对象序列化"></a>对象序列化</h2><ol>
+<li>使用transient修饰的变量不会被序列化</li>
+<li>对象序列化的所属类需要实现Serializable接口</li>
+<li>能够对对象进行传输的貌似只有ObjectOutputStream和ObjectInputStream这些以Object开头的流对象</li>
+<li>transient 修饰的变量在对象串化的时侯并不会将所赋值的值保存到传中，串化的对象从磁盘读取出来仍然是null</li>
+<li></li>
+</ol>
+<h2 id="面向对象程序设计方法优点"><a href="#面向对象程序设计方法优点" class="headerlink" title="面向对象程序设计方法优点"></a>面向对象程序设计方法优点</h2><ol>
+<li>可重用性 <em>多态</em></li>
+<li>可扩展性 <em>继承</em></li>
+<li>易于维护与管理 <em>封装</em></li>
+</ol>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Enclosingone</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsideOne</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">inertest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(string[]args)</span> </span>&#123;</span><br><span class="line">		EnclosingOne eo = <span class="keyword">new</span> EnclosingOne();</span><br><span class="line">		<span class="comment">//insert code here</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">InsideOne ei = eo.<span class="keyword">new</span> InsideOne();</span><br><span class="line"><span class="comment">// Or</span></span><br><span class="line">EnclosingOne.InsideOne ei = eo.<span class="keyword">new</span> InsideOne();</span><br></pre></td></tr></table></figure>
+
+<p>内部类其实和类的属性没什么区别，只是在声明的时候必须是Outer.Inner a，就像int a 一样，</p>
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Outer.Inner a = <span class="keyword">new</span> Outer.Inner();</span><br><span class="line"><span class="comment">// 要把Outer.Inner看成一部分，就像类变量一样</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="非静态内部类"><a href="#非静态内部类" class="headerlink" title="非静态内部类"></a>非静态内部类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Outer.Inner a = <span class="keyword">new</span> Outer().<span class="keyword">new</span> Inner();</span><br><span class="line"><span class="comment">// 非静态，先有Outer对象才能有属性</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h2><ol>
+<li>char 和 Character</li>
+<li>byte 和 Byte</li>
+<li>short 和 Short</li>
+<li>int 和 Integer</li>
+<li>Enum 枚举</li>
+<li>String <em>Java1.7以后</em></li>
+</ol>
+<h2 id="ArrayList-vs-LinkedList"><a href="#ArrayList-vs-LinkedList" class="headerlink" title="ArrayList vs LinkedList"></a>ArrayList vs LinkedList</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Object obj=<span class="keyword">new</span> Object();</span><br><span class="line">List aList=<span class="keyword">new</span> ArrayList();</span><br><span class="line">List bList=<span class="keyword">new</span> LinkedList();</span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> t1=System.currentTimeMillis();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">50000</span>;i++)&#123;</span><br><span class="line">    aList.add(<span class="number">0</span>,obj);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> t2=System.currentTimeMillis()-t1;</span><br><span class="line"></span><br><span class="line">t1=System.currentTimeMillis();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">50000</span>;i++)&#123;</span><br><span class="line">    bList.add(<span class="number">0</span>,obj);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">long</span> t3=System.currentTimeMillis()-t1;</span><br></pre></td></tr></table></figure>
+
+<p>ArrayList内部是动态数组实现，在增加空间时会复制全部数据到新的容量大一些的数组中。而LinkedList内部为双向链表，可以按需分配空间，扩展容量简单，因此LinkedList用时少。</p>
+<p>所以t2 &gt; t3</p>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str =</span><br><span class="line"><span class="string">""</span>;</span><br><span class="line">System.out.print(str.split(<span class="string">","</span>).length);</span><br></pre></td></tr></table></figure>
+
+<p>split 这个方法默认返回一个数组。如果没有找到分隔符，会把整个字符串当成一个长度为1的字符串数组。</p>
+<p>因为是数组，所以是<code>.length</code></p>
+<p>输出结果为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>以下哪种JAVA得变量声明方式可以避免程序在多线程竞争情况下读到不正确的值(  )</p>
+<ol>
+<li>volatile √ volatile保证读写原子性，不保证更新（读=&gt;改变值=&gt;写）原子性</li>
+<li>static volatile √</li>
+<li>synchronized × synchronized不是修饰变量的 它修饰方法或代码块或对象</li>
+</ol>
+<h2 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> d1 =- <span class="number">0.5</span>;</span><br><span class="line">System.out.println(<span class="string">"Ceil d1="</span>+Math.ceil(d1));</span><br><span class="line">System.out.println(<span class="string">"floor d1="</span>+Math.floor(d1));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>ceil：大于等于 x，并且与它最接近的整数。</p>
+</li>
+<li><p>floor：小于等于 x，且与 x 最接近的整数。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Ceil d1 = -<span class="number">0.0</span>;</span><br><span class="line">floor d1 = -<span class="number">1.0</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h2><table>
+<thead>
+<tr>
+<th align="center">基本数据类型</th>
+<th align="center">包装类</th>
+<th align="center">大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">Byte</td>
+<td align="center">8bit</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">Boolean</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center"><strong>Character</strong></td>
+<td align="center">16bit</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">Short</td>
+<td align="center">16bit</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">Integer</td>
+<td align="center">32bit</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">Long</td>
+<td align="center">64bit</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">Float</td>
+<td align="center">32bit</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">Double</td>
+<td align="center">64bit</td>
+</tr>
+</tbody></table>
+<h2 id="HashMap-vs-Hashtable"><a href="#HashMap-vs-Hashtable" class="headerlink" title="HashMap vs Hashtable"></a>HashMap vs Hashtable</h2><ol>
+<li>Hashtable 已被淘汰，可以使用 ConcurrentHashMap 替代，这一点可以在 Hashtable 源码中的注释说明中找出。</li>
+<li>Hashtable 的 key、value 都不可以为 null。HashMap 最多只允许一条记录的键为 null，允许多条记录的值为 null。</li>
+<li>HashMap和Hashtable都实现了Map接口。</li>
+<li>相比 HashMap，Hashtable 是线程安全的。因为 Hashtable 的几个重要方法都加上了 synchronized 关键字。</li>
+<li>Hashtable、HashMap 都使用了 Iterator。而由于历史原因，Hashtable 还使用了 Enumeration 的方式。</li>
+<li>HashMap允许将 null 作为一个 entry 的 key 或者 value，而 Hashtable 不允许。</li>
+<li>Hashtable 直接使用对象的 hashCode。而 HashMap 重新计算 hash 值。 </li>
+<li>Hashtable 中的 hash 数组初始大小是 11，增加的方式是 old*2+1。HashMap 中 hash 数组的默认大小是 16，而且一定是 2 的指数。</li>
+<li>HashMap 有 containsvalue 和 containsKey 两个方法，Hashtable 使用的是 contains 方法。</li>
+<li><code>public class Hashtable extends Dictionary implements Map</code></li>
+<li><code>public class HashMap extends AbstractMap implements Map</code></li>
+</ol>
+<h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><p>包（package）由一组类（class）和接口（interface）组成（有其中一个即可）</p>
+<h2 id="一个-java文件中定义多个类"><a href="#一个-java文件中定义多个类" class="headerlink" title="一个.java文件中定义多个类"></a>一个.java文件中定义多个类</h2><ol>
+<li>public权限类只能有一个（也可以一个都没有，但最多只有一个）</li>
+<li>这个.java文件名只能是public 权限的类的类名</li>
+<li>倘若这个文件中没有public 类，则它的.java文件的名字是随便的一个类名</li>
+<li>当用javac命令生成编译这个.java 文件的时候，则会针对每一个类生成一个.class文件</li>
+</ol>
+<img src="/2020/04/13/new-coder-note/1.png" class="" title="一个.java文件中定义多个类">
+
+<h2 id="访问权限"><a href="#访问权限" class="headerlink" title="访问权限"></a>访问权限</h2><table>
+<thead>
+<tr>
+<th align="center">修饰符</th>
+<th align="center">类内部</th>
+<th align="center">同一个包</th>
+<th align="center">子类</th>
+<th align="center">任何地方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">private</td>
+<td align="center">Yes</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">default/friendly</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">protected</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">public</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+</tr>
+</tbody></table>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Integer i01 = <span class="number">59</span>;</span><br><span class="line"><span class="keyword">int</span> i02 = <span class="number">59</span>;</span><br><span class="line">Integer i03 = Integer.valueOf(<span class="number">59</span>);</span><br><span class="line">Integer i04 = <span class="keyword">new</span> Integer(<span class="number">59</span>);</span><br><span class="line">System.out.println(i01 == i02); <span class="comment">// 1</span></span><br><span class="line">System.out.println(i01 == i03); <span class="comment">// 2</span></span><br><span class="line">System.out.println(i03 == i04); <span class="comment">// 3</span></span><br><span class="line">System.out.println(i02 == i04); <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>缓存，true</li>
+<li>缓存，true</li>
+<li>false</li>
+<li>数值相同，true</li>
+<li>无论如何，Integer与new Integer不会相等。不会经历拆箱过程</li>
+<li>两个都是非new出来的Integer，如果数在-128到127之间，则是true,否则为false</li>
+<li>Java在编译Integer i2 = 128的时候,被翻译成-&gt; Integer i2 = Integer.valueOf(128);而valueOf()函数会对-128到127之间的数进行缓存</li>
+<li>两个都是new出来的,都为false</li>
+<li>int和integer(无论new否)比，都为true，因为会把Integer自动拆箱为int再去比</li>
+</ol>
+<h2 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h2><ol>
+<li>依赖注入能够独立开发各组件，然后根据组件间关系进行组装</li>
+<li>依赖注入提供使用接口编程</li>
+<li>依赖注入指对象在使用时动态注入</li>
+<li>依赖注入的动机就是减少组件之间的耦合度，使开发更为简洁</li>
+</ol>
+<h2 id="默认类型"><a href="#默认类型" class="headerlink" title="默认类型"></a>默认类型</h2><ul>
+<li>整数不指定类型，默认为int类型</li>
+<li>小数不指定类型，默认为double类型</li>
+<li>如果指定长整形，则类似于1000L</li>
+<li>如果指定单精度，则类似与3.14F</li>
+</ul>
+<h2 id="初始值"><a href="#初始值" class="headerlink" title="初始值"></a>初始值</h2><p>类中声明的变量有默认初始值；方法中声明的变量没有默认初始值，必须在定义时初始化，否则在访问该变量时会出错。</p>
+<table>
+<thead>
+<tr>
+<th align="center">数据类型</th>
+<th align="center">初始值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">0L</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">‘u0000’</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">0.0f</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">所有引用类型</td>
+<td align="center">null</td>
+</tr>
+</tbody></table>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>算法包括0个或多个输入，1个或多个输出，中间有穷个处理过程。存储结构不属于算法结构。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><ol>
+<li><p>数据的创建方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> f[][] = <span class="keyword">new</span> <span class="keyword">float</span>[<span class="number">6</span>][<span class="number">6</span>];</span><br><span class="line"><span class="keyword">float</span> []f[] = <span class="keyword">new</span> <span class="keyword">float</span>[<span class="number">6</span>][<span class="number">6</span>];</span><br><span class="line"><span class="keyword">float</span> [][]f = <span class="keyword">new</span> <span class="keyword">float</span>[<span class="number">6</span>][<span class="number">6</span>];</span><br><span class="line"><span class="keyword">float</span> [][]f = <span class="keyword">new</span> <span class="keyword">float</span>[<span class="number">6</span>][];</span><br><span class="line"><span class="comment">// 数组命名时名称与[]可以随意排列</span></span><br><span class="line"><span class="comment">// 但声明的二维数组中第一个中括号中必须要有值</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>数组是一个对象，不同类型的数组具有不同的类。因为可以调用方法，例如下方array与array_1类不同。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] i = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span>[] j = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span>[] k = i;</span><br><span class="line">    <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">100</span>];</span><br><span class="line">    <span class="keyword">double</span>[] array_1 = <span class="keyword">new</span> <span class="keyword">double</span>[<span class="number">100</span>];</span><br><span class="line">    System.out.println(array);</span><br><span class="line">    System.out.println(array_1);</span><br><span class="line">    System.out.println(i.equals(j));</span><br><span class="line">    System.out.println(i.equals(k));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[I@6d6f6e28</span><br><span class="line">[D@135fbaa4</span><br><span class="line">false</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组是一个连续的存储结构，Java中的数组中的数据是连续存储在一块内存中的，所以可以通过下标(即偏移量)的方式访问。</p>
+</li>
+<li><p>查看源码可以知道数组的equals方法是object的equals，比较的是内存地址。</p>
+</li>
+<li><p>数组长度是不能动态调整的。</p>
+</li>
+<li><p>可以二维数组，且可以有多维数组，都是在Java中合法的。</p>
+</li>
+<li><p>Arrays.equal()可以比较数组元素。</p>
+</li>
+<li><p><code>int[] array=new int [100]; int array[]=new int [100];</code></p>
+</li>
+</ol>
+<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><ol>
+<li>final修饰变量，则等同于常量</li>
+<li>final修饰方法中的参数，称为最终参数</li>
+<li>final修饰类，则类不能被继承</li>
+<li>final修饰方法，则方法不能被重写</li>
+<li>final 不能修饰抽象类</li>
+<li>final不能修饰接口</li>
+<li>final修饰的方法可以被重载 但不能被重写</li>
+</ol>
+<h2 id="重载-vs-重写"><a href="#重载-vs-重写" class="headerlink" title="重载 vs 重写"></a>重载 vs 重写</h2><ul>
+<li><strong>重载</strong> 指可以有同样修饰符、返回值、方法名，但参数个数或顺序不同的方法。</li>
+<li><strong>重写</strong> 指子类继承父类后，重写父类的方法。</li>
+</ul>
+<h2 id="表达式转型规则"><a href="#表达式转型规则" class="headerlink" title="表达式转型规则"></a>表达式转型规则</h2><p>Java表达式转型规则<strong>由低到高转换</strong>：</p>
+<ol>
+<li>所有的byte,short,char型的值将被提升为int型；</li>
+<li>如果有一个操作数是long型，计算结果是long型；</li>
+<li>如果有一个操作数是float型，计算结果是float型；</li>
+<li>如果有一个操作数是double型，计算结果是double型；</li>
+<li>被fianl修饰的变量不会自动改变类型，当2个final修饰相操作时，结果会根据左边变量的类型而转化。</li>
+</ol>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><ol>
+<li>表达式 <code>(short)10/10.2*2</code> 运算后结果是什么类型？</li>
+</ol>
+<ul>
+<li>首先，要注意是 <code>(short)10/10.2*2</code> ，而不是  <code>(short) (10/10.2*2)</code> ，前者只是把10强转为short，又由于式子中存在浮点数，所以会对结果值进行一个自动类型的提升，<strong>浮点数默认为double</strong>，所以答案是double；后者是把计算完之后值强转short。</li>
+<li>强制类型转换的优先级高于 <code>+ - * /</code></li>
+<li>小转大随便转，不同类型运算结果类型向右看齐: <code>char＜short＜ int＜ float ＜double</code></li>
+</ul>
+<ol start="2">
+<li>下列代码片段中，存在编译错误的语句是()</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span> b1=<span class="number">1</span>,b2=<span class="number">2</span>,b3,b6,b8;</span><br><span class="line"><span class="keyword">final</span> <span class="keyword">byte</span> b4=<span class="number">4</span>,b5=<span class="number">6</span>,b7;</span><br><span class="line">b3=(b1+b2);  <span class="comment">/*语句1*/</span></span><br><span class="line">b6=b4+b5;    <span class="comment">/*语句2*/</span></span><br><span class="line">b8=(b1+b4);  <span class="comment">/*语句3*/</span></span><br><span class="line">b7=(b2+b5);  <span class="comment">/*语句4*/</span></span><br><span class="line">System.out.println(b3+b6);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>语句1错误：b3=(b1+b2);自动转为int，所以正确写法为b3=(byte)(b1+b2);或者将b3定义为int；</li>
+<li>语句2正确：b6=b4+b5;b4、b5为final类型，不会自动提升，所以和的类型视左边变量类型而定，即b6可以是任意数值类型；</li>
+<li>语句3错误：b8=(b1+b4);虽然b4不会自动提升，但b1仍会自动提升，所以结果需要强转，b8=(byte)(b1+b4);</li>
+<li>语句4错误：b7=(b2+b5); 同上。同时注意b7是<strong>final修饰，即只可赋值一次，便不可再改变</strong>。</li>
+</ul>
+<ol start="3">
+<li><code>byte a = 2; a = a - 10;</code> 由于10是整型int，因此表达式 <code>a - 10</code> 将自动转换成int类型，int类型在赋值给byte，会编译错误</li>
+<li><code>byte a = 2; a -= 10;</code> 不会发生编译错误，因为复合运算符是一个带有隐式转换的运算符，将右侧表达式类型自动转换成左侧表达式类型</li>
+</ol>
+</div><div class="article-tags size-small mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E5%88%B7%E9%A2%98/">刷题</a><a class="link-muted mr-2" rel="tag" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button is-info donate"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/image/alipay.jpg" alt="支付宝"></span></a><a class="button is-success donate"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/image/wechat.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/04/13/why-hash-table/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">为什么Hashtable不是驼峰命名？</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/04/13/java-8-new-features/"><span class="level-item">Java 8 新特性</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: '79d6a235b4cf25aec7593ae2cc8b4e56',
+            repo: 'sbx0.github.io',
+            owner: 'sbx0',
+            clientID: '0f65a7e9a7b838df5fe8',
+            clientSecret: '93c2fd9e0eb4584847cb528e0c30f8ac6852a099',
+            admin: "sbx0",
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true
+        })
+        gitalk.render('comment-container')</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex" href="#垃圾收集"><span class="mr-2">1</span><span>垃圾收集</span></a></li><li><a class="is-flex" href="#编译"><span class="mr-2">2</span><span>编译</span></a></li><li><a class="is-flex" href="#对象序列化"><span class="mr-2">3</span><span>对象序列化</span></a></li><li><a class="is-flex" href="#面向对象程序设计方法优点"><span class="mr-2">4</span><span>面向对象程序设计方法优点</span></a></li><li><a class="is-flex" href="#内部类"><span class="mr-2">5</span><span>内部类</span></a><ul class="menu-list"><li><a class="is-flex" href="#静态内部类"><span class="mr-2">5.1</span><span>静态内部类</span></a></li><li><a class="is-flex" href="#非静态内部类"><span class="mr-2">5.2</span><span>非静态内部类</span></a></li></ul></li><li><a class="is-flex" href="#Switch"><span class="mr-2">6</span><span>Switch</span></a></li><li><a class="is-flex" href="#ArrayList-vs-LinkedList"><span class="mr-2">7</span><span>ArrayList vs LinkedList</span></a></li><li><a class="is-flex" href="#String"><span class="mr-2">8</span><span>String</span></a></li><li><a class="is-flex" href="#多线程"><span class="mr-2">9</span><span>多线程</span></a></li><li><a class="is-flex" href="#Math"><span class="mr-2">10</span><span>Math</span></a></li><li><a class="is-flex" href="#包装类"><span class="mr-2">11</span><span>包装类</span></a></li><li><a class="is-flex" href="#HashMap-vs-Hashtable"><span class="mr-2">12</span><span>HashMap vs Hashtable</span></a></li><li><a class="is-flex" href="#包"><span class="mr-2">13</span><span>包</span></a></li><li><a class="is-flex" href="#一个-java文件中定义多个类"><span class="mr-2">14</span><span>一个.java文件中定义多个类</span></a></li><li><a class="is-flex" href="#访问权限"><span class="mr-2">15</span><span>访问权限</span></a></li><li><a class="is-flex" href="#缓存"><span class="mr-2">16</span><span>缓存</span></a></li><li><a class="is-flex" href="#依赖注入"><span class="mr-2">17</span><span>依赖注入</span></a></li><li><a class="is-flex" href="#默认类型"><span class="mr-2">18</span><span>默认类型</span></a></li><li><a class="is-flex" href="#初始值"><span class="mr-2">19</span><span>初始值</span></a></li><li><a class="is-flex" href="#算法"><span class="mr-2">20</span><span>算法</span></a></li><li><a class="is-flex" href="#数组"><span class="mr-2">21</span><span>数组</span></a></li><li><a class="is-flex" href="#final"><span class="mr-2">22</span><span>final</span></a></li><li><a class="is-flex" href="#重载-vs-重写"><span class="mr-2">23</span><span>重载 vs 重写</span></a></li><li><a class="is-flex" href="#表达式转型规则"><span class="mr-2">24</span><span>表达式转型规则</span></a><ul class="menu-list"><li><a class="is-flex" href="#题目"><span class="mr-2">24.1</span><span>题目</span></a></li></ul></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-30T07:24:18.000Z">2020-08-30</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/30/microservice/">微服务架构风格</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-26T03:25:14.000Z">2020-08-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/26/frp/">Frp内网穿透实现远程桌面</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-24T12:36:11.000Z">2020-07-24</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/24/git/">Git使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-21T07:55:10.000Z">2020-07-21</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/21/linux/">Linux使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-01T14:00:18.000Z">2020-07-01</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/01/docker-dockerfile/">Dockerfile</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a> / <a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/%E4%B8%8D%E6%87%82%E5%B0%B1%E6%9F%A5/">不懂就查</a></p></div></article></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/cat.png" alt="sbx0&#039;s blog" height="28"></a><p class="size-small"><span>&copy; 2020 sbx0</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="FontAwesome" href="https://fontawesome.com/icons?d=gallery&amp;m=free"><i class="fab fa-font-awesome-flag"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'https://blog.sbx0.cn',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script src="/js/night.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

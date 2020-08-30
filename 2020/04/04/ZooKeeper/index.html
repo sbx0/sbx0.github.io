@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.0"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>ZooKeeper - sbx0&#039;s blog</title><meta description="sbx0&amp;#39;s blog"><meta property="og:type" content="blog"><meta property="og:title" content="sbx0&#039;s blog"><meta property="og:url" content="https://blog.sbx0.cn/"><meta property="og:site_name" content="sbx0&#039;s blog"><meta property="og:description" content="sbx0&amp;#39;s blog"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.sbx0.cn/img/cat.png"><meta property="article:published_time" content="2020-04-04T06:35:34.000Z"><meta property="article:modified_time" content="2020-04-20T06:35:34.000Z"><meta property="article:author" content="sbx0"><meta property="article:tag" content="ZooKeeper"><meta property="article:tag" content="分布式"><meta property="article:tag" content="协调"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/cat.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.sbx0.cn"},"headline":"sbx0","image":["https://blog.sbx0.cn/img/cat.png"],"datePublished":"2020-04-04T06:35:34.000Z","dateModified":"2020-04-20T06:35:34.000Z","author":{"@type":"Person","name":"sbx0"},"description":"sbx0&#39;s blog"}</script><link rel="canonical" href="https://blog.sbx0.cn/2020/04/04/ZooKeeper/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/cat.png" alt="sbx0&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">存档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-04-04T06:35:34.000Z" title="2020-04-04T06:35:34.000Z">2020-04-04</time><span class="level-item"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a><span> / </span><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/%E4%B8%8D%E6%87%82%E5%B0%B1%E6%9F%A5/">不懂就查</a></span><span class="level-item">27 分钟 读完 (大约 4079 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">ZooKeeper</h1><div class="content"><p>ZooKeeper是一种分布式协调服务，用于管理大型主机。在分布式环境中协调和管理服务是一个复杂的过程。ZooKeeper通过其简单的架构和API解决了这个问题。ZooKeeper允许开发人员专注于核心应用程序逻辑，而不必担心应用程序的分布式特性。</p>
+<p>ZooKeeper框架最初是在“Yahoo!”上构建的，用于以简单而稳健的方式访问他们的应用程序。 后来，Apache ZooKeeper成为Hadoop，HBase和其他分布式框架使用的有组织服务的标准。 例如，Apache HBase使用ZooKeeper跟踪分布式数据的状态。</p>
+<a id="more"></a>
+
+<p>在进一步深入之前，我们了解关于分布式应用的一两件事情是很重要的。因此，让我们开始分布式应用的概述的快速讨论。</p>
+<h2 id="分布式应用"><a href="#分布式应用" class="headerlink" title="分布式应用"></a>分布式应用</h2><p>分布式应用可以在给定时间（同时）在网络中的多个系统上运行，通过协调它们以快速有效的方式完成特定任务。通常来说，对于复杂而耗时的任务，非分布式应用（运行在单个系统中）需要几个小时才能完成，而分布式应用通过使用所有系统涉及的计算能力可以在几分钟内完成。</p>
+<p>通过将分布式应用配置为在更多系统上运行，可以进一步减少完成任务的时间。分布式应用正在运行的一组系统称为集群，而在集群中运行的每台机器被称为节点。</p>
+<p>分布式应用有两部分， Server（服务器） 和 Client（客户端） 应用程序。服务器应用程序实际上是分布式的，并具有通用接口，以便客户端可以连接到集群中的任何服务器并获得相同的结果。 客户端应用程序是与分布式应用进行交互的工具。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>可靠性：单个或几个系统的故障不会使整个系统出现故障。</li>
+<li>可扩展性：可以在需要时增加性能，通过添加更多机器，在应用程序配置中进行微小的更改，而不会有停机时间。</li>
+<li>透明性：隐藏系统的复杂性，并将其显示为单个实体/应用程序。</li>
+</ul>
+<h3 id="挑战"><a href="#挑战" class="headerlink" title="挑战"></a>挑战</h3><ul>
+<li>竞争条件：两个或多个机器尝试执行特定任务，实际上只需在任意给定时间由单个机器完成。例如，共享资源只能在任意给定时间由单个机器修改。</li>
+<li>死锁：两个或多个操作等待彼此无限期完成。</li>
+<li>不一致：数据的部分失败。</li>
+</ul>
+<h2 id="什么是Apache-ZooKeeper？"><a href="#什么是Apache-ZooKeeper？" class="headerlink" title="什么是Apache ZooKeeper？"></a>什么是Apache ZooKeeper？</h2><p>Apache ZooKeeper是由集群（节点组）使用的一种服务，用于在自身之间协调，并通过稳健的同步技术维护共享数据。ZooKeeper本身是一个分布式应用程序，为写入分布式应用程序提供服务。</p>
+<p>ZooKeeper提供的常见服务如下 :</p>
+<ul>
+<li><strong>命名服务</strong>：按名称标识集群中的节点。它类似于DNS，但仅对于节点。</li>
+<li><strong>配置管理</strong>：加入节点的最近的和最新的系统配置信息。</li>
+<li><strong>集群管理</strong>：实时地在集群和节点状态中加入/离开节点。</li>
+<li><strong>选举算法</strong>：选举一个节点作为协调目的的leader。</li>
+<li><strong>锁定和同步服务</strong>：在修改数据的同时锁定数据。此机制可帮助你在连接其他分布式应用程序（如Apache HBase）时进行自动故障恢复。</li>
+<li><strong>高度可靠的数据注册表</strong>：即使在一个或几个节点关闭时也可以获得数据。</li>
+</ul>
+<p>分布式应用程序提供了很多好处，但它们也抛出了一些复杂和难以解决的挑战。ZooKeeper框架提供了一个完整的机制来克服所有的挑战。竞争条件和死锁使用<strong>故障安全同步方法</strong>进行处理。另一个主要缺点是数据的不一致性，ZooKeeper使用<strong>原子性</strong>解析。</p>
+<h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><ul>
+<li><strong>简单的分布式协调过程</strong></li>
+<li><strong>同步</strong>：服务器进程之间的相互排斥和协作。此过程有助于Apache HBase进行配置管理。</li>
+<li><strong>有序的消息</strong></li>
+<li><strong>序列化</strong>：根据特定规则对数据进行编码。确保应用程序运行一致。这种方法可以在MapReduce中用来协调队列以执行运行的线程。</li>
+<li><strong>可靠性</strong></li>
+<li><strong>原子性</strong>：数据转移完全成功或完全失败，但没有事务是部分的。</li>
+</ul>
+<h2 id="Zookeeper-基础"><a href="#Zookeeper-基础" class="headerlink" title="Zookeeper 基础"></a>Zookeeper 基础</h2><p>在深入了解ZooKeeper的运作之前，让我们来看看ZooKeeper的基本概念。</p>
+<ol>
+<li>Architecture（架构）</li>
+<li>Hierarchical namespace（层次命名空间）</li>
+<li>Session（会话）</li>
+<li>Watches（监视）</li>
+</ol>
+<h3 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h3><p>作为ZooKeeper架构的一部分的每个组件在下表中进行了说明。</p>
+<table>
+<thead>
+<tr>
+<th>部分</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Client（客户端）</td>
+<td>客户端，我们的分布式应用集群中的一个节点，从服务器访问信息。对于特定的时间间隔，每个客户端向服务器发送消息以使服务器知道客户端是活跃的。类似地，当客户端连接时，服务器发送确认码。如果连接的服务器没有响应，客户端会自动将消息重定向到另一个服务器。</td>
+</tr>
+<tr>
+<td>Server（服务器）</td>
+<td>服务器，我们的ZooKeeper总体中的一个节点，为客户端提供所有的服务。向客户端发送确认码以告知服务器是活跃的。</td>
+</tr>
+<tr>
+<td>Ensemble</td>
+<td>ZooKeeper服务器组。形成ensemble所需的最小节点数为3。</td>
+</tr>
+<tr>
+<td>Leader</td>
+<td>服务器节点，如果任何连接的节点失败，则执行自动恢复。Leader在服务启动时被选举。</td>
+</tr>
+<tr>
+<td>Follower</td>
+<td>跟随leader指令的服务器节点。</td>
+</tr>
+</tbody></table>
+<h3 id="层次命名空间"><a href="#层次命名空间" class="headerlink" title="层次命名空间"></a>层次命名空间</h3><p>下图描述了用于内存表示的ZooKeeper文件系统的树结构。ZooKeeper节点称为 znode 。每个znode由一个名称标识，并用路径(/)序列分隔。</p>
+<ul>
+<li>在图中，首先有一个由“/”分隔的znode。在根目录下，你有两个逻辑命名空间 config 和 workers 。</li>
+<li>config 命名空间用于集中式配置管理，workers 命名空间用于命名。</li>
+<li>在 config 命名空间下，每个znode最多可存储1MB的数据。这与UNIX文件系统相类似，除了父znode也可以存储数据。这种结构的主要目的是存储同步数据并描述znode的元数据。此结构称为 ZooKeeper数据模型。</li>
+</ul>
+
+
+<p>ZooKeeper数据模型中的每个znode都维护着一个 <strong>stat</strong> 结构。一个stat仅提供一个znode的<strong>元数据</strong>。它由版本号，操作控制列表(ACL)，时间戳和数据长度组成。</p>
+<ul>
+<li><strong>版本号</strong>：每个znode都有版本号，这意味着每当与znode相关联的数据发生变化时，其对应的版本号也会增加。当多个zookeeper客户端尝试在同一znode上执行操作时，版本号的使用就很重要。</li>
+<li><strong>操作控制列表(ACL)</strong>：ACL基本上是访问znode的认证机制。它管理所有znode读取和写入操作。</li>
+<li><strong>时间戳</strong>：时间戳表示创建和修改znode所经过的时间。它通常以毫秒为单位。ZooKeeper从“事务ID”(zxid)标识znode的每个更改。<strong>Zxid</strong> 是唯一的，并且为每个事务保留时间，以便你可以轻松地确定从一个请求到另一个请求所经过的时间。</li>
+<li><strong>数据长度</strong>：存储在znode中的数据总量是数据长度。你最多可以存储1MB的数据。</li>
+</ul>
+<h3 id="Znode的类型"><a href="#Znode的类型" class="headerlink" title="Znode的类型"></a>Znode的类型</h3><p>Znode被分为持久（persistent）节点，顺序（sequential）节点和临时（ephemeral）节点。</p>
+<ul>
+<li><strong>持久节点</strong>：即使在创建该特定znode的客户端断开连接后，持久节点仍然存在。默认情况下，除非另有说明，<strong>否则所有znode都是持久的</strong>。</li>
+<li><strong>临时节点</strong>：客户端活跃时，临时节点就是有效的。当客户端与ZooKeeper集合断开连接时，临时节点会自动删除。因此，<strong>只有临时节点不允许有子节点</strong>。如果临时节点被删除，则下一个合适的节点将填充其位置。临时节点在leader选举中起着重要作用。</li>
+<li><strong>顺序节点</strong>：顺序节点可以是持久的或临时的。当一个新的znode被创建为一个顺序节点时，ZooKeeper通过将10位的序列号附加到原始名称来设置znode的路径。例如，如果将具有路径 <strong>/myapp</strong> 的znode创建为顺序节点，则ZooKeeper会将路径更改为 <strong>/myapp0000000001</strong> ，并将下一个序列号设置为0000000002。如果两个顺序节点是同时创建的，那么ZooKeeper不会对每个znode使用相同的数字。顺序节点在锁定和同步中起重要作用。</li>
+</ul>
+<h3 id="Sessions（会话）"><a href="#Sessions（会话）" class="headerlink" title="Sessions（会话）"></a>Sessions（会话）</h3><p>会话对于ZooKeeper的操作非常重要。会话中的请求按FIFO顺序执行。一旦客户端连接到服务器，将建立会话并向客户端分配<strong>会话ID</strong> 。</p>
+<p>客户端以特定的时间间隔发送<strong>心跳</strong>以保持会话有效。如果ZooKeeper集合在超过服务器开启时指定的期间（会话超时）都没有从客户端接收到心跳，则它会判定客户端死机。</p>
+<p>会话超时通常以毫秒为单位。当会话由于任何原因结束时，在该会话期间创建的临时节点也会被删除。</p>
+<h3 id="Watches（监视）"><a href="#Watches（监视）" class="headerlink" title="Watches（监视）"></a>Watches（监视）</h3><p>监视是一种简单的机制，使客户端收到关于ZooKeeper集合中的更改的通知。客户端可以在读取特定znode时设置Watches。Watches会向注册的客户端发送任何znode（客户端注册表）更改的通知。</p>
+<p>Znode更改是与znode相关的数据的修改或znode的子项中的更改。只触发一次watches。如果客户端想要再次通知，则必须通过另一个读取操作来完成。当连接会话过期时，客户端将与服务器断开连接，相关的watches也将被删除。</p>
+<h2 id="Zookeeper-工作流"><a href="#Zookeeper-工作流" class="headerlink" title="Zookeeper 工作流"></a>Zookeeper 工作流</h2><p>一旦ZooKeeper集合启动，它将等待客户端连接。客户端将连接到ZooKeeper集合中的一个节点。它可以是leader或follower节点。一旦客户端被连接，节点将向特定客户端分配会话ID并向该客户端发送确认。如果客户端没有收到确认，它将尝试连接ZooKeeper集合中的另一个节点。 一旦连接到节点，客户端将以有规律的间隔向节点发送心跳，以确保连接不会丢失。</p>
+<ul>
+<li><strong>如果客户端想要读取特定的znode，</strong>它将会向具有znode路径的节点发送<strong>读取请求</strong>，并且节点通过从其自己的数据库获取来返回所请求的znode。为此，在ZooKeeper集合中读取速度很快。</li>
+<li><strong>如果客户端想要将数据存储在ZooKeeper集合中</strong>，则会将znode路径和数据发送到服务器。连接的服务器将该请求转发给leader，然后leader将向所有的follower重新发出写入请求。如果只有大部分节点成功响应，而写入请求成功，则成功返回代码将被发送到客户端。 否则，写入请求失败。绝大多数节点被称为 <strong>Quorum</strong> 。</li>
+</ul>
+<h3 id="ZooKeeper集合中的节点"><a href="#ZooKeeper集合中的节点" class="headerlink" title="ZooKeeper集合中的节点"></a>ZooKeeper集合中的节点</h3><p>让我们分析在ZooKeeper集合中拥有不同数量的节点的效果。</p>
+<ul>
+<li>如果我们有<strong>单个节点</strong>，则当该节点故障时，ZooKeeper集合将故障。它有助于“单点故障”，不建议在生产环境中使用。</li>
+<li>如果我们有<strong>两个节点</strong>而一个节点故障，我们没有占多数，因为两个中的一个不是多数。</li>
+<li>如果我们有<strong>三个节点</strong>而一个节点故障，那么我们有大多数，因此，这是最低要求。ZooKeeper集合在实际生产环境中必须至少有三个节点。</li>
+<li>如果我们有<strong>四个节点</strong>而两个节点故障，它将再次故障。类似于有三个节点，额外节点不用于任何目的，因此，最好添加奇数的节点，例如3，5，7。</li>
+</ul>
+<p>我们知道写入过程比ZooKeeper集合中的读取过程要贵，<strong>因为所有节点都需要在数据库中写入相同的数据</strong>。因此，对于平衡的环境拥有较少数量（例如3，5，7）的节点比拥有大量的节点要好。</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>写入（write）</td>
+<td>写入过程由leader节点处理。leader将写入请求转发到所有znode，并等待znode的回复。如果一半的znode回复，则写入过程完成。</td>
+</tr>
+<tr>
+<td>读取（read）</td>
+<td>读取由特定连接的znode在内部执行，因此不需要与集群进行交互。</td>
+</tr>
+<tr>
+<td>复制数据库（replicated database）</td>
+<td>它用于在zookeeper中存储数据。每个znode都有自己的数据库，每个znode在一致性的帮助下每次都有相同的数据。</td>
+</tr>
+<tr>
+<td>Leader</td>
+<td>Leader是负责处理写入请求的Znode。</td>
+</tr>
+<tr>
+<td>Follower</td>
+<td>follower从客户端接收写入请求，并将它们转发到leader znode。</td>
+</tr>
+<tr>
+<td>请求处理器（request processor）</td>
+<td>只存在于leader节点。它管理来自follower节点的写入请求。</td>
+</tr>
+<tr>
+<td>原子广播（atomic broadcasts）</td>
+<td>负责广播从leader节点到follower节点的变化。</td>
+</tr>
+</tbody></table>
+<h2 id="Zookeeper-leader选举"><a href="#Zookeeper-leader选举" class="headerlink" title="Zookeeper leader选举"></a>Zookeeper leader选举</h2><p>让我们分析如何在ZooKeeper集合中选举leader节点。考虑一个集群中有N个节点。leader选举的过程如下：</p>
+<ul>
+<li>所有节点创建具有相同路径 /app/leader_election/guid_ 的顺序、临时节点。</li>
+<li>ZooKeeper集合将附加10位序列号到路径，创建的znode将是 /app/leader_election/guid_0000000001，/app/leader_election/guid_0000000002等。</li>
+<li>对于给定的实例，在znode中创建最小数字的节点成为leader，而所有其他节点是follower。</li>
+<li>每个follower节点监视下一个具有最小数字的znode。例如，创建znode/app/leader_election/guid_0000000008的节点将监视znode/app/leader_election/guid_0000000007，创建znode/app/leader_election/guid_0000000007的节点将监视znode/app/leader_election/guid_0000000006。</li>
+<li>如果leader关闭，则其相应的znode/app/leader_electionN会被删除。</li>
+<li>下一个在线follower节点将通过监视器获得关于leader移除的通知。</li>
+<li>下一个在线follower节点将检查是否存在其他具有最小数字的znode。如果没有，那么它将承担leader的角色。否则，它找到的创建具有最小数字的znode的节点将作为leader。</li>
+<li>类似地，所有其他follower节点选举创建具有最小数字的znode的节点作为leader。</li>
+</ul>
+<p>leader选举是一个复杂的过程，但ZooKeeper服务使它非常简单。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://segmentfault.com/a/1190000016349824">Snailclimb | segmentfault</a><br><a href="https://www.w3cschool.cn/zookeeper/zookeeper_overview.html">Zookeeper 概述</a></p>
+</div><div class="article-tags size-small mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/ZooKeeper/">ZooKeeper</a><a class="link-muted mr-2" rel="tag" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a><a class="link-muted mr-2" rel="tag" href="/tags/%E5%8D%8F%E8%B0%83/">协调</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button is-info donate"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/image/alipay.jpg" alt="支付宝"></span></a><a class="button is-success donate"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/image/wechat.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/04/05/Spring/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Spring</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/04/04/hexo%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"><span class="level-item">Hexo使用手册</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: 'a4c57dd3c30f1c7f229df74d660ecb8b',
+            repo: 'sbx0.github.io',
+            owner: 'sbx0',
+            clientID: '0f65a7e9a7b838df5fe8',
+            clientSecret: '93c2fd9e0eb4584847cb528e0c30f8ac6852a099',
+            admin: "sbx0",
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true
+        })
+        gitalk.render('comment-container')</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex" href="#分布式应用"><span class="mr-2">1</span><span>分布式应用</span></a><ul class="menu-list"><li><a class="is-flex" href="#优点"><span class="mr-2">1.1</span><span>优点</span></a></li><li><a class="is-flex" href="#挑战"><span class="mr-2">1.2</span><span>挑战</span></a></li></ul></li><li><a class="is-flex" href="#什么是Apache-ZooKeeper？"><span class="mr-2">2</span><span>什么是Apache ZooKeeper？</span></a><ul class="menu-list"><li><a class="is-flex" href="#好处"><span class="mr-2">2.1</span><span>好处</span></a></li></ul></li><li><a class="is-flex" href="#Zookeeper-基础"><span class="mr-2">3</span><span>Zookeeper 基础</span></a><ul class="menu-list"><li><a class="is-flex" href="#架构"><span class="mr-2">3.1</span><span>架构</span></a></li><li><a class="is-flex" href="#层次命名空间"><span class="mr-2">3.2</span><span>层次命名空间</span></a></li><li><a class="is-flex" href="#Znode的类型"><span class="mr-2">3.3</span><span>Znode的类型</span></a></li><li><a class="is-flex" href="#Sessions（会话）"><span class="mr-2">3.4</span><span>Sessions（会话）</span></a></li><li><a class="is-flex" href="#Watches（监视）"><span class="mr-2">3.5</span><span>Watches（监视）</span></a></li></ul></li><li><a class="is-flex" href="#Zookeeper-工作流"><span class="mr-2">4</span><span>Zookeeper 工作流</span></a><ul class="menu-list"><li><a class="is-flex" href="#ZooKeeper集合中的节点"><span class="mr-2">4.1</span><span>ZooKeeper集合中的节点</span></a></li></ul></li><li><a class="is-flex" href="#Zookeeper-leader选举"><span class="mr-2">5</span><span>Zookeeper leader选举</span></a></li><li><a class="is-flex" href="#参考文献"><span class="mr-2">6</span><span>参考文献</span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-30T07:24:18.000Z">2020-08-30</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/30/microservice/">微服务架构风格</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-26T03:25:14.000Z">2020-08-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/26/frp/">Frp内网穿透实现远程桌面</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-24T12:36:11.000Z">2020-07-24</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/24/git/">Git使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-21T07:55:10.000Z">2020-07-21</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/21/linux/">Linux使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-01T14:00:18.000Z">2020-07-01</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/01/docker-dockerfile/">Dockerfile</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a> / <a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/%E4%B8%8D%E6%87%82%E5%B0%B1%E6%9F%A5/">不懂就查</a></p></div></article></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/cat.png" alt="sbx0&#039;s blog" height="28"></a><p class="size-small"><span>&copy; 2020 sbx0</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="FontAwesome" href="https://fontawesome.com/icons?d=gallery&amp;m=free"><i class="fab fa-font-awesome-flag"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'https://blog.sbx0.cn',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script src="/js/night.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
