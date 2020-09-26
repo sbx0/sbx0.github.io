@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.0"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Consul使用手册 - sbx0&#039;s blog</title><meta description="sbx0&amp;#39;s blog"><meta property="og:type" content="blog"><meta property="og:title" content="sbx0&#039;s blog"><meta property="og:url" content="https://blog.sbx0.cn/"><meta property="og:site_name" content="sbx0&#039;s blog"><meta property="og:description" content="sbx0&amp;#39;s blog"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.sbx0.cn/img/cat.png"><meta property="article:published_time" content="2020-09-26T02:35:29.000Z"><meta property="article:modified_time" content="2020-09-26T02:35:29.000Z"><meta property="article:author" content="sbx0"><meta property="article:tag" content="Consul"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/cat.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.sbx0.cn"},"headline":"sbx0","image":["https://blog.sbx0.cn/img/cat.png"],"datePublished":"2020-09-26T02:35:29.000Z","dateModified":"2020-09-26T02:35:29.000Z","author":{"@type":"Person","name":"sbx0"},"description":"sbx0&#39;s blog"}</script><link rel="canonical" href="https://blog.sbx0.cn/2020/09/26/consul/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/cat.png" alt="sbx0&#039;s blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives">存档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item night" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-09-26T02:35:29.000Z" title="2020-09-26T02:35:29.000Z">2020-09-26</time><span class="level-item"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a><span> / </span><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></span><span class="level-item">9 分钟 读完 (大约 1275 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Consul使用手册</h1><div class="content"><p>Consul 简化了分布式环境中的服务的注册和发现流程，通过 HTTP 或者 DNS 接口发现。支持外部 SaaS 提供者等。</p>
+<a id="more"></a>
+
+<h2 id="安装单机版Consul"><a href="#安装单机版Consul" class="headerlink" title="安装单机版Consul"></a>安装单机版Consul</h2><h3 id="下载Consul"><a href="#下载Consul" class="headerlink" title="下载Consul"></a>下载Consul</h3><ul>
+<li>下载最新稳定版：<a href="https://www.consul.io/downloads.html">https://www.consul.io/downloads.html</a></li>
+<li>下载指定版本：<a href="https://releases.hashicorp.com/consul/">https://releases.hashicorp.com/consul/</a></li>
+</ul>
+<h2 id="Consul需要的端口"><a href="#Consul需要的端口" class="headerlink" title="Consul需要的端口"></a>Consul需要的端口</h2><table>
+<thead>
+<tr>
+<th>Use</th>
+<th>Default Ports</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DNS: The DNS server (TCP and UDP)</td>
+<td>8600</td>
+</tr>
+<tr>
+<td>HTTP: The HTTP API (TCP Only)</td>
+<td>8500</td>
+</tr>
+<tr>
+<td>HTTPS: The HTTPs API</td>
+<td>disabled (8501)*</td>
+</tr>
+<tr>
+<td>gRPC: The gRPC API</td>
+<td>disabled (8502)*</td>
+</tr>
+<tr>
+<td>LAN Serf: The Serf LAN port (TCP and UDP)</td>
+<td>8301</td>
+</tr>
+<tr>
+<td>Wan Serf: The Serf WAN port TCP and UDP)</td>
+<td>8302</td>
+</tr>
+<tr>
+<td>server: Server RPC address (TCP Only)</td>
+<td>8300</td>
+</tr>
+<tr>
+<td>Sidecar Proxy Min: Inclusive min port number to use for automatically assigned sidecar service registrations.</td>
+<td>21000</td>
+</tr>
+<tr>
+<td>Sidecar Proxy Max: Inclusive max port number to use for automatically assigned sidecar service registrations.</td>
+<td>21255</td>
+</tr>
+</tbody></table>
+<h2 id="检查端口是否被占用的方法"><a href="#检查端口是否被占用的方法" class="headerlink" title="检查端口是否被占用的方法"></a>检查端口是否被占用的方法</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p><code>netstat -ano| findstr &quot;8500&quot;</code></p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p><code>netstat -antp |grep 8500</code></p>
+<h3 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h3><p><code>netstat -ant | grep 8500</code> 或 <code>lsof -i:8500</code></p>
+<h2 id="安装-amp-启动"><a href="#安装-amp-启动" class="headerlink" title="安装 &amp; 启动"></a>安装 &amp; 启动</h2><img src="/2020/09/26/consul/1.png" class="" title="下载后的文件">
+
+<h3 id="解压文件到你指定的文件夹"><a href="#解压文件到你指定的文件夹" class="headerlink" title="解压文件到你指定的文件夹"></a>解压文件到你指定的文件夹</h3><h3 id="在控制台中cd到刚才解压到的文件夹"><a href="#在控制台中cd到刚才解压到的文件夹" class="headerlink" title="在控制台中cd到刚才解压到的文件夹"></a>在控制台中cd到刚才解压到的文件夹</h3><img src="/2020/09/26/consul/2.png" class="" title="cd">
+
+<h3 id="输入启动指令"><a href="#输入启动指令" class="headerlink" title="输入启动指令"></a>输入启动指令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;consul agent -dev -ui -client 0.0.0.0</span><br></pre></td></tr></table></figure>
+
+<img src="/2020/09/26/consul/3.png" class="" title="启动起来了">
+
+<h3 id="再开一个控制台看启动成功了没有"><a href="#再开一个控制台看启动成功了没有" class="headerlink" title="再开一个控制台看启动成功了没有"></a>再开一个控制台看启动成功了没有</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;consul -v</span><br></pre></td></tr></table></figure>
+
+<img src="/2020/09/26/consul/4.png" class="" title="验证一下">
+
+<h3 id="访问Consul首页"><a href="#访问Consul首页" class="headerlink" title="访问Consul首页"></a>访问Consul首页</h3><p><a href="http://localhost:8500">localhost:8500</a></p>
+<img src="/2020/09/26/consul/5.png" class="" title="首页">
+
+<p>现在只有一个服务注册在Consul上，就是它自己。</p>
+<h2 id="启动参数"><a href="#启动参数" class="headerlink" title="启动参数"></a>启动参数</h2><p>-ui: 开启ui页面<br>-client: 让consul server拥有client的功能，允许接受服务注册；0.0.0.0表示允许使用任意IP连接Consul，如果不指定，那么只能用loalhost去连接。<br>-dev: 表示以开发模式运行Consul</p>
+<h2 id="为项目添加-Spring-Cloud-Consul-依赖"><a href="#为项目添加-Spring-Cloud-Consul-依赖" class="headerlink" title="为项目添加 Spring Cloud Consul 依赖"></a>为项目添加 Spring Cloud Consul 依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-consul-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编写配置文件。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">micro-class</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">consul:</span></span><br><span class="line">      <span class="attr">host:</span> <span class="string">localhost</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">8500</span></span><br></pre></td></tr></table></figure>
+<img src="/2020/09/26/consul/6.png" class="" title="健康检查">
+
+<p>然而Consul却显示红叉叉，这是怎么回事？</p>
+<h2 id="健康检查"><a href="#健康检查" class="headerlink" title="健康检查"></a>健康检查</h2><img src="/2020/09/26/consul/7.png" class="" title="健康检查原理">
+
+<h2 id="Spring-Boot-Actuator"><a href="#Spring-Boot-Actuator" class="headerlink" title="Spring Boot Actuator"></a>Spring Boot Actuator</h2><p>Spring Boot 官方出品的一个监控组件，开箱即用。</p>
+<h3 id="Spring-Boot-Actuator-常用端点"><a href="#Spring-Boot-Actuator-常用端点" class="headerlink" title="Spring Boot Actuator 常用端点"></a>Spring Boot Actuator 常用端点</h3><table>
+<thead>
+<tr>
+<th>端点</th>
+<th>描述</th>
+<th>HTTP方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>conditions</td>
+<td>显示自动配置的信息</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>beans</td>
+<td>显示应用程序上下文所有的 Spring Bean</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>configprops</td>
+<td>显示所有的 @ConfigurationProperties 的配置属性列表</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>dump</td>
+<td>显示线程活动的快照</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>env</td>
+<td>显示环境变量，包含系统环境变量以及应用环境变量</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>health</td>
+<td>显示应用程序的健康指标，值由 HealthIndicator 的实现类提供；结果有 UP、DOWN、OUT_OF_SERVICE、UNKNOWN；如需查看详情，需配置：management.endpoint.health.show-details</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>healthdump</td>
+<td>堆dump</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>info</td>
+<td>显示应用的信息，可使用 info.* 属性自定义info端点公开的数据</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>loggers</td>
+<td>GET：显示日志级别，POST：动态修改日志级别</td>
+<td>GET/POST</td>
+</tr>
+<tr>
+<td>mappings</td>
+<td>显示所有的URL路径</td>
+<td>GET</td>
+</tr>
+<tr>
+<td>metrics</td>
+<td>显示应用的度量标准信息</td>
+<td>GET</td>
+</tr>
+</tbody></table>
+<h2 id="整合-Spring-Boot-Actuator"><a href="#整合-Spring-Boot-Actuator" class="headerlink" title="整合 Spring Boot Actuator"></a>整合 Spring Boot Actuator</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><a href="http://localhost:8081/actuator">http://localhost:8081/actuator</a></p>
+<img src="/2020/09/26/consul/10.png" class="" title="Spring Boot Actuator 默认导航">
+
+<p>访问 <a href="http://localhost:8081/actuator/health">http://localhost:8081/actuator/health</a> ，可以看到</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"status"</span>: <span class="string">"UP"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Consul就是通过这个端点来进行健康检查。</p>
+<h2 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h2><p>这时候我们发现，健康检查都通过了。</p>
+<img src="/2020/09/26/consul/9.png" class="" title="健康检查通过了">
+
+<h2 id="查看更多的端点"><a href="#查看更多的端点" class="headerlink" title="查看更多的端点"></a>查看更多的端点</h2><p>‘*’ 的意思就是开启所有端点</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoints:</span></span><br><span class="line">    <span class="attr">web:</span></span><br><span class="line">      <span class="attr">exposure:</span></span><br><span class="line">        <span class="attr">include:</span> <span class="string">'*'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="查看更详细的健康信息"><a href="#查看更详细的健康信息" class="headerlink" title="查看更详细的健康信息"></a>查看更详细的健康信息</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">management:</span></span><br><span class="line">  <span class="attr">endpoint:</span></span><br><span class="line">    <span class="attr">health:</span></span><br><span class="line">      <span class="attr">show-details:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="将-Spring-Boot-Actuator-与-Consul-整合"><a href="#将-Spring-Boot-Actuator-与-Consul-整合" class="headerlink" title="将 Spring Boot Actuator 与 Consul 整合"></a>将 Spring Boot Actuator 与 Consul 整合</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">consul:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">health-check-path:</span> <span class="string">/actuator/health</span></span><br></pre></td></tr></table></figure>
+
+<p>其实不配置，默认的值也是这个。</p>
+<h2 id="Consul-健康检查配置"><a href="#Consul-健康检查配置" class="headerlink" title="Consul 健康检查配置"></a>Consul 健康检查配置</h2><img src="/2020/09/26/consul/11.png" class="" title="健康检查配置">
+
+<h2 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h2><p>在 micro-class 中编写代码实时获取 micro-user 中的所有实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.sbx0.micro.classes.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.client.ServiceInstance;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.client.discovery.DiscoveryClient;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Autowired</span></span><br><span class="line">  <span class="keyword">private</span> DiscoveryClient discoveryClient;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@GetMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">public</span> List&lt;ServiceInstance&gt; <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> discoveryClient.getInstances(<span class="string">"micro-user"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2020/09/26/consul/12.png" class="" title="返回结果">
+
+<h2 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h2><img src="/2020/09/26/consul/8.png" class="" title="服务发现">
+
+<h2 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span> </span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">consul:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">tags:</span> <span class="string">engineRoom=local</span></span><br></pre></td></tr></table></figure>
+
+<p>使用元数据可以给微服务贴标签，比如给同一个机房的几个微服务贴上相同的标签，在调用的时候优先调用本机房的微服务。</p>
+<h2 id="多网卡环境的IP选择"><a href="#多网卡环境的IP选择" class="headerlink" title="多网卡环境的IP选择"></a>多网卡环境的IP选择</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span> </span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">consul:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">prefer-ip-address:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="如何指定注册到Consul上的IP地址"><a href="#如何指定注册到Consul上的IP地址" class="headerlink" title="如何指定注册到Consul上的IP地址"></a>如何指定注册到Consul上的IP地址</h3><h4 id="【推荐】方式一、忽略指定名称的网卡【通用】"><a href="#【推荐】方式一、忽略指定名称的网卡【通用】" class="headerlink" title="【推荐】方式一、忽略指定名称的网卡【通用】"></a>【推荐】方式一、忽略指定名称的网卡【通用】</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">inetutils:</span></span><br><span class="line">      <span class="attr">ignored-interfaces:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">docker0</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">veth.*</span></span><br><span class="line">    <span class="attr">consul:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">prefer-ip-address:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="【推荐】方式二、指定想要的网段【通用】"><a href="#【推荐】方式二、指定想要的网段【通用】" class="headerlink" title="【推荐】方式二、指定想要的网段【通用】"></a>【推荐】方式二、指定想要的网段【通用】</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">inetutils:</span></span><br><span class="line">      <span class="attr">preferred-networks:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">192.168</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">10.0</span></span><br><span class="line">    <span class="attr">consul:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">prefer-ip-address:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="【不推荐】方式三、只使用站点本地地址【通用】"><a href="#【不推荐】方式三、只使用站点本地地址【通用】" class="headerlink" title="【不推荐】方式三、只使用站点本地地址【通用】"></a>【不推荐】方式三、只使用站点本地地址【通用】</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">inetutils:</span></span><br><span class="line">      <span class="attr">use-only-site-local-interfaces:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">consul:</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">prefer-ip-address:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="【不推荐】方式四、手动指定IP【Consul专用】"><a href="#【不推荐】方式四、手动指定IP【Consul专用】" class="headerlink" title="【不推荐】方式四、手动指定IP【Consul专用】"></a>【不推荐】方式四、手动指定IP【Consul专用】</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">consul:</span></span><br><span class="line">      <span class="attr">host:</span> <span class="string">localhost</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">8500</span></span><br><span class="line">      <span class="attr">discovery:</span></span><br><span class="line">        <span class="attr">prefer-ip-address:</span> <span class="literal">true</span></span><br><span class="line">        <span class="attr">ip-address:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://ke.qq.com/classroom/index.html#course_id=475173&term_id=100569009&ch_id=689945&vch_id=655&section_id=2120&task_id=4165800450015269">BAT架构师带你从零打造微服务项目</a></p>
+</div><div class="article-tags size-small mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Consul/">Consul</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/08/30/microservice/"><span class="level-item">微服务架构风格</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: 'dbd2c0bf7f7173531c602156baa63721',
+            repo: 'sbx0.github.io',
+            owner: 'sbx0',
+            clientID: '0f65a7e9a7b838df5fe8',
+            clientSecret: '93c2fd9e0eb4584847cb528e0c30f8ac6852a099',
+            admin: "sbx0",
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true
+        })
+        gitalk.render('comment-container')</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="is-flex" href="#安装单机版Consul"><span class="mr-2">1</span><span>安装单机版Consul</span></a><ul class="menu-list"><li><a class="is-flex" href="#下载Consul"><span class="mr-2">1.1</span><span>下载Consul</span></a></li></ul></li><li><a class="is-flex" href="#Consul需要的端口"><span class="mr-2">2</span><span>Consul需要的端口</span></a></li><li><a class="is-flex" href="#检查端口是否被占用的方法"><span class="mr-2">3</span><span>检查端口是否被占用的方法</span></a><ul class="menu-list"><li><a class="is-flex" href="#Windows"><span class="mr-2">3.1</span><span>Windows</span></a></li><li><a class="is-flex" href="#Linux"><span class="mr-2">3.2</span><span>Linux</span></a></li><li><a class="is-flex" href="#macOS"><span class="mr-2">3.3</span><span>macOS</span></a></li></ul></li><li><a class="is-flex" href="#安装-amp-启动"><span class="mr-2">4</span><span>安装 &amp; 启动</span></a><ul class="menu-list"><li><a class="is-flex" href="#解压文件到你指定的文件夹"><span class="mr-2">4.1</span><span>解压文件到你指定的文件夹</span></a></li><li><a class="is-flex" href="#在控制台中cd到刚才解压到的文件夹"><span class="mr-2">4.2</span><span>在控制台中cd到刚才解压到的文件夹</span></a></li><li><a class="is-flex" href="#输入启动指令"><span class="mr-2">4.3</span><span>输入启动指令</span></a></li><li><a class="is-flex" href="#再开一个控制台看启动成功了没有"><span class="mr-2">4.4</span><span>再开一个控制台看启动成功了没有</span></a></li><li><a class="is-flex" href="#访问Consul首页"><span class="mr-2">4.5</span><span>访问Consul首页</span></a></li></ul></li><li><a class="is-flex" href="#启动参数"><span class="mr-2">5</span><span>启动参数</span></a></li><li><a class="is-flex" href="#为项目添加-Spring-Cloud-Consul-依赖"><span class="mr-2">6</span><span>为项目添加 Spring Cloud Consul 依赖</span></a></li><li><a class="is-flex" href="#健康检查"><span class="mr-2">7</span><span>健康检查</span></a></li><li><a class="is-flex" href="#Spring-Boot-Actuator"><span class="mr-2">8</span><span>Spring Boot Actuator</span></a><ul class="menu-list"><li><a class="is-flex" href="#Spring-Boot-Actuator-常用端点"><span class="mr-2">8.1</span><span>Spring Boot Actuator 常用端点</span></a></li></ul></li><li><a class="is-flex" href="#整合-Spring-Boot-Actuator"><span class="mr-2">9</span><span>整合 Spring Boot Actuator</span></a></li><li><a class="is-flex" href="#启动项目"><span class="mr-2">10</span><span>启动项目</span></a></li><li><a class="is-flex" href="#查看更多的端点"><span class="mr-2">11</span><span>查看更多的端点</span></a></li><li><a class="is-flex" href="#查看更详细的健康信息"><span class="mr-2">12</span><span>查看更详细的健康信息</span></a></li><li><a class="is-flex" href="#将-Spring-Boot-Actuator-与-Consul-整合"><span class="mr-2">13</span><span>将 Spring Boot Actuator 与 Consul 整合</span></a></li><li><a class="is-flex" href="#Consul-健康检查配置"><span class="mr-2">14</span><span>Consul 健康检查配置</span></a></li><li><a class="is-flex" href="#编写代码"><span class="mr-2">15</span><span>编写代码</span></a></li><li><a class="is-flex" href="#服务发现"><span class="mr-2">16</span><span>服务发现</span></a></li><li><a class="is-flex" href="#元数据"><span class="mr-2">17</span><span>元数据</span></a></li><li><a class="is-flex" href="#多网卡环境的IP选择"><span class="mr-2">18</span><span>多网卡环境的IP选择</span></a><ul class="menu-list"><li><a class="is-flex" href="#如何指定注册到Consul上的IP地址"><span class="mr-2">18.1</span><span>如何指定注册到Consul上的IP地址</span></a><ul class="menu-list"><li><a class="is-flex" href="#【推荐】方式一、忽略指定名称的网卡【通用】"><span class="mr-2">18.1.1</span><span>【推荐】方式一、忽略指定名称的网卡【通用】</span></a></li><li><a class="is-flex" href="#【推荐】方式二、指定想要的网段【通用】"><span class="mr-2">18.1.2</span><span>【推荐】方式二、指定想要的网段【通用】</span></a></li><li><a class="is-flex" href="#【不推荐】方式三、只使用站点本地地址【通用】"><span class="mr-2">18.1.3</span><span>【不推荐】方式三、只使用站点本地地址【通用】</span></a></li><li><a class="is-flex" href="#【不推荐】方式四、手动指定IP【Consul专用】"><span class="mr-2">18.1.4</span><span>【不推荐】方式四、手动指定IP【Consul专用】</span></a></li></ul></li></ul></li><li><a class="is-flex" href="#参考文献"><span class="mr-2">19</span><span>参考文献</span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-09-26T02:35:29.000Z">2020-09-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/09/26/consul/">Consul使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-30T07:24:18.000Z">2020-08-30</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/30/microservice/">微服务架构风格</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-08-26T03:25:14.000Z">2020-08-26</time></p><p class="title is-6"><a class="link-muted" href="/2020/08/26/frp/">Frp内网穿透实现远程桌面</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-24T12:36:11.000Z">2020-07-24</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/24/git/">Git使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-07-21T07:55:10.000Z">2020-07-21</time></p><p class="title is-6"><a class="link-muted" href="/2020/07/21/linux/">Linux使用手册</a></p><p class="is-uppercase"><a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> / <a class="link-muted" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a></p></div></article></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/cat.png" alt="sbx0&#039;s blog" height="28"></a><p class="size-small"><span>&copy; 2020 sbx0</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="FontAwesome" href="https://fontawesome.com/icons?d=gallery&amp;m=free"><i class="fab fa-font-awesome-flag"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'https://blog.sbx0.cn',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script src="/js/night.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
