@@ -83,7 +83,7 @@
 <p>ZooKeeper数据模型中的每个znode都维护着一个 <strong>stat</strong> 结构。一个stat仅提供一个znode的<strong>元数据</strong>。它由版本号，操作控制列表(ACL)，时间戳和数据长度组成。</p>
 <ul>
 <li><strong>版本号</strong>：每个znode都有版本号，这意味着每当与znode相关联的数据发生变化时，其对应的版本号也会增加。当多个zookeeper客户端尝试在同一znode上执行操作时，版本号的使用就很重要。</li>
-<li><strong>操作控制列表(ACL)</strong>：ACL基本上是访问znode的认证机制。它管理所有znode读取和写入操作。</li>
+<li>**操作控制列表(ACL)**：ACL基本上是访问znode的认证机制。它管理所有znode读取和写入操作。</li>
 <li><strong>时间戳</strong>：时间戳表示创建和修改znode所经过的时间。它通常以毫秒为单位。ZooKeeper从“事务ID”(zxid)标识znode的每个更改。<strong>Zxid</strong> 是唯一的，并且为每个事务保留时间，以便你可以轻松地确定从一个请求到另一个请求所经过的时间。</li>
 <li><strong>数据长度</strong>：存储在znode中的数据总量是数据长度。你最多可以存储1MB的数据。</li>
 </ul>
