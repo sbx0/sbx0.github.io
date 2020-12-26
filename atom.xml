@@ -6,7 +6,7 @@
   <link href="https://blog.sbx0.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.sbx0.cn/"/>
-  <updated>2020-12-26T08:29:15.000Z</updated>
+  <updated>2020-12-26T09:14:50.000Z</updated>
   <id>https://blog.sbx0.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>过滤器工厂</title>
+    <link href="https://blog.sbx0.cn/2020/12/26/spring-cloud-gateway-filter-factory/"/>
+    <id>https://blog.sbx0.cn/2020/12/26/spring-cloud-gateway-filter-factory/</id>
+    <published>2020-12-26T09:14:50.000Z</published>
+    <updated>2020-12-26T09:14:50.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;简介。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="过滤器" scheme="https://blog.sbx0.cn/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>路由谓词工厂</title>
@@ -33,7 +54,7 @@
     <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
     
     
-    <category term="无标签" scheme="https://blog.sbx0.cn/tags/%E6%97%A0%E6%A0%87%E7%AD%BE/"/>
+    <category term="谓词" scheme="https://blog.sbx0.cn/tags/%E8%B0%93%E8%AF%8D/"/>
     
   </entry>
   
@@ -439,27 +460,6 @@
     <category term="Linux" scheme="https://blog.sbx0.cn/tags/Linux/"/>
     
     <category term="CentOS" scheme="https://blog.sbx0.cn/tags/CentOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Dockerfile</title>
-    <link href="https://blog.sbx0.cn/2020/07/01/docker-dockerfile/"/>
-    <id>https://blog.sbx0.cn/2020/07/01/docker-dockerfile/</id>
-    <published>2020-07-01T14:00:18.000Z</published>
-    <updated>2020-07-01T14:00:18.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Dockerfile 是一个用来构建镜像的文本文件，文本内容包含了一条条构建镜像所需的指令和说明。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="好东西就得大伙一起看" scheme="https://blog.sbx0.cn/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/"/>
-    
-    <category term="不懂就查" scheme="https://blog.sbx0.cn/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/%E4%B8%8D%E6%87%82%E5%B0%B1%E6%9F%A5/"/>
-    
-    
-    <category term="Docker" scheme="https://blog.sbx0.cn/tags/Docker/"/>
     
   </entry>
   
