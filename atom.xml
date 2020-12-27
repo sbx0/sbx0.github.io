@@ -6,7 +6,7 @@
   <link href="https://blog.sbx0.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.sbx0.cn/"/>
-  <updated>2020-12-26T10:32:20.000Z</updated>
+  <updated>2020-12-27T07:24:48.000Z</updated>
   <id>https://blog.sbx0.cn/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring Cloud Gateway 排错、调试技巧总结</title>
+    <link href="https://blog.sbx0.cn/2020/12/27/spring-cloud-gateway-troubleshoot-errors/"/>
+    <id>https://blog.sbx0.cn/2020/12/27/spring-cloud-gateway-troubleshoot-errors/</id>
+    <published>2020-12-27T07:24:48.000Z</published>
+    <updated>2020-12-27T07:24:48.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文总结Spring Cloud Gateway的排错、调试技巧。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Spring Cloud Gateway" scheme="https://blog.sbx0.cn/tags/Spring-Cloud-Gateway/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Cloud Gateway 查漏补缺</title>
+    <link href="https://blog.sbx0.cn/2020/12/27/spring-cloud-gateway-more/"/>
+    <id>https://blog.sbx0.cn/2020/12/27/spring-cloud-gateway-more/</id>
+    <published>2020-12-27T07:21:02.000Z</published>
+    <updated>2020-12-27T07:21:02.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文探讨Spring Cloud Gateway的其他配置，主要包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如何实现TLS/SSL（HTTPS访问）&lt;/li&gt;
+&lt;li&gt;Spring Cloud Gateway的配置&lt;/li&gt;
+&lt;li&gt;如何开启Access Log&lt;/li&gt;
+&lt;li&gt;如何实现跨域&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Spring Cloud Gateway" scheme="https://blog.sbx0.cn/tags/Spring-Cloud-Gateway/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring Cloud Gateway 监控</title>
@@ -414,46 +462,6 @@
     
     
     <category term="Consul" scheme="https://blog.sbx0.cn/tags/Consul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Consul 使用手册 - 服务注册与发现</title>
-    <link href="https://blog.sbx0.cn/2020/09/26/consul/"/>
-    <id>https://blog.sbx0.cn/2020/09/26/consul/</id>
-    <published>2020-09-26T02:35:29.000Z</published>
-    <updated>2020-11-07T12:27:02.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Consul 简化了分布式环境中的服务的注册和发现流程，通过 HTTP 或者 DNS 接口发现。支持外部 SaaS 提供者等。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
-    
-    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
-    
-    
-    <category term="Consul" scheme="https://blog.sbx0.cn/tags/Consul/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>微服务架构风格</title>
-    <link href="https://blog.sbx0.cn/2020/08/30/microservice/"/>
-    <id>https://blog.sbx0.cn/2020/08/30/microservice/</id>
-    <published>2020-08-30T07:24:18.000Z</published>
-    <updated>2020-08-30T07:24:18.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;&lt;strong&gt;微服务架构风格&lt;/strong&gt;是一种将单一应用程序开发转化成&lt;strong&gt;一组小型服务&lt;/strong&gt;开发的方法，每个服务运行在&lt;strong&gt;自己的进程&lt;/strong&gt;中，服务器间通信采用&lt;strong&gt;轻量级通信机制&lt;/strong&gt;（通常用HTTP资源API）。这些服务&lt;strong&gt;围绕业务能力构建&lt;/strong&gt;并且可通过&lt;strong&gt;全自动部署机制独立部署&lt;/strong&gt;。这些服务公用一个&lt;strong&gt;最小型&lt;/strong&gt;的集中式的管理，服务可用&lt;strong&gt;不同的语言&lt;/strong&gt;开发，并且可以使用&lt;strong&gt;不同的数据存储&lt;/strong&gt;技术。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="学习笔记" scheme="https://blog.sbx0.cn/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="微服务" scheme="https://blog.sbx0.cn/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
     
   </entry>
   
