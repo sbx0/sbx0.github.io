@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang=cn>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="synchronized 是 Java 中的关键字，是利用锁的机制来实现同步的。 众所周知 synchronized 关键字是解决并发问题常用解决方案，有以下三种使用方式:  同步普通方法，锁的是当前对象。 同步静态方法，锁的是当前 Class 对象。 同步块，锁的是 () 中的对象。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="synchronized">
+<meta property="og:url" content="https://blog.sbx0.cn/post/synchronized.html">
+<meta property="og:site_name" content="sbx0&#39;s blog">
+<meta property="og:description" content="synchronized 是 Java 中的关键字，是利用锁的机制来实现同步的。 众所周知 synchronized 关键字是解决并发问题常用解决方案，有以下三种使用方式:  同步普通方法，锁的是当前对象。 同步静态方法，锁的是当前 Class 对象。 同步块，锁的是 () 中的对象。">
+<meta property="og:locale">
+<meta property="og:image" content="https://blog.sbx0.cn/post/synchronized/1.webp">
+<meta property="og:image" content="https://blog.sbx0.cn/post/synchronized/2.webp">
+<meta property="og:image" content="https://blog.sbx0.cn/post/synchronized/3.webp">
+<meta property="og:image" content="https://blog.sbx0.cn/post/synchronized/4.webp">
+<meta property="article:published_time" content="2020-04-12T14:25:55.000Z">
+<meta property="article:modified_time" content="2020-04-12T13:52:45.000Z">
+<meta property="article:author" content="sbx0">
+<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="synchronized">
+<meta property="article:tag" content="锁">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.sbx0.cn/post/synchronized/1.webp">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>synchronized</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="sbx0's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/java-8-new-features.html"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/double-checked-locking.html"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/synchronized.html"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/synchronized.html&text=synchronized"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/synchronized.html&title=synchronized"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/synchronized.html&is_video=false&description=synchronized"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=synchronized&body=Check out this article: https://blog.sbx0.cn/post/synchronized.html"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/synchronized.html&title=synchronized"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/synchronized.html&title=synchronized"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/synchronized.html&title=synchronized"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/synchronized.html&title=synchronized"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/synchronized.html&name=synchronized&description=&lt;p&gt;synchronized 是 Java 中的关键字，是利用锁的机制来实现同步的。&lt;/p&gt;
+&lt;p&gt;众所周知 synchronized 关键字是解决并发问题常用解决方案，有以下三种使用方式:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同步普通方法，锁的是当前对象。&lt;/li&gt;
+&lt;li&gt;同步静态方法，锁的是当前 Class 对象。&lt;/li&gt;
+&lt;li&gt;同步块，锁的是 () 中的对象。&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/synchronized.html&t=synchronized"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%81"><span class="toc-number">2.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E9%94%81%E5%92%8C%E7%B1%BB%E9%94%81"><span class="toc-number">3.</span> <span class="toc-text">对象锁和类锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized-%E7%9A%84%E7%94%A8%E6%B3%95%E5%88%86%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text">synchronized 的用法分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E4%BF%AE%E9%A5%B0%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB"><span class="toc-number">4.1.</span> <span class="toc-text">根据修饰对象分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E8%8E%B7%E5%8F%96%E7%9A%84%E9%94%81%E5%88%86%E7%B1%BB"><span class="toc-number">4.2.</span> <span class="toc-text">根据获取的锁分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Synchronized%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">5.</span> <span class="toc-text">Synchronized的使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAS%E6%93%8D%E4%BD%9C"><span class="toc-number">6.</span> <span class="toc-text">CAS操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCAS"><span class="toc-number">6.1.</span> <span class="toc-text">什么是CAS?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAS%E7%9A%84%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="toc-number">6.2.</span> <span class="toc-text">CAS的操作过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Synchronized-VS-CAS"><span class="toc-number">6.2.1.</span> <span class="toc-text">Synchronized VS CAS</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAS%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">6.3.</span> <span class="toc-text">CAS的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ABA%E9%97%AE%E9%A2%98"><span class="toc-number">6.3.1.</span> <span class="toc-text">ABA问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E6%97%8B%E6%97%B6%E9%97%B4%E8%BF%87%E9%95%BF"><span class="toc-number">6.3.2.</span> <span class="toc-text">自旋时间过长</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AA%E8%83%BD%E4%BF%9D%E8%AF%81%E4%B8%80%E4%B8%AA%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F%E7%9A%84%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C"><span class="toc-number">6.3.3.</span> <span class="toc-text">只能保证一个共享变量的原子操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E5%AF%B9%E8%B1%A1%E5%A4%B4"><span class="toc-number">7.</span> <span class="toc-text">Java对象头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%81%E4%BC%98%E5%8C%96"><span class="toc-number">8.</span> <span class="toc-text">锁优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%BB%E9%87%8F%E9%94%81"><span class="toc-number">8.1.</span> <span class="toc-text">轻量锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E9%94%81"><span class="toc-number">8.1.1.</span> <span class="toc-text">解锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="toc-number">8.2.</span> <span class="toc-text">偏向锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8A%E6%94%BE%E9%94%81"><span class="toc-number">8.2.1.</span> <span class="toc-text">释放锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E4%BC%98%E5%8C%96"><span class="toc-number">8.3.</span> <span class="toc-text">其他优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E6%80%A7%E8%87%AA%E6%97%8B"><span class="toc-number">8.3.1.</span> <span class="toc-text">适应性自旋</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">10.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        synchronized
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sbx0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-12T14:25:55.000Z" itemprop="datePublished">2020-04-12</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a> › <a class="category-link" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/%E4%B8%8D%E6%87%82%E5%B0%B1%E6%9F%A5/">不懂就查</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/synchronized/" rel="tag">synchronized</a>, <a class="tag-link-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a>, <a class="tag-link-link" href="/tags/%E9%94%81/" rel="tag">锁</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>synchronized 是 Java 中的关键字，是利用锁的机制来实现同步的。</p>
+<p>众所周知 synchronized 关键字是解决并发问题常用解决方案，有以下三种使用方式:</p>
+<ul>
+<li>同步普通方法，锁的是当前对象。</li>
+<li>同步静态方法，锁的是当前 Class 对象。</li>
+<li>同步块，锁的是 () 中的对象。</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>JVM 是通过进入、退出对象监视器( Monitor )来实现对方法、同步块的同步的。</p>
+<p>具体实现是在编译之后在同步方法调用前加入一个 monitor.enter 指令，在退出方法和异常处插入 monitor.exit 的指令。</p>
+<p>其本质就是对一个对象监视器( Monitor )进行获取，而这个获取过程具有排他性从而达到了同一时刻只能一个线程访问的目的。</p>
+<p>而对于没有获取到锁的线程将会阻塞到方法入口处，直到获取锁的线程 monitor.exit 之后才能尝试继续获取锁。</p>
+<p>流程图如下:</p>
+<img src="/post/synchronized/1.webp" class="" title="流程图">
+
+<p>通过一段代码来演示:</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">synchronized</span> <span class="token punctuation">(</span><span class="token class-name">Synchronize</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Synchronize"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>使用 javap -c Synchronize 可以查看编译之后的具体信息。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name"><span class="token namespace">com<span class="token punctuation">.</span>crossoverjie<span class="token punctuation">.</span>synchronize<span class="token punctuation">.</span></span>Synchronize</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token class-name"><span class="token namespace">com<span class="token punctuation">.</span>crossoverjie<span class="token punctuation">.</span>synchronize<span class="token punctuation">.</span></span>Synchronize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Code</span><span class="token operator">:</span>
+       <span class="token number">0</span><span class="token operator">:</span> aload_0
+       <span class="token number">1</span><span class="token operator">:</span> invokespecial #<span class="token number">1</span>                  <span class="token comment">// Method java/lang/Object."&lt;init>":()V</span>
+       <span class="token number">4</span><span class="token operator">:</span> <span class="token keyword">return</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span></span>String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Code</span><span class="token operator">:</span>
+       <span class="token number">0</span><span class="token operator">:</span> ldc           #<span class="token number">2</span>                  <span class="token comment">// class com/crossoverjie/synchronize/Synchronize</span>
+       <span class="token number">2</span><span class="token operator">:</span> dup
+       <span class="token number">3</span><span class="token operator">:</span> astore_1
+       <span class="token operator">*</span><span class="token operator">*</span><span class="token number">4</span><span class="token operator">:</span> monitorenter<span class="token operator">*</span><span class="token operator">*</span>
+       <span class="token number">5</span><span class="token operator">:</span> getstatic     #<span class="token number">3</span>                  <span class="token comment">// Field java/lang/System.out:Ljava/io/PrintStream;</span>
+       <span class="token number">8</span><span class="token operator">:</span> ldc           #<span class="token number">4</span>                  <span class="token comment">// String Synchronize</span>
+      <span class="token number">10</span><span class="token operator">:</span> invokevirtual #<span class="token number">5</span>                  <span class="token comment">// Method java/io/PrintStream.println:(Ljava/lang/String;)V</span>
+      <span class="token number">13</span><span class="token operator">:</span> aload_1
+      <span class="token operator">*</span><span class="token operator">*</span><span class="token number">14</span><span class="token operator">:</span> monitorexit<span class="token operator">*</span><span class="token operator">*</span>
+      <span class="token number">15</span><span class="token operator">:</span> <span class="token keyword">goto</span>          <span class="token number">23</span>
+      <span class="token number">18</span><span class="token operator">:</span> astore_2
+      <span class="token number">19</span><span class="token operator">:</span> aload_1
+      <span class="token number">20</span><span class="token operator">:</span> monitorexit
+      <span class="token number">21</span><span class="token operator">:</span> aload_2
+      <span class="token number">22</span><span class="token operator">:</span> athrow
+      <span class="token number">23</span><span class="token operator">:</span> <span class="token keyword">return</span>
+    <span class="token class-name">Exception</span> table<span class="token operator">:</span>
+       from    <span class="token keyword">to</span>  <span class="token namespace">target</span> type
+           <span class="token number">5</span>    <span class="token number">15</span>    <span class="token number">18</span>   any
+          <span class="token number">18</span>    <span class="token number">21</span>    <span class="token number">18</span>   any
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以看到在同步块的入口和出口分别有 monitorenter,monitorexit 指令。</p>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><p>锁机制有如下两种特性：</p>
+<ul>
+<li><p>互斥性：即在同一时间只允许一个线程持有某个对象锁，通过这种特性来实现多线程中的协调机制，这样在同一时间只有一个线程对需同步的代码块(复合操作)进行访问。互斥性我们也往往称为操作的原子性。</p>
+</li>
+<li><p>可见性：必须确保在锁被释放之前，对共享变量所做的修改，对于随后获得该锁的另一个线程是可见的（即在获得锁时应获得最新共享变量的值），否则另一个线程可能是在本地缓存的某个副本上继续操作从而引起不一致。</p>
+</li>
+</ul>
+<h2 id="对象锁和类锁"><a href="#对象锁和类锁" class="headerlink" title="对象锁和类锁"></a>对象锁和类锁</h2><ol>
+<li>对象锁<br> 在 Java 中，每个对象都会有一个 monitor 对象，这个对象其实就是 Java 对象的锁，通常会被称为“内置锁”或“对象锁”。类的对象可以有多个，所以每个对象有其独立的对象锁，互不干扰。</li>
+<li>类锁<br> 在 Java 中，针对每个类也有一个锁，可以称为“类锁”，类锁实际上是通过对象锁实现的，即类的 Class 对象锁。每个类只有一个 Class 对象，所以每个类只有一个类锁。</li>
+</ol>
+<h2 id="synchronized-的用法分类"><a href="#synchronized-的用法分类" class="headerlink" title="synchronized 的用法分类"></a>synchronized 的用法分类</h2><p>synchronized 的用法可以从两个维度上面分类：</p>
+<h3 id="根据修饰对象分类"><a href="#根据修饰对象分类" class="headerlink" title="根据修饰对象分类"></a>根据修饰对象分类</h3><p>synchronized 可以修饰方法和代码块</p>
+<ul>
+<li>修饰代码块<ul>
+<li>synchronized(this|object) {}</li>
+<li>synchronized(类.class) {}</li>
+</ul>
+</li>
+<li>修饰方法<ul>
+<li>修饰非静态方法</li>
+<li>修饰静态方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="根据获取的锁分类"><a href="#根据获取的锁分类" class="headerlink" title="根据获取的锁分类"></a>根据获取的锁分类</h3><ul>
+<li>获取对象锁<ul>
+<li>synchronized(this|object) {}</li>
+<li>修饰非静态方法</li>
+</ul>
+</li>
+<li>获取类锁<ul>
+<li>synchronized(类.class) {}</li>
+<li>修饰静态方法</li>
+</ul>
+</li>
+</ul>
+<h2 id="Synchronized的使用场景"><a href="#Synchronized的使用场景" class="headerlink" title="Synchronized的使用场景"></a>Synchronized的使用场景</h2><img src="/post/synchronized/2.webp" class="" title="Synchronized的使用场景">
+
+<p>这里的需要注意的是：如果锁的是类对象的话，尽管new多个实例对象，但他们仍然是属于同一个类依然会被锁住，即线程之间保证同步关系。</p>
+<h2 id="CAS操作"><a href="#CAS操作" class="headerlink" title="CAS操作"></a>CAS操作</h2><h3 id="什么是CAS"><a href="#什么是CAS" class="headerlink" title="什么是CAS?"></a>什么是CAS?</h3><p>使用锁时，线程获取锁是一种悲观锁策略，即假设每一次执行临界区代码都会产生冲突，所以当前线程获取到锁的时候同时也会阻塞其他线程获取该锁。而CAS操作（又称为无锁操作）是一种乐观锁策略，它假设所有线程访问共享资源的时候不会出现冲突，既然不会出现冲突自然而然就不会阻塞其他线程的操作。因此，线程就不会出现阻塞停顿的状态。那么，如果出现冲突了怎么办？无锁操作是使用CAS(compare and swap)又叫做比较交换来鉴别线程是否出现冲突，出现冲突就重试当前操作直到没有冲突为止。</p>
+<h3 id="CAS的操作过程"><a href="#CAS的操作过程" class="headerlink" title="CAS的操作过程"></a>CAS的操作过程</h3><p>CAS比较交换的过程可以通俗的理解为CAS(V,O,N)，包含三个值分别为：V 内存地址存放的实际值；O 预期的值（旧值）；N 更新的新值。当V和O相同时，也就是说旧值和内存中实际的值相同表明该值没有被其他线程更改过，即该旧值O就是目前来说最新的值了，自然而然可以将新值N赋值给V。反之，V和O不相同，表明该值已经被其他线程改过了则该旧值O不是最新版本的值了，所以不能将新值N赋给V，返回V即可。当多个线程使用CAS操作一个变量是，只有一个线程会成功，并成功更新，其余会失败。失败的线程会重新尝试，当然也可以选择挂起线程</p>
+<p>CAS的实现需要硬件指令集的支撑，在JDK1.5后虚拟机才可以使用处理器提供的CMPXCHG指令实现。</p>
+<h4 id="Synchronized-VS-CAS"><a href="#Synchronized-VS-CAS" class="headerlink" title="Synchronized VS CAS"></a>Synchronized VS CAS</h4><p>元老级的Synchronized(未优化前)最主要的问题是：在存在线程竞争的情况下会出现线程阻塞和唤醒锁带来的性能问题，因为这是一种互斥同步（阻塞同步）。而CAS并不是武断的间线程挂起，当CAS操作失败后会进行一定的尝试，而非进行耗时的挂起唤醒的操作，因此也叫做非阻塞同步。这是两者主要的区别。</p>
+<h3 id="CAS的问题"><a href="#CAS的问题" class="headerlink" title="CAS的问题"></a>CAS的问题</h3><h4 id="ABA问题"><a href="#ABA问题" class="headerlink" title="ABA问题"></a>ABA问题</h4><p>因为CAS会检查旧值有没有变化，这里存在这样一个有意思的问题。比如一个旧值A变为了成B，然后再变成A，刚好在做CAS时检查发现旧值并没有变化依然为A，但是实际上的确发生了变化。解决方案可以沿袭数据库中常用的乐观锁方式，添加一个版本号可以解决。原来的变化路径A-&gt;B-&gt;A就变成了1A-&gt;2B-&gt;3C。java这么优秀的语言，当然在java 1.5后的atomic包中提供了AtomicStampedReference来解决ABA问题，解决思路就是这样的。</p>
+<h4 id="自旋时间过长"><a href="#自旋时间过长" class="headerlink" title="自旋时间过长"></a>自旋时间过长</h4><p>使用CAS时非阻塞同步，也就是说不会将线程挂起，会自旋（无非就是一个死循环）进行下一次尝试，如果这里自旋时间过长对性能是很大的消耗。如果JVM能支持处理器提供的pause指令，那么在效率上会有一定的提升。</p>
+<h4 id="只能保证一个共享变量的原子操作"><a href="#只能保证一个共享变量的原子操作" class="headerlink" title="只能保证一个共享变量的原子操作"></a>只能保证一个共享变量的原子操作</h4><p>当对一个共享变量执行操作时CAS能保证其原子性，如果对多个共享变量进行操作,CAS就不能保证其原子性。有一个解决方案是利用对象整合多个共享变量，即一个类中的成员变量就是这几个共享变量。然后将这个对象做CAS操作就可以保证其原子性。atomic中提供了AtomicReference来保证引用对象之间的原子性。</p>
+<h2 id="Java对象头"><a href="#Java对象头" class="headerlink" title="Java对象头"></a>Java对象头</h2><p>在同步的时候是获取对象的monitor,即获取到对象的锁。那么对象的锁怎么理解？无非就是类似对对象的一个标志，那么这个标志就是存放在Java对象的对象头。Java对象头里的Mark Word里默认的存放的对象的Hashcode,分代年龄和锁标记位。32为JVM Mark Word默认存储结构为（注:java对象头以及下面的锁状态变化摘自《java并发编程的艺术》一书，该书我认为写的足够好，就没在自己组织语言班门弄斧了）：</p>
+<img src="/post/synchronized/3.webp" class="" title="Mark Word存储结构">
+
+<p>如图在Mark Word会默认存放hasdcode，年龄值以及锁标志位等信息。</p>
+<p>Java SE 1.6中，锁一共有4种状态，级别从低到高依次是：无锁状态、偏向锁状态、轻量级锁状态和重量级锁状态，这几个状态会随着竞争情况逐渐升级。锁可以升级但不能降级，意味着偏向锁升级成轻量级锁后不能降级成偏向锁。这种锁升级却不能降级的策略，目的是为了提高获得锁和释放锁的效率。对象的MarkWord变化为下图： </p>
+<img src="/post/synchronized/4.webp" class="" title="Mark Word状态变化">
+
+<h2 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h2><p>synchronized 很多都称之为重量锁，JDK1.6 中对 synchronized 进行了各种优化，为了能减少获取和释放锁带来的消耗引入了偏向锁和轻量锁。</p>
+<h3 id="轻量锁"><a href="#轻量锁" class="headerlink" title="轻量锁"></a>轻量锁</h3><p>当代码进入同步块时，如果同步对象为无锁状态时，当前线程会在栈帧中创建一个锁记录(Lock Record)区域，同时将锁对象的对象头中 Mark Word 拷贝到锁记录中，再尝试使用 CAS（乐观锁） 将 Mark Word 更新为指向锁记录的指针。</p>
+<p>如果更新成功，当前线程就获得了锁。</p>
+<p>如果更新失败 JVM 会先检查锁对象的 Mark Word 是否指向当前线程的锁记录。</p>
+<p>如果是则说明当前线程拥有锁对象的锁，可以直接进入同步块。</p>
+<p>不是则说明有其他线程抢占了锁，如果存在多个线程同时竞争一把锁，轻量锁就会膨胀为重量锁。</p>
+<h4 id="解锁"><a href="#解锁" class="headerlink" title="解锁"></a>解锁</h4><p>轻量锁的解锁过程也是利用 CAS 来实现的，会尝试锁记录替换回锁对象的 Mark Word 。如果替换成功则说明整个同步操作完成，失败则说明有其他线程尝试获取锁，这时就会唤醒被挂起的线程(此时已经膨胀为重量锁)</p>
+<p>轻量锁能提升性能的原因：</p>
+<p>认为大多数锁在整个同步周期都不存在竞争，所以使用 CAS 比使用互斥开销更少。但如果锁竞争激烈，轻量锁就不但有互斥的开销，还有 CAS 的开销，甚至比重量锁更慢。</p>
+<h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p>为了进一步的降低获取锁的代价，JDK1.6 之后还引入了偏向锁。</p>
+<p>偏向锁的特征是:锁不存在多线程竞争，并且应由一个线程多次获得锁。</p>
+<p>当线程访问同步块时，会使用 CAS 将线程 ID 更新到锁对象的 Mark Word 中，如果更新成功则获得偏向锁，并且之后每次进入这个对象锁相关的同步块时都不需要再次获取锁了。</p>
+<h4 id="释放锁"><a href="#释放锁" class="headerlink" title="释放锁"></a>释放锁</h4><p>当有另外一个线程获取这个锁时，持有偏向锁的线程就会释放锁，释放时会等待全局安全点(这一时刻没有字节码运行)，接着会暂停拥有偏向锁的线程，根据锁对象目前是否被锁来判定将对象头中的 Mark Word 设置为无锁或者是轻量锁状态。</p>
+<p>偏向锁可以提高带有同步却没有竞争的程序性能，但如果程序中大多数锁都存在竞争时，那偏向锁就起不到太大作用。可以使用 -XX:-userBiasedLocking&#x3D;false 来关闭偏向锁，并默认进入轻量锁。</p>
+<h3 id="其他优化"><a href="#其他优化" class="headerlink" title="其他优化"></a>其他优化</h3><h4 id="适应性自旋"><a href="#适应性自旋" class="headerlink" title="适应性自旋"></a>适应性自旋</h4><p>在使用 CAS 时，如果操作失败，CAS 会自旋再次尝试。由于自旋是需要消耗 CPU 资源的，所以如果长期自旋就白白浪费了 CPU。JDK1.6加入了适应性自旋:</p>
+<blockquote>
+<p>如果某个锁自旋很少成功获得，那么下一次就会减少自旋。</p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>synchronized 现在已经不像以前那么重了，拿 1.8 中的 ConcurrentHashMap 就可以看出，里面大量的使用了 synchronized 来进行同步。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://juejin.im/post/594a24defe88c2006aa01f1c">zly394 | 掘金</a><br><a target="_blank" rel="noopener" href="https://crossoverjie.top/2018/01/14/Synchronize/">synchronized 关键字原理</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d53bf830fa09">让你彻底理解Synchronized</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%81"><span class="toc-number">2.</span> <span class="toc-text">锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E9%94%81%E5%92%8C%E7%B1%BB%E9%94%81"><span class="toc-number">3.</span> <span class="toc-text">对象锁和类锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized-%E7%9A%84%E7%94%A8%E6%B3%95%E5%88%86%E7%B1%BB"><span class="toc-number">4.</span> <span class="toc-text">synchronized 的用法分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E4%BF%AE%E9%A5%B0%E5%AF%B9%E8%B1%A1%E5%88%86%E7%B1%BB"><span class="toc-number">4.1.</span> <span class="toc-text">根据修饰对象分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E8%8E%B7%E5%8F%96%E7%9A%84%E9%94%81%E5%88%86%E7%B1%BB"><span class="toc-number">4.2.</span> <span class="toc-text">根据获取的锁分类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Synchronized%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">5.</span> <span class="toc-text">Synchronized的使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CAS%E6%93%8D%E4%BD%9C"><span class="toc-number">6.</span> <span class="toc-text">CAS操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCAS"><span class="toc-number">6.1.</span> <span class="toc-text">什么是CAS?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAS%E7%9A%84%E6%93%8D%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="toc-number">6.2.</span> <span class="toc-text">CAS的操作过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Synchronized-VS-CAS"><span class="toc-number">6.2.1.</span> <span class="toc-text">Synchronized VS CAS</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAS%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">6.3.</span> <span class="toc-text">CAS的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ABA%E9%97%AE%E9%A2%98"><span class="toc-number">6.3.1.</span> <span class="toc-text">ABA问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E6%97%8B%E6%97%B6%E9%97%B4%E8%BF%87%E9%95%BF"><span class="toc-number">6.3.2.</span> <span class="toc-text">自旋时间过长</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AA%E8%83%BD%E4%BF%9D%E8%AF%81%E4%B8%80%E4%B8%AA%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8F%E7%9A%84%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C"><span class="toc-number">6.3.3.</span> <span class="toc-text">只能保证一个共享变量的原子操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E5%AF%B9%E8%B1%A1%E5%A4%B4"><span class="toc-number">7.</span> <span class="toc-text">Java对象头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%81%E4%BC%98%E5%8C%96"><span class="toc-number">8.</span> <span class="toc-text">锁优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%BB%E9%87%8F%E9%94%81"><span class="toc-number">8.1.</span> <span class="toc-text">轻量锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E9%94%81"><span class="toc-number">8.1.1.</span> <span class="toc-text">解锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="toc-number">8.2.</span> <span class="toc-text">偏向锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8A%E6%94%BE%E9%94%81"><span class="toc-number">8.2.1.</span> <span class="toc-text">释放锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E4%BC%98%E5%8C%96"><span class="toc-number">8.3.</span> <span class="toc-text">其他优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E6%80%A7%E8%87%AA%E6%97%8B"><span class="toc-number">8.3.1.</span> <span class="toc-text">适应性自旋</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">10.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/synchronized.html"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/synchronized.html&text=synchronized"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/synchronized.html&title=synchronized"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/synchronized.html&is_video=false&description=synchronized"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=synchronized&body=Check out this article: https://blog.sbx0.cn/post/synchronized.html"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/synchronized.html&title=synchronized"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/synchronized.html&title=synchronized"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/synchronized.html&title=synchronized"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/synchronized.html&title=synchronized"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/synchronized.html&name=synchronized&description=&lt;p&gt;synchronized 是 Java 中的关键字，是利用锁的机制来实现同步的。&lt;/p&gt;
+&lt;p&gt;众所周知 synchronized 关键字是解决并发问题常用解决方案，有以下三种使用方式:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同步普通方法，锁的是当前对象。&lt;/li&gt;
+&lt;li&gt;同步静态方法，锁的是当前 Class 对象。&lt;/li&gt;
+&lt;li&gt;同步块，锁的是 () 中的对象。&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/synchronized.html&t=synchronized"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    sbx0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang=cn>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="练练不忘，必有回响。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="牛客网刷题笔记">
+<meta property="og:url" content="https://blog.sbx0.cn/post/new-coder-note.html">
+<meta property="og:site_name" content="sbx0&#39;s blog">
+<meta property="og:description" content="练练不忘，必有回响。">
+<meta property="og:locale">
+<meta property="og:image" content="https://blog.sbx0.cn/post/new-coder-note/1.png">
+<meta property="article:published_time" content="2020-04-13T16:43:53.000Z">
+<meta property="article:modified_time" content="2020-04-13T16:43:53.000Z">
+<meta property="article:author" content="sbx0">
+<meta property="article:tag" content="刷题">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.sbx0.cn/post/new-coder-note/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>牛客网刷题笔记</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="sbx0's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/why-hash-table.html"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/java-8-new-features.html"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/new-coder-note.html"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/new-coder-note.html&text=牛客网刷题笔记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/new-coder-note.html&title=牛客网刷题笔记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/new-coder-note.html&is_video=false&description=牛客网刷题笔记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=牛客网刷题笔记&body=Check out this article: https://blog.sbx0.cn/post/new-coder-note.html"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/new-coder-note.html&title=牛客网刷题笔记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/new-coder-note.html&title=牛客网刷题笔记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/new-coder-note.html&title=牛客网刷题笔记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/new-coder-note.html&title=牛客网刷题笔记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/new-coder-note.html&name=牛客网刷题笔记&description=&lt;p&gt;练练不忘，必有回响。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/new-coder-note.html&t=牛客网刷题笔记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86"><span class="toc-number">1.</span> <span class="toc-text">垃圾收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-number">2.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">对象序列化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%E4%BC%98%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">面向对象程序设计方法优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">5.</span> <span class="toc-text">内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">5.1.</span> <span class="toc-text">静态内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">5.2.</span> <span class="toc-text">非静态内部类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Switch"><span class="toc-number">6.</span> <span class="toc-text">Switch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayList-vs-LinkedList"><span class="toc-number">7.</span> <span class="toc-text">ArrayList vs LinkedList</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String"><span class="toc-number">8.</span> <span class="toc-text">String</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">9.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Math"><span class="toc-number">10.</span> <span class="toc-text">Math</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB"><span class="toc-number">11.</span> <span class="toc-text">包装类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap-vs-Hashtable"><span class="toc-number">12.</span> <span class="toc-text">HashMap vs Hashtable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85"><span class="toc-number">13.</span> <span class="toc-text">包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA-java%E6%96%87%E4%BB%B6%E4%B8%AD%E5%AE%9A%E4%B9%89%E5%A4%9A%E4%B8%AA%E7%B1%BB"><span class="toc-number">14.</span> <span class="toc-text">一个.java文件中定义多个类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90"><span class="toc-number">15.</span> <span class="toc-text">访问权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98"><span class="toc-number">16.</span> <span class="toc-text">缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="toc-number">17.</span> <span class="toc-text">依赖注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E7%B1%BB%E5%9E%8B"><span class="toc-number">18.</span> <span class="toc-text">默认类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%80%BC"><span class="toc-number">19.</span> <span class="toc-text">初始值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-number">20.</span> <span class="toc-text">算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">21.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final"><span class="toc-number">22.</span> <span class="toc-text">final</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD-vs-%E9%87%8D%E5%86%99"><span class="toc-number">23.</span> <span class="toc-text">重载 vs 重写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%9E%8B%E8%A7%84%E5%88%99"><span class="toc-number">24.</span> <span class="toc-text">表达式转型规则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">24.1.</span> <span class="toc-text">题目</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        牛客网刷题笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sbx0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-13T16:43:53.000Z" itemprop="datePublished">2020-04-13</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a>, <a class="tag-link-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>练练不忘，必有回响。</p>
+<span id="more"></span>
+
+<h2 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h2><p>以前我是堆，你是栈</p>
+<p>你总是能精准的找到我，给我指明出路</p>
+<p>后来有一天我明白了</p>
+<p>我变成了栈，你却隐身堆海</p>
+<p>我却找不到你了，空指针了</p>
+<p>我不愿意如此，在下一轮 full gc 前</p>
+<p>我找到了 object 家的 finalize</p>
+<p>又找到了你，这次我不会放手</p>
+<p>在世界重启前，一边躲着 full gc 一边老去</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/profile/153516329">虾滑</a></p>
+</blockquote>
+<ol>
+<li><p>一个对象成为垃圾，是因为没有引用指向它</p>
+</li>
+<li><p>一个对象成为垃圾之后，等待垃圾回收器收集</p>
+</li>
+<li><p>finalize方法也可以主动使用</p>
+</li>
+<li><p>在java中，对象的内存在哪个时刻回收，取决于垃圾回收器何时运行</p>
+</li>
+<li><p>一旦垃圾回收器准备好释放对象占用的存储空间，将首先调用其finalize()方法， 并且在下一次垃圾回收动作发生时，才会真正的回收对象占用的内存（《java 编程思想》）</p>
+</li>
+<li><p>在C++中，对象的内存在哪个时刻被回收，是可以确定的，在C++中，析构函数和资源的释放息息相关，能不能正确处理析构函数，关乎能否正确回收对象内存资源。</p>
+<p>在java中，对象的内存在哪个时刻回收，取决于垃圾回收器何时运行，在java中，所有的对象，包括对象中包含的其他对象，它们所占的内存的回收都依靠垃圾回收器，因此不需要一个函数如C++析构函数那样来做必要的垃圾回收工作。当然存在本地方法时需要finalize()方法来清理本地对象。在《java编程思想》中提及，finalize()方法的一个作用是用来回收“本地方法”中的本地对象</p>
+</li>
+</ol>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ol>
+<li>Java在运行时才进行翻译指令</li>
+<li>Java程序在运行时字节码才会被JVM翻译成机器码</li>
+</ol>
+<h2 id="对象序列化"><a href="#对象序列化" class="headerlink" title="对象序列化"></a>对象序列化</h2><ol>
+<li>使用transient修饰的变量不会被序列化</li>
+<li>对象序列化的所属类需要实现Serializable接口</li>
+<li>能够对对象进行传输的貌似只有ObjectOutputStream和ObjectInputStream这些以Object开头的流对象</li>
+<li>transient 修饰的变量在对象串化的时侯并不会将所赋值的值保存到传中，串化的对象从磁盘读取出来仍然是null</li>
+<li></li>
+</ol>
+<h2 id="面向对象程序设计方法优点"><a href="#面向对象程序设计方法优点" class="headerlink" title="面向对象程序设计方法优点"></a>面向对象程序设计方法优点</h2><ol>
+<li>可重用性 <em>多态</em></li>
+<li>可扩展性 <em>继承</em></li>
+<li>易于维护与管理 <em>封装</em></li>
+</ol>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Enclosingone</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">InsideOne</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> inertest <span class="token punctuation">&#123;</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>string<span class="token punctuation">[</span><span class="token punctuation">]</span>args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token class-name">EnclosingOne</span> eo <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EnclosingOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token comment">//insert code here</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以为</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">InsideOne</span> ei <span class="token operator">=</span> eo<span class="token punctuation">.</span><span class="token keyword">new</span> <span class="token class-name">InsideOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// Or</span>
+<span class="token class-name">EnclosingOne<span class="token punctuation">.</span>InsideOne</span> ei <span class="token operator">=</span> eo<span class="token punctuation">.</span><span class="token keyword">new</span> <span class="token class-name">InsideOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>内部类其实和类的属性没什么区别，只是在声明的时候必须是Outer.Inner a，就像int a 一样，</p>
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Outer<span class="token punctuation">.</span>Inner</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Outer<span class="token punctuation">.</span>Inner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 要把Outer.Inner看成一部分，就像类变量一样</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="非静态内部类"><a href="#非静态内部类" class="headerlink" title="非静态内部类"></a>非静态内部类</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Outer<span class="token punctuation">.</span>Inner</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Outer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">new</span> <span class="token class-name">Inner</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 非静态，先有Outer对象才能有属性</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h2><ol>
+<li>char 和 Character</li>
+<li>byte 和 Byte</li>
+<li>short 和 Short</li>
+<li>int 和 Integer</li>
+<li>Enum 枚举</li>
+<li>String <em>Java1.7以后</em></li>
+</ol>
+<h2 id="ArrayList-vs-LinkedList"><a href="#ArrayList-vs-LinkedList" class="headerlink" title="ArrayList vs LinkedList"></a>ArrayList vs LinkedList</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Object</span> obj<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">List</span> aList<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">List</span> bList<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">long</span> t1<span class="token operator">=</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span><span class="token number">50000</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    aList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">long</span> t2<span class="token operator">=</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span>t1<span class="token punctuation">;</span>
+
+t1<span class="token operator">=</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span><span class="token number">50000</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    bList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">long</span> t3<span class="token operator">=</span><span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span>t1<span class="token punctuation">;</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>ArrayList内部是动态数组实现，在增加空间时会复制全部数据到新的容量大一些的数组中。而LinkedList内部为双向链表，可以按需分配空间，扩展容量简单，因此LinkedList用时少。</p>
+<p>所以t2 &gt; t3</p>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> str <span class="token operator">=</span>
+<span class="token string">""</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>str<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">","</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>split 这个方法默认返回一个数组。如果没有找到分隔符，会把整个字符串当成一个长度为1的字符串数组。</p>
+<p>因为是数组，所以是<code>.length</code></p>
+<p>输出结果为：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>以下哪种JAVA得变量声明方式可以避免程序在多线程竞争情况下读到不正确的值(  )</p>
+<ol>
+<li>volatile √ volatile保证读写原子性，不保证更新（读&#x3D;&gt;改变值&#x3D;&gt;写）原子性</li>
+<li>static volatile √</li>
+<li>synchronized × synchronized不是修饰变量的 它修饰方法或代码块或对象</li>
+</ol>
+<h2 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">double</span> d1 <span class="token operator">=</span><span class="token operator">-</span> <span class="token number">0.5</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Ceil d1="</span><span class="token operator">+</span><span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">ceil</span><span class="token punctuation">(</span>d1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"floor d1="</span><span class="token operator">+</span><span class="token class-name">Math</span><span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>d1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><p>ceil：大于等于 x，并且与它最接近的整数。</p>
+</li>
+<li><p>floor：小于等于 x，且与 x 最接近的整数。</p>
+</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Ceil</span> d1 <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">0.0</span><span class="token punctuation">;</span>
+floor d1 <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1.0</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+
+<h2 id="包装类"><a href="#包装类" class="headerlink" title="包装类"></a>包装类</h2><table>
+<thead>
+<tr>
+<th align="center">基本数据类型</th>
+<th align="center">包装类</th>
+<th align="center">大小</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">Byte</td>
+<td align="center">8bit</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">Boolean</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center"><strong>Character</strong></td>
+<td align="center">16bit</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">Short</td>
+<td align="center">16bit</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">Integer</td>
+<td align="center">32bit</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">Long</td>
+<td align="center">64bit</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">Float</td>
+<td align="center">32bit</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">Double</td>
+<td align="center">64bit</td>
+</tr>
+</tbody></table>
+<h2 id="HashMap-vs-Hashtable"><a href="#HashMap-vs-Hashtable" class="headerlink" title="HashMap vs Hashtable"></a>HashMap vs Hashtable</h2><ol>
+<li>Hashtable 已被淘汰，可以使用 ConcurrentHashMap 替代，这一点可以在 Hashtable 源码中的注释说明中找出。</li>
+<li>Hashtable 的 key、value 都不可以为 null。HashMap 最多只允许一条记录的键为 null，允许多条记录的值为 null。</li>
+<li>HashMap和Hashtable都实现了Map接口。</li>
+<li>相比 HashMap，Hashtable 是线程安全的。因为 Hashtable 的几个重要方法都加上了 synchronized 关键字。</li>
+<li>Hashtable、HashMap 都使用了 Iterator。而由于历史原因，Hashtable 还使用了 Enumeration 的方式。</li>
+<li>HashMap允许将 null 作为一个 entry 的 key 或者 value，而 Hashtable 不允许。</li>
+<li>Hashtable 直接使用对象的 hashCode。而 HashMap 重新计算 hash 值。 </li>
+<li>Hashtable 中的 hash 数组初始大小是 11，增加的方式是 old*2+1。HashMap 中 hash 数组的默认大小是 16，而且一定是 2 的指数。</li>
+<li>HashMap 有 containsvalue 和 containsKey 两个方法，Hashtable 使用的是 contains 方法。</li>
+<li><code>public class Hashtable extends Dictionary implements Map</code></li>
+<li><code>public class HashMap extends AbstractMap implements Map</code></li>
+</ol>
+<h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><p>包（package）由一组类（class）和接口（interface）组成（有其中一个即可）</p>
+<h2 id="一个-java文件中定义多个类"><a href="#一个-java文件中定义多个类" class="headerlink" title="一个.java文件中定义多个类"></a>一个.java文件中定义多个类</h2><ol>
+<li>public权限类只能有一个（也可以一个都没有，但最多只有一个）</li>
+<li>这个.java文件名只能是public 权限的类的类名</li>
+<li>倘若这个文件中没有public 类，则它的.java文件的名字是随便的一个类名</li>
+<li>当用javac命令生成编译这个.java 文件的时候，则会针对每一个类生成一个.class文件</li>
+</ol>
+<img src="/post/new-coder-note/1.png" class="" title="一个.java文件中定义多个类">
+
+<h2 id="访问权限"><a href="#访问权限" class="headerlink" title="访问权限"></a>访问权限</h2><table>
+<thead>
+<tr>
+<th align="center">修饰符</th>
+<th align="center">类内部</th>
+<th align="center">同一个包</th>
+<th align="center">子类</th>
+<th align="center">任何地方</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">private</td>
+<td align="center">Yes</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">default&#x2F;friendly</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">protected</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">public</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+</tr>
+</tbody></table>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Integer</span> i01 <span class="token operator">=</span> <span class="token number">59</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> i02 <span class="token operator">=</span> <span class="token number">59</span><span class="token punctuation">;</span>
+<span class="token class-name">Integer</span> i03 <span class="token operator">=</span> <span class="token class-name">Integer</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token number">59</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Integer</span> i04 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Integer</span><span class="token punctuation">(</span><span class="token number">59</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i01 <span class="token operator">==</span> i02<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 1</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i01 <span class="token operator">==</span> i03<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 2</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i03 <span class="token operator">==</span> i04<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 3</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i02 <span class="token operator">==</span> i04<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ol>
+<li>缓存，true</li>
+<li>缓存，true</li>
+<li>false</li>
+<li>数值相同，true</li>
+<li>无论如何，Integer与new Integer不会相等。不会经历拆箱过程</li>
+<li>两个都是非new出来的Integer，如果数在-128到127之间，则是true,否则为false</li>
+<li>Java在编译Integer i2 &#x3D; 128的时候,被翻译成-&gt; Integer i2 &#x3D; Integer.valueOf(128);而valueOf()函数会对-128到127之间的数进行缓存</li>
+<li>两个都是new出来的,都为false</li>
+<li>int和integer(无论new否)比，都为true，因为会把Integer自动拆箱为int再去比</li>
+</ol>
+<h2 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h2><ol>
+<li>依赖注入能够独立开发各组件，然后根据组件间关系进行组装</li>
+<li>依赖注入提供使用接口编程</li>
+<li>依赖注入指对象在使用时动态注入</li>
+<li>依赖注入的动机就是减少组件之间的耦合度，使开发更为简洁</li>
+</ol>
+<h2 id="默认类型"><a href="#默认类型" class="headerlink" title="默认类型"></a>默认类型</h2><ul>
+<li>整数不指定类型，默认为int类型</li>
+<li>小数不指定类型，默认为double类型</li>
+<li>如果指定长整形，则类似于1000L</li>
+<li>如果指定单精度，则类似与3.14F</li>
+</ul>
+<h2 id="初始值"><a href="#初始值" class="headerlink" title="初始值"></a>初始值</h2><p>类中声明的变量有默认初始值；方法中声明的变量没有默认初始值，必须在定义时初始化，否则在访问该变量时会出错。</p>
+<table>
+<thead>
+<tr>
+<th align="center">数据类型</th>
+<th align="center">初始值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">0L</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">‘u0000’</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">0.0f</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">0</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">所有引用类型</td>
+<td align="center">null</td>
+</tr>
+</tbody></table>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>算法包括0个或多个输入，1个或多个输出，中间有穷个处理过程。存储结构不属于算法结构。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><ol>
+<li><p>数据的创建方式</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">float</span> f<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">float</span><span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">float</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>f<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">float</span><span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">float</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span>f <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">float</span><span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">float</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span>f <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">float</span><span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token comment">// 数组命名时名称与[]可以随意排列</span>
+<span class="token comment">// 但声明的二维数组中第一个中括号中必须要有值</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+</li>
+<li><p>数组是一个对象，不同类型的数组具有不同的类。因为可以调用方法，例如下方array与array_1类不同。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> i <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> j <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> k <span class="token operator">=</span> i<span class="token punctuation">;</span>
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">double</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array_1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">double</span><span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>array_1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>i<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">[I@6d6f6e28
+[D@135fbaa4
+false
+true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>数组是一个连续的存储结构，Java中的数组中的数据是连续存储在一块内存中的，所以可以通过下标(即偏移量)的方式访问。</p>
+</li>
+<li><p>查看源码可以知道数组的equals方法是object的equals，比较的是内存地址。</p>
+</li>
+<li><p>数组长度是不能动态调整的。</p>
+</li>
+<li><p>可以二维数组，且可以有多维数组，都是在Java中合法的。</p>
+</li>
+<li><p>Arrays.equal()可以比较数组元素。</p>
+</li>
+<li><p><code>int[] array=new int [100]; int array[]=new int [100];</code></p>
+</li>
+</ol>
+<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><ol>
+<li>final修饰变量，则等同于常量</li>
+<li>final修饰方法中的参数，称为最终参数</li>
+<li>final修饰类，则类不能被继承</li>
+<li>final修饰方法，则方法不能被重写</li>
+<li>final 不能修饰抽象类</li>
+<li>final不能修饰接口</li>
+<li>final修饰的方法可以被重载 但不能被重写</li>
+</ol>
+<h2 id="重载-vs-重写"><a href="#重载-vs-重写" class="headerlink" title="重载 vs 重写"></a>重载 vs 重写</h2><ul>
+<li><strong>重载</strong> 指可以有同样修饰符、返回值、方法名，但参数个数或顺序不同的方法。</li>
+<li><strong>重写</strong> 指子类继承父类后，重写父类的方法。</li>
+</ul>
+<h2 id="表达式转型规则"><a href="#表达式转型规则" class="headerlink" title="表达式转型规则"></a>表达式转型规则</h2><p>Java表达式转型规则<strong>由低到高转换</strong>：</p>
+<ol>
+<li>所有的byte,short,char型的值将被提升为int型；</li>
+<li>如果有一个操作数是long型，计算结果是long型；</li>
+<li>如果有一个操作数是float型，计算结果是float型；</li>
+<li>如果有一个操作数是double型，计算结果是double型；</li>
+<li>被fianl修饰的变量不会自动改变类型，当2个final修饰相操作时，结果会根据左边变量的类型而转化。</li>
+</ol>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><ol>
+<li>表达式 <code>(short)10/10.2*2</code> 运算后结果是什么类型？</li>
+</ol>
+<ul>
+<li>首先，要注意是 <code>(short)10/10.2*2</code> ，而不是  <code>(short) (10/10.2*2)</code> ，前者只是把10强转为short，又由于式子中存在浮点数，所以会对结果值进行一个自动类型的提升，<strong>浮点数默认为double</strong>，所以答案是double；后者是把计算完之后值强转short。</li>
+<li>强制类型转换的优先级高于 <code>+ - * /</code></li>
+<li>小转大随便转，不同类型运算结果类型向右看齐: <code>char＜short＜ int＜ float ＜double</code></li>
+</ul>
+<ol start="2">
+<li>下列代码片段中，存在编译错误的语句是()</li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">byte</span> b1<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span>b2<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span>b3<span class="token punctuation">,</span>b6<span class="token punctuation">,</span>b8<span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token keyword">byte</span> b4<span class="token operator">=</span><span class="token number">4</span><span class="token punctuation">,</span>b5<span class="token operator">=</span><span class="token number">6</span><span class="token punctuation">,</span>b7<span class="token punctuation">;</span>
+b3<span class="token operator">=</span><span class="token punctuation">(</span>b1<span class="token operator">+</span>b2<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/*语句1*/</span>
+b6<span class="token operator">=</span>b4<span class="token operator">+</span>b5<span class="token punctuation">;</span>    <span class="token comment">/*语句2*/</span>
+b8<span class="token operator">=</span><span class="token punctuation">(</span>b1<span class="token operator">+</span>b4<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/*语句3*/</span>
+b7<span class="token operator">=</span><span class="token punctuation">(</span>b2<span class="token operator">+</span>b5<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">/*语句4*/</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>b3<span class="token operator">+</span>b6<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>语句1错误：b3&#x3D;(b1+b2);自动转为int，所以正确写法为b3&#x3D;(byte)(b1+b2);或者将b3定义为int；</li>
+<li>语句2正确：b6&#x3D;b4+b5;b4、b5为final类型，不会自动提升，所以和的类型视左边变量类型而定，即b6可以是任意数值类型；</li>
+<li>语句3错误：b8&#x3D;(b1+b4);虽然b4不会自动提升，但b1仍会自动提升，所以结果需要强转，b8&#x3D;(byte)(b1+b4);</li>
+<li>语句4错误：b7&#x3D;(b2+b5); 同上。同时注意b7是<strong>final修饰，即只可赋值一次，便不可再改变</strong>。</li>
+</ul>
+<ol start="3">
+<li><code>byte a = 2; a = a - 10;</code> 由于10是整型int，因此表达式 <code>a - 10</code> 将自动转换成int类型，int类型在赋值给byte，会编译错误</li>
+<li><code>byte a = 2; a -= 10;</code> 不会发生编译错误，因为复合运算符是一个带有隐式转换的运算符，将右侧表达式类型自动转换成左侧表达式类型</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86"><span class="toc-number">1.</span> <span class="toc-text">垃圾收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91"><span class="toc-number">2.</span> <span class="toc-text">编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">对象序列化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95%E4%BC%98%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">面向对象程序设计方法优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">5.</span> <span class="toc-text">内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">5.1.</span> <span class="toc-text">静态内部类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="toc-number">5.2.</span> <span class="toc-text">非静态内部类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Switch"><span class="toc-number">6.</span> <span class="toc-text">Switch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayList-vs-LinkedList"><span class="toc-number">7.</span> <span class="toc-text">ArrayList vs LinkedList</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#String"><span class="toc-number">8.</span> <span class="toc-text">String</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">9.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Math"><span class="toc-number">10.</span> <span class="toc-text">Math</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E8%A3%85%E7%B1%BB"><span class="toc-number">11.</span> <span class="toc-text">包装类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap-vs-Hashtable"><span class="toc-number">12.</span> <span class="toc-text">HashMap vs Hashtable</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85"><span class="toc-number">13.</span> <span class="toc-text">包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA-java%E6%96%87%E4%BB%B6%E4%B8%AD%E5%AE%9A%E4%B9%89%E5%A4%9A%E4%B8%AA%E7%B1%BB"><span class="toc-number">14.</span> <span class="toc-text">一个.java文件中定义多个类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90"><span class="toc-number">15.</span> <span class="toc-text">访问权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98"><span class="toc-number">16.</span> <span class="toc-text">缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="toc-number">17.</span> <span class="toc-text">依赖注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E7%B1%BB%E5%9E%8B"><span class="toc-number">18.</span> <span class="toc-text">默认类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%80%BC"><span class="toc-number">19.</span> <span class="toc-text">初始值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-number">20.</span> <span class="toc-text">算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">21.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#final"><span class="toc-number">22.</span> <span class="toc-text">final</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E8%BD%BD-vs-%E9%87%8D%E5%86%99"><span class="toc-number">23.</span> <span class="toc-text">重载 vs 重写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BD%AC%E5%9E%8B%E8%A7%84%E5%88%99"><span class="toc-number">24.</span> <span class="toc-text">表达式转型规则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">24.1.</span> <span class="toc-text">题目</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/new-coder-note.html"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/new-coder-note.html&text=牛客网刷题笔记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/new-coder-note.html&title=牛客网刷题笔记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/new-coder-note.html&is_video=false&description=牛客网刷题笔记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=牛客网刷题笔记&body=Check out this article: https://blog.sbx0.cn/post/new-coder-note.html"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/new-coder-note.html&title=牛客网刷题笔记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/new-coder-note.html&title=牛客网刷题笔记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/new-coder-note.html&title=牛客网刷题笔记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/new-coder-note.html&title=牛客网刷题笔记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/new-coder-note.html&name=牛客网刷题笔记&description=&lt;p&gt;练练不忘，必有回响。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/new-coder-note.html&t=牛客网刷题笔记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    sbx0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

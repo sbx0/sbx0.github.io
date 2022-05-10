@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang=cn>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="我将 Consul 部署到自己的服务器上，并且给它配上了相应的域名 consul.sbx0.cn 。但是当我打开这个页面的时候，却发现没有没有登陆就可以查询全部信息？！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Consul 开启 ACL">
+<meta property="og:url" content="https://blog.sbx0.cn/post/consul-acl.html">
+<meta property="og:site_name" content="sbx0&#39;s blog">
+<meta property="og:description" content="我将 Consul 部署到自己的服务器上，并且给它配上了相应的域名 consul.sbx0.cn 。但是当我打开这个页面的时候，却发现没有没有登陆就可以查询全部信息？！">
+<meta property="og:locale">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-acl/1.png">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-acl/2.png">
+<meta property="article:published_time" content="2020-12-19T19:29:40.000Z">
+<meta property="article:modified_time" content="2020-12-19T19:29:40.000Z">
+<meta property="article:author" content="sbx0">
+<meta property="article:tag" content="Consul">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.sbx0.cn/post/consul-acl/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Consul 开启 ACL</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="sbx0's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/spring-cloud-gateway.html"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/spring-cloud-stream-knowledge.html"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/consul-acl.html"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/consul-acl.html&text=Consul 开启 ACL"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/consul-acl.html&title=Consul 开启 ACL"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/consul-acl.html&is_video=false&description=Consul 开启 ACL"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Consul 开启 ACL&body=Check out this article: https://blog.sbx0.cn/post/consul-acl.html"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/consul-acl.html&title=Consul 开启 ACL"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/consul-acl.html&title=Consul 开启 ACL"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/consul-acl.html&title=Consul 开启 ACL"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/consul-acl.html&title=Consul 开启 ACL"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/consul-acl.html&name=Consul 开启 ACL&description=&lt;p&gt;我将 Consul 部署到自己的服务器上，并且给它配上了相应的域名 &lt;a href=&#34;http://consul.sbx0.cn/&#34;&gt;consul.sbx0.cn&lt;/a&gt; 。但是当我打开这个页面的时候，却发现没有没有登陆就可以查询全部信息？！&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/consul-acl.html&t=Consul 开启 ACL"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ACL"><span class="toc-number">1.</span> <span class="toc-text">ACL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Consul-%E5%BC%80%E5%90%AF-ACL"><span class="toc-number">2.</span> <span class="toc-text">Consul 开启 ACL</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Consul 开启 ACL
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sbx0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-12-19T19:29:40.000Z" itemprop="datePublished">2020-12-19</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> › <a class="category-link" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Consul/" rel="tag">Consul</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>我将 Consul 部署到自己的服务器上，并且给它配上了相应的域名 <a target="_blank" rel="noopener" href="http://consul.sbx0.cn/">consul.sbx0.cn</a> 。但是当我打开这个页面的时候，却发现没有没有登陆就可以查询全部信息？！</p>
+<span id="more"></span>
+
+<p>Consul 使用 ACL 来进行权限控制，默认没有开启。</p>
+<h2 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h2><p>访问控制表（Access Control List，ACL），又称存取控制串列，是使用以访问控制矩阵为基础的访问控制表，每一个（文件系统内的）对象对应一个串列主体。访问控制表由访问控制条目（access control entries，ACE）组成。访问控制表描述用户或系统进程对每个对象的访问控制权限。</p>
+<p>访问控制表的主要缺点是不可以有效迅速地枚举一个对象的访问权限。因此，要确定一个对象的所有访问权限需要搜索整个访问控制表来找出相对应的访问权限。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AD%98%E5%8F%96%E6%8E%A7%E5%88%B6%E4%B8%B2%E5%88%97">维基百科 访问控制表</a></p>
+</blockquote>
+<h2 id="Consul-开启-ACL"><a href="#Consul-开启-ACL" class="headerlink" title="Consul 开启 ACL"></a>Consul 开启 ACL</h2><p>在启动 Consul 的参数里面配置的 <code>-config-dir xxx</code> 对应的配置文件夹中添加 <code>agent.hcl</code> 文件。</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">acl = &#123;
+  enabled = true
+  default_policy = "deny"
+  enable_token_persistence = true
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后启动 Consul</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">nohup</span> ./consul agent -server -bootstrap -ui -client <span class="token number">0.0</span>.0.0 -data-dir /home/consul/data -config-dir /home/consul/config  <span class="token operator">&amp;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>等待启动完成之后，运行以下命令</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./consul acl bootstrap<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>会返回类似这样的结果</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">AccessorID:       ce1234bf-1234-3033-cb3c-d8d1aq312422
+SecretID:         e6123457-1232-57c1-e977-1a0a6123ds12
+Description:      Bootstrap Token (Global Management)
+Local:            false
+Create Time:      2020-12-19 19:15:52.499316942 +0800 CST
+Policies:
+   12412410-1234-1242-1234-123124111231 - global-management<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>其中的 <code>SecretID</code> 就是我们 <code>token</code> 。</p>
+<p>填入网页端登录对应的输入框中。</p>
+<img src="/post/consul-acl/1.png" class="" title="登录">
+
+<p>大功告成！</p>
+<img src="/post/consul-acl/2.png" class="" title="登录">
+
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://learn.hashicorp.com/tutorials/consul/access-control-setup-production#apply-individual-tokens-to-agents">Secure Consul with Access Control Lists (ACLs)</a></p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ACL"><span class="toc-number">1.</span> <span class="toc-text">ACL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Consul-%E5%BC%80%E5%90%AF-ACL"><span class="toc-number">2.</span> <span class="toc-text">Consul 开启 ACL</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/consul-acl.html"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/consul-acl.html&text=Consul 开启 ACL"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/consul-acl.html&title=Consul 开启 ACL"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/consul-acl.html&is_video=false&description=Consul 开启 ACL"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Consul 开启 ACL&body=Check out this article: https://blog.sbx0.cn/post/consul-acl.html"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/consul-acl.html&title=Consul 开启 ACL"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/consul-acl.html&title=Consul 开启 ACL"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/consul-acl.html&title=Consul 开启 ACL"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/consul-acl.html&title=Consul 开启 ACL"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/consul-acl.html&name=Consul 开启 ACL&description=&lt;p&gt;我将 Consul 部署到自己的服务器上，并且给它配上了相应的域名 &lt;a href=&#34;http://consul.sbx0.cn/&#34;&gt;consul.sbx0.cn&lt;/a&gt; 。但是当我打开这个页面的时候，却发现没有没有登陆就可以查询全部信息？！&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/consul-acl.html&t=Consul 开启 ACL"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    sbx0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

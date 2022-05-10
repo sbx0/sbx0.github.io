@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>sbx0&#39;s blog</title>
+  <icon>https://blog.sbx0.cn/icon.png</icon>
+  <subtitle>知行合一</subtitle>
+  <link href="https://blog.sbx0.cn/atom.xml" rel="self"/>
+  
+  <link href="https://blog.sbx0.cn/"/>
+  <updated>2022-05-10T09:13:57.000Z</updated>
+  <id>https://blog.sbx0.cn/</id>
+  
+  <author>
+    <name>sbx0</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ubuntu默认的Maven不支持JDK17</title>
+    <link href="https://blog.sbx0.cn/post/maven-jdk-17.html"/>
+    <id>https://blog.sbx0.cn/post/maven-jdk-17.html</id>
+    <published>2022-05-10T09:13:57.000Z</published>
+    <updated>2022-05-10T09:13:57.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Ubuntu默认的Maven不支持JDK17，需要手动升级。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="随手记录" scheme="https://blog.sbx0.cn/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0%E5%BD%95/"/>
+    
+    
+    <category term="maven" scheme="https://blog.sbx0.cn/tags/maven/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VIM 操作手册</title>
+    <link href="https://blog.sbx0.cn/post/vim.html"/>
+    <id>https://blog.sbx0.cn/post/vim.html</id>
+    <published>2022-05-09T10:06:54.000Z</published>
+    <updated>2022-05-09T10:06:54.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;VIM 太好用了！&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="VIM" scheme="https://blog.sbx0.cn/tags/VIM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JWT</title>
+    <link href="https://blog.sbx0.cn/post/jwt.html"/>
+    <id>https://blog.sbx0.cn/post/jwt.html</id>
+    <published>2020-12-27T17:13:58.000Z</published>
+    <updated>2021-01-08T14:27:58.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;JWT 全称 JSON Web Token，是一个开放标准(RFC 7519)，用来在各方之间安全地传输信息。JWT 可被验证和信任，因为它是数字签名的。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="好东西就得大伙一起看" scheme="https://blog.sbx0.cn/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/"/>
+    
+    <category term="不懂就查" scheme="https://blog.sbx0.cn/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/%E4%B8%8D%E6%87%82%E5%B0%B1%E6%9F%A5/"/>
+    
+    
+    <category term="JSON Web Token" scheme="https://blog.sbx0.cn/tags/JSON-Web-Token/"/>
+    
+    <category term="JWT" scheme="https://blog.sbx0.cn/tags/JWT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Cloud Gateway 排错、调试技巧总结</title>
+    <link href="https://blog.sbx0.cn/post/spring-cloud-gateway-troubleshoot-errors.html"/>
+    <id>https://blog.sbx0.cn/post/spring-cloud-gateway-troubleshoot-errors.html</id>
+    <published>2020-12-27T15:24:48.000Z</published>
+    <updated>2020-12-27T15:24:48.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文总结Spring Cloud Gateway的排错、调试技巧。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Spring Cloud Gateway" scheme="https://blog.sbx0.cn/tags/Spring-Cloud-Gateway/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Cloud Gateway 查漏补缺</title>
+    <link href="https://blog.sbx0.cn/post/spring-cloud-gateway-more.html"/>
+    <id>https://blog.sbx0.cn/post/spring-cloud-gateway-more.html</id>
+    <published>2020-12-27T15:21:02.000Z</published>
+    <updated>2020-12-27T15:21:02.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文探讨Spring Cloud Gateway的其他配置，主要包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如何实现TLS&amp;#x2F;SSL（HTTPS访问）&lt;/li&gt;
+&lt;li&gt;Spring Cloud Gateway的配置&lt;/li&gt;
+&lt;li&gt;如何开启Access Log&lt;/li&gt;
+&lt;li&gt;如何实现跨域&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Spring Cloud Gateway" scheme="https://blog.sbx0.cn/tags/Spring-Cloud-Gateway/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Cloud Gateway 监控</title>
+    <link href="https://blog.sbx0.cn/post/spring-cloud-gateway-monitor.html"/>
+    <id>https://blog.sbx0.cn/post/spring-cloud-gateway-monitor.html</id>
+    <published>2020-12-26T18:32:20.000Z</published>
+    <updated>2020-12-26T18:32:20.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;欢迎加入Spring Cloud Gateway监控豪华套餐——&lt;br&gt;只要为Spring Cloud Gateway添加Spring Boot Actuator（ &lt;code&gt;spring-boot-starter-actuator&lt;/code&gt; ）的依赖，并将 &lt;code&gt;gateway&lt;/code&gt; 端点暴露，即可获得若干监控端点，监控 &amp;amp; 操作Spring Cloud Gateway的方方面面。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Spring Cloud Gateway" scheme="https://blog.sbx0.cn/tags/Spring-Cloud-Gateway/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>全局过滤器</title>
+    <link href="https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html"/>
+    <id>https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html</id>
+    <published>2020-12-26T18:03:21.000Z</published>
+    <updated>2020-12-26T18:03:21.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文详细探讨Spring Cloud Gateway内置的全局过滤器。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="过滤器" scheme="https://blog.sbx0.cn/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>过滤器工厂详解</title>
+    <link href="https://blog.sbx0.cn/post/spring-cloud-gateway-filter-factory-detail.html"/>
+    <id>https://blog.sbx0.cn/post/spring-cloud-gateway-filter-factory-detail.html</id>
+    <published>2020-12-26T17:47:35.000Z</published>
+    <updated>2020-12-26T17:47:35.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;这一节来探讨Spring Cloud Gateway内置的Filter工厂。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="过滤器" scheme="https://blog.sbx0.cn/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>过滤器工厂</title>
+    <link href="https://blog.sbx0.cn/post/spring-cloud-gateway-filter-factory.html"/>
+    <id>https://blog.sbx0.cn/post/spring-cloud-gateway-filter-factory.html</id>
+    <published>2020-12-26T17:14:50.000Z</published>
+    <updated>2020-12-26T17:14:50.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;这一节来探讨如何自定义过滤器工厂。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="过滤器" scheme="https://blog.sbx0.cn/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>路由谓词工厂</title>
+    <link href="https://blog.sbx0.cn/post/route-predicate-factory.html"/>
+    <id>https://blog.sbx0.cn/post/route-predicate-factory.html</id>
+    <published>2020-12-26T16:29:15.000Z</published>
+    <updated>2020-12-26T16:29:15.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;这一节来详细探讨Spring Cloud Gateway的路由谓词工厂 （Route Predicate Factories），路由谓词工厂的作用是：符合Predicate的条件，就使用该路由的配置，否则就不管。 只要掌握这一句，掌握路由谓词工厂就比较轻松了。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="谓词" scheme="https://blog.sbx0.cn/tags/%E8%B0%93%E8%AF%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Cloud Gateway</title>
+    <link href="https://blog.sbx0.cn/post/spring-cloud-gateway.html"/>
+    <id>https://blog.sbx0.cn/post/spring-cloud-gateway.html</id>
+    <published>2020-12-25T23:29:21.000Z</published>
+    <updated>2020-12-26T15:46:21.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;SpringCloud Gateway 是 Spring Cloud 的一个全新项目，该项目是基于 Spring 5.0，Spring Boot 2.0 和 Project Reactor 等技术开发的网关，它旨在为微服务架构提供一种简单有效的统一的 API 路由管理方式。&lt;/p&gt;
+&lt;p&gt;SpringCloud Gateway 作为 Spring Cloud 生态系统中的网关，目标是替代 Zuul，在Spring Cloud 2.0以上版本中，没有对新版本的Zuul 2.0以上最新高性能版本进行集成，仍然还是使用的Zuul 2.0之前的非Reactor模式的老版本。而为了提升网关的性能，SpringCloud Gateway是基于WebFlux框架实现的，而WebFlux框架底层则使用了高性能的Reactor模式通信框架Netty。&lt;/p&gt;
+&lt;p&gt;Spring Cloud Gateway 的目标，不仅提供统一的路由方式，并且基于 Filter 链的方式提供了网关基本的功能，例如：安全，监控&amp;#x2F;指标，和限流。&lt;/p&gt;
+&lt;p&gt;Spring Cloud Gateway 底层使用了高性能的通信框架Netty。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Gateway" scheme="https://blog.sbx0.cn/tags/Gateway/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Consul 开启 ACL</title>
+    <link href="https://blog.sbx0.cn/post/consul-acl.html"/>
+    <id>https://blog.sbx0.cn/post/consul-acl.html</id>
+    <published>2020-12-19T19:29:40.000Z</published>
+    <updated>2020-12-19T19:29:40.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;我将 Consul 部署到自己的服务器上，并且给它配上了相应的域名 &lt;a href=&quot;http://consul.sbx0.cn/&quot;&gt;consul.sbx0.cn&lt;/a&gt; 。但是当我打开这个页面的时候，却发现没有没有登陆就可以查询全部信息？！&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Consul" scheme="https://blog.sbx0.cn/tags/Consul/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Cloud Stream 知识点盘点</title>
+    <link href="https://blog.sbx0.cn/post/spring-cloud-stream-knowledge.html"/>
+    <id>https://blog.sbx0.cn/post/spring-cloud-stream-knowledge.html</id>
+    <published>2020-12-08T16:17:34.000Z</published>
+    <updated>2020-12-08T16:23:15.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文来对Spring Cloud Stream，做一个知识点盘点和总结，包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;概念&lt;/li&gt;
+&lt;li&gt;Stream注解&lt;/li&gt;
+&lt;li&gt;Spring Integration（Spring Cloud Stream的底层）注解&lt;/li&gt;
+&lt;li&gt;Spring Messaging（Spring消息编程模型）注解&lt;/li&gt;
+&lt;li&gt;Spring Cloud Stream API&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Spring Cloud Stream" scheme="https://blog.sbx0.cn/tags/Spring-Cloud-Stream/"/>
+    
+    <category term="Spring Cloud" scheme="https://blog.sbx0.cn/tags/Spring-Cloud/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring Cloud Stream 错误处理详解</title>
+    <link href="https://blog.sbx0.cn/post/spring-cloud-stream-error-handle.html"/>
+    <id>https://blog.sbx0.cn/post/spring-cloud-stream-error-handle.html</id>
+    <published>2020-12-08T15:03:08.000Z</published>
+    <updated>2020-12-08T16:13:15.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文基于Spring Cloud Hoxton M2，理论支持Finchley及更高版本。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Spring Cloud Stream" scheme="https://blog.sbx0.cn/tags/Spring-Cloud-Stream/"/>
+    
+    <category term="Spring Cloud" scheme="https://blog.sbx0.cn/tags/Spring-Cloud/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MQ 使用手册</title>
+    <link href="https://blog.sbx0.cn/post/mq.html"/>
+    <id>https://blog.sbx0.cn/post/mq.html</id>
+    <published>2020-11-23T12:56:21.000Z</published>
+    <updated>2020-11-30T22:10:21.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;MQ 使用场景&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;异步处理&lt;/li&gt;
+&lt;li&gt;流量削峰填谷&lt;/li&gt;
+&lt;li&gt;解耦&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="MQ" scheme="https://blog.sbx0.cn/tags/MQ/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Resilience4J 使用手册</title>
+    <link href="https://blog.sbx0.cn/post/resilience4j.html"/>
+    <id>https://blog.sbx0.cn/post/resilience4j.html</id>
+    <published>2020-11-22T19:46:27.000Z</published>
+    <updated>2020-11-22T19:46:27.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Resilience4J 是一个轻量级的容错框架，灵感来自于 Netflix 的 Hystrix&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Resilience4J" scheme="https://blog.sbx0.cn/tags/Resilience4J/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Feign常见问题总结</title>
+    <link href="https://blog.sbx0.cn/post/feign-faq-summary.html"/>
+    <id>https://blog.sbx0.cn/post/feign-faq-summary.html</id>
+    <published>2020-11-22T16:56:02.000Z</published>
+    <updated>2020-11-22T16:56:02.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文基于Spring Cloud Hoxton M2，理论支持Spring Cloud Finchley及更高版本。&lt;br&gt;本文总结Feign常见问题及解决方案。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Feign" scheme="https://blog.sbx0.cn/tags/Feign/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Feign多参数请求构造</title>
+    <link href="https://blog.sbx0.cn/post/feign-multi-parameter-request-structure.html"/>
+    <id>https://blog.sbx0.cn/post/feign-multi-parameter-request-structure.html</id>
+    <published>2020-11-22T16:21:32.000Z</published>
+    <updated>2020-11-22T16:21:32.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本文基于Spring Cloud Greenwich Hoxton M2，理论上支持Finchley及更高版本。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Feign" scheme="https://blog.sbx0.cn/tags/Feign/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Feign 使用手册</title>
+    <link href="https://blog.sbx0.cn/post/feign.html"/>
+    <id>https://blog.sbx0.cn/post/feign.html</id>
+    <published>2020-11-15T16:09:35.000Z</published>
+    <updated>2020-11-22T19:44:35.000Z</updated>
+    
+    
+    <summary type="html">&lt;ul&gt;
+&lt;li&gt;Netflix 开源的声明式的 HTTP 客户端&lt;/li&gt;
+&lt;li&gt;GitHub &lt;a href=&quot;https://github.com/OpenFeign/feign&quot;&gt;https://github.com/OpenFeign/feign&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Feign makes writing java http clients easier&lt;/li&gt;
+&lt;/ul&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="Feign" scheme="https://blog.sbx0.cn/tags/Feign/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>WSL2 装 CentOS7</title>
+    <link href="https://blog.sbx0.cn/post/wsl2.html"/>
+    <id>https://blog.sbx0.cn/post/wsl2.html</id>
+    <published>2020-11-07T17:06:11.000Z</published>
+    <updated>2020-11-07T17:06:11.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;适用于 Linux 的 Windows 子系统可让开发人员直接在 Windows 上按原样运行 GNU&amp;#x2F;Linux 环境（包括大多数命令行工具、实用工具和应用程序），且不会产生传统虚拟机或双启动设置开销。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="你怎么又忘了" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/"/>
+    
+    <category term="使用手册" scheme="https://blog.sbx0.cn/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"/>
+    
+    
+    <category term="WSL2" scheme="https://blog.sbx0.cn/tags/WSL2/"/>
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang=cn>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Consul 也能进行配置管理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Consul 使用手册 - 配置管理">
+<meta property="og:url" content="https://blog.sbx0.cn/post/consul-2.html">
+<meta property="og:site_name" content="sbx0&#39;s blog">
+<meta property="og:description" content="Consul 也能进行配置管理。">
+<meta property="og:locale">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-2/1.png">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-2/2.png">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-2/3.png">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-2/4.png">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-2/5.png">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-2/7.png">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-2/8.png">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-2/9.png">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-2/10.png">
+<meta property="og:image" content="https://blog.sbx0.cn/post/consul-2/11.png">
+<meta property="article:published_time" content="2020-10-02T15:57:38.000Z">
+<meta property="article:modified_time" content="2020-10-02T15:57:38.000Z">
+<meta property="article:author" content="sbx0">
+<meta property="article:tag" content="Consul">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.sbx0.cn/post/consul-2/1.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Consul 使用手册 - 配置管理</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="sbx0's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/consul-3.html"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/consul.html"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/consul-2.html"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/consul-2.html&text=Consul 使用手册 - 配置管理"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/consul-2.html&title=Consul 使用手册 - 配置管理"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/consul-2.html&is_video=false&description=Consul 使用手册 - 配置管理"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Consul 使用手册 - 配置管理&body=Check out this article: https://blog.sbx0.cn/post/consul-2.html"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/consul-2.html&title=Consul 使用手册 - 配置管理"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/consul-2.html&title=Consul 使用手册 - 配置管理"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/consul-2.html&title=Consul 使用手册 - 配置管理"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/consul-2.html&title=Consul 使用手册 - 配置管理"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/consul-2.html&name=Consul 使用手册 - 配置管理&description=&lt;p&gt;Consul 也能进行配置管理。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/consul-2.html&t=Consul 使用手册 - 配置管理"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Boot-%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">1.</span> <span class="toc-text">Spring Boot 配置管理与优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Boot-%E5%A4%9A%E7%A7%8D%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">Spring Boot 多种配置方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Profile"><span class="toc-number">1.2.</span> <span class="toc-text">Profile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Consul%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">使用Consul配置管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">为什么要使用配置服务器？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-bootstrap-yml"><span class="toc-number">2.2.</span> <span class="toc-text">创建 bootstrap.yml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%AF%BC%E4%B8%8A%E4%B8%8B%E6%96%87-Boostrap-Context"><span class="toc-number">3.</span> <span class="toc-text">引导上下文 Boostrap Context</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8A%A8%E6%80%81%E5%88%B7%E6%96%B0-RefreshScope"><span class="toc-number">4.</span> <span class="toc-text">配置动态刷新 @RefreshScope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Cloud-Consul-%E6%94%AF%E6%8C%81%E7%9A%84%E9%85%8D%E7%BD%AE%E6%A0%BC%E5%BC%8F"><span class="toc-number">5.</span> <span class="toc-text">Spring Cloud Consul 支持的配置格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-git2consul-%E7%AE%A1%E7%90%86%E9%85%8D%E7%BD%AE"><span class="toc-number">6.</span> <span class="toc-text">使用 git2consul 管理配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">6.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">6.2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">6.3.</span> <span class="toc-text">启动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">7.</span> <span class="toc-text">配置优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Boot-%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">7.1.</span> <span class="toc-text">Spring Boot 配置优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Cloud-%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">7.2.</span> <span class="toc-text">Spring Cloud 配置优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%9C%AC%E5%9C%B0%E9%85%8D%E7%BD%AE%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">7.3.</span> <span class="toc-text">远程配置与本地配置的优先级</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">8.</span> <span class="toc-text">配置管理最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">9.</span> <span class="toc-text">其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">10.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Consul 使用手册 - 配置管理
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sbx0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-10-02T15:57:38.000Z" itemprop="datePublished">2020-10-02</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> › <a class="category-link" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Consul/" rel="tag">Consul</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Consul 也能进行配置管理。</p>
+<span id="more"></span>
+
+<h2 id="Spring-Boot-配置管理与优先级"><a href="#Spring-Boot-配置管理与优先级" class="headerlink" title="Spring Boot 配置管理与优先级"></a>Spring Boot 配置管理与优先级</h2><h3 id="Spring-Boot-多种配置方式"><a href="#Spring-Boot-多种配置方式" class="headerlink" title="Spring Boot 多种配置方式"></a>Spring Boot 多种配置方式</h3><ol>
+<li>读取环境变量 <pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> $<span class="token punctuation">&#123;</span>SERVER_PORT<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+ <img src="/post/consul-2/1.png" class="" title="IDEA中设置环境变量">
+ <img src="/post/consul-2/2.png" class="" title="IDEA中设置环境变量">
+ <img src="/post/consul-2/3.png" class="" title="IDEA中设置环境变量">
+
+ <pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">java -jar xxx.jar --server.port&#x3D;8083
+SERVER_PORT java -jar xxx.jar
+http:&#x2F;&#x2F;localhost:8083&#x2F;actuator&#x2F;env
+http:&#x2F;&#x2F;localhost:8083&#x2F;actuator&#x2F;configprops<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ol>
+<h3 id="Profile"><a href="#Profile" class="headerlink" title="Profile"></a>Profile</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">profiles</span><span class="token punctuation">:</span>
+    <span class="token key atrule">active</span><span class="token punctuation">:</span> dev
+<span class="token punctuation">---</span>
+<span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">profiles</span><span class="token punctuation">:</span> dev
+<span class="token punctuation">---</span>
+<span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">profiles</span><span class="token punctuation">:</span> prod<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<img src="/post/consul-2/4.png" class="" title="properties">
+<pre class="line-numbers language-cmd" data-language="cmd"><code class="language-cmd">java -jar xxx.jar --spring.profiles.active&#x3D;dev
+java -jar xxx.jar --spring.profiles.active&#x3D;dev,prod<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="使用Consul配置管理"><a href="#使用Consul配置管理" class="headerlink" title="使用Consul配置管理"></a>使用Consul配置管理</h2><h3 id="为什么要使用配置服务器？"><a href="#为什么要使用配置服务器？" class="headerlink" title="为什么要使用配置服务器？"></a>为什么要使用配置服务器？</h3><ul>
+<li>配置共享与重用</li>
+<li>配置动态刷新</li>
+<li>…</li>
+</ul>
+<img src="/post/consul-2/5.png" class="" title="约定大于配置">
+
+<h3 id="创建-bootstrap-yml"><a href="#创建-bootstrap-yml" class="headerlink" title="创建 bootstrap.yml"></a>创建 bootstrap.yml</h3><p><code>application.yml</code> 中所有的配置都可以交给 Consul 管理。</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">profiles</span><span class="token punctuation">:</span>
+    <span class="token key atrule">active</span><span class="token punctuation">:</span> dev
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> micro<span class="token punctuation">-</span>user
+  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+    <span class="token key atrule">consul</span><span class="token punctuation">:</span>
+      <span class="token key atrule">host</span><span class="token punctuation">:</span> localhost
+      <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8500</span>
+      <span class="token key atrule">config</span><span class="token punctuation">:</span>
+        <span class="token key atrule">format</span><span class="token punctuation">:</span> yaml
+        <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+        <span class="token key atrule">prefix</span><span class="token punctuation">:</span> config
+        <span class="token key atrule">default-context</span><span class="token punctuation">:</span> application
+        <span class="token key atrule">profile-separator</span><span class="token punctuation">:</span> <span class="token string">','</span>
+        <span class="token key atrule">data-key</span><span class="token punctuation">:</span> data
+        <span class="token key atrule">watch</span><span class="token punctuation">:</span>
+          <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+          <span class="token key atrule">delay</span><span class="token punctuation">:</span> <span class="token number">1000</span>
+          <span class="token key atrule">wait-time</span><span class="token punctuation">:</span> <span class="token number">55</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">cn<span class="token punctuation">.</span>sbx0<span class="token punctuation">.</span>micro<span class="token punctuation">.</span>user<span class="token punctuation">.</span>controller</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Value</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">GetMapping</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">RestController</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@RestController</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token punctuation">&#123;</span>
+
+  <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;first.config&#125;"</span><span class="token punctuation">)</span>
+  <span class="token keyword">private</span> <span class="token class-name">String</span> firstConfig<span class="token punctuation">;</span>
+
+  <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/first-config"</span><span class="token punctuation">)</span>
+  <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>firstConfig<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<img src="/post/consul-2/7.png" class="" title="Consul创建 key&#x2F;value">
+
+<img src="/post/consul-2/8.png" class="" title="测试">
+
+<h2 id="引导上下文-Boostrap-Context"><a href="#引导上下文-Boostrap-Context" class="headerlink" title="引导上下文 Boostrap Context"></a>引导上下文 Boostrap Context</h2><p>Boostrap Context 是 Application Context 的父上下文， Spring Cloud 引入。</p>
+<p><code>bootstrap.yml</code> 就是引导上下文。</p>
+<h2 id="配置动态刷新-RefreshScope"><a href="#配置动态刷新-RefreshScope" class="headerlink" title="配置动态刷新 @RefreshScope"></a>配置动态刷新 @RefreshScope</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">cn<span class="token punctuation">.</span>sbx0<span class="token punctuation">.</span>micro<span class="token punctuation">.</span>user<span class="token punctuation">.</span>controller</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Value</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>cloud<span class="token punctuation">.</span>context<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">RefreshScope</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">GetMapping</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">RestController</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@RefreshScope</span>
+<span class="token annotation punctuation">@RestController</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token punctuation">&#123;</span>
+
+  <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&#123;first.config&#125;"</span><span class="token punctuation">)</span>
+  <span class="token keyword">private</span> <span class="token class-name">String</span> firstConfig<span class="token punctuation">;</span>
+
+  <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/first-config"</span><span class="token punctuation">)</span>
+  <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>firstConfig<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>配置刷新有一定的时延。那么希望立即生效那么该怎么做呢？只需要发送一个 POST 请求到 <code>/actuator/refresh</code> 。</p>
+<img src="/post/consul-2/9.png" class="" title="发送配置刷新请求">
+
+<h2 id="Spring-Cloud-Consul-支持的配置格式"><a href="#Spring-Cloud-Consul-支持的配置格式" class="headerlink" title="Spring Cloud Consul 支持的配置格式"></a>Spring Cloud Consul 支持的配置格式</h2><img src="/post/consul-2/10.png" class="" title="支持的配置格式">
+<img src="/post/consul-2/11.png" class="" title="支持的配置格式">
+
+<h2 id="使用-git2consul-管理配置"><a href="#使用-git2consul-管理配置" class="headerlink" title="使用 git2consul 管理配置"></a>使用 git2consul 管理配置</h2><p>git2consul（基于 Node.js 编写）可以用来将 Git 仓库中的数据，同步到 Consul </p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre class="line-numbers language-none"><code class="language-none">npm install -g git2consul<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token comment">// 配置版本</span>
+  <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0"</span><span class="token punctuation">,</span>
+  <span class="token property">"repos"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">&#123;</span>
+      <span class="token comment">// 名称，指的是在consul里面的目录名称</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"config"</span><span class="token punctuation">,</span>
+      <span class="token comment">// 要同步的Git仓库</span>
+      <span class="token property">"url"</span><span class="token operator">:</span> <span class="token string">"你的git仓库"</span><span class="token punctuation">,</span>
+      <span class="token property">"branches"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token comment">// 要同步的分支</span>
+        <span class="token string">"master"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token comment">// 是否要把分支名称作为Consul的key前缀</span>
+      <span class="token property">"include_branch_name"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token property">"hooks"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span>
+          <span class="token comment">// 拉取模式</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"polling"</span><span class="token punctuation">,</span>
+          <span class="token comment">// 同步的间隔（分钟）</span>
+          <span class="token property">"interval"</span><span class="token operator">:</span> <span class="token string">"1"</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>其他选项详见：<code>https://github.com/breser/git2consul</code></p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><pre class="line-numbers language-none"><code class="language-none">git2consul --config-file &#x2F;Users&#x2F;itmuch&#x2F;develop&#x2F;git2consul.json<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="配置优先级"><a href="#配置优先级" class="headerlink" title="配置优先级"></a>配置优先级</h2><h3 id="Spring-Boot-配置优先级"><a href="#Spring-Boot-配置优先级" class="headerlink" title="Spring Boot 配置优先级"></a>Spring Boot 配置优先级</h3><p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config">Externalized Configuration</a></p>
+<h3 id="Spring-Cloud-配置优先级"><a href="#Spring-Cloud-配置优先级" class="headerlink" title="Spring Cloud 配置优先级"></a>Spring Cloud 配置优先级</h3><ol>
+<li>{application}-{profile}.yml <em>指定</em> 应用在 <em>指定</em> 环境的配置</li>
+<li>{application}.yml  <em>指定</em> 应用在 <em>所有</em> 环境的配置</li>
+<li>application-{profile}.yml <em>所有</em> 应用在 <em>指定</em> 环境下的配置</li>
+<li>application.yml <em>所有</em> 应用在 <em>所有</em> 环境下的配置</li>
+</ol>
+<h3 id="远程配置与本地配置的优先级"><a href="#远程配置与本地配置的优先级" class="headerlink" title="远程配置与本地配置的优先级"></a>远程配置与本地配置的优先级</h3><ul>
+<li>默认情况下远程配置优先级更高</li>
+<li>ps：以下三个配置必须存放在远程才有效<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+    <span class="token key atrule">config</span><span class="token punctuation">:</span>
+      <span class="token comment"># 是否允许本地配置覆盖远程配置</span>
+      <span class="token key atrule">allow-override</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+      <span class="token comment"># 是否一切以本地配置为准，默认 false</span>
+      <span class="token key atrule">override-none</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+      <span class="token comment"># 系统环境变量或系统属性才能覆盖远程配置文件的配置</span>
+      <span class="token comment"># 本地配置文件中配置优先级低于远程配置，默认 true</span>
+      <span class="token key atrule">override-system-properties</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+<h2 id="配置管理最佳实践"><a href="#配置管理最佳实践" class="headerlink" title="配置管理最佳实践"></a>配置管理最佳实践</h2><ul>
+<li>能放本地，就不放在远程上</li>
+<li>尽量规避优先级</li>
+<li>制定配置规范，必须添加注释</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><code>mvn clean install -DskipTests</code></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://ke.qq.com/classroom/index.html#course_id=475173&term_id=100569009&ch_id=689945&vch_id=655&section_id=2120&task_id=4165800450015269">BAT架构师带你从零打造微服务项目</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Boot-%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E4%B8%8E%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">1.</span> <span class="toc-text">Spring Boot 配置管理与优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Boot-%E5%A4%9A%E7%A7%8D%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">Spring Boot 多种配置方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Profile"><span class="toc-number">1.2.</span> <span class="toc-text">Profile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Consul%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">使用Consul配置管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">为什么要使用配置服务器？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-bootstrap-yml"><span class="toc-number">2.2.</span> <span class="toc-text">创建 bootstrap.yml</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%AF%BC%E4%B8%8A%E4%B8%8B%E6%96%87-Boostrap-Context"><span class="toc-number">3.</span> <span class="toc-text">引导上下文 Boostrap Context</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8A%A8%E6%80%81%E5%88%B7%E6%96%B0-RefreshScope"><span class="toc-number">4.</span> <span class="toc-text">配置动态刷新 @RefreshScope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Cloud-Consul-%E6%94%AF%E6%8C%81%E7%9A%84%E9%85%8D%E7%BD%AE%E6%A0%BC%E5%BC%8F"><span class="toc-number">5.</span> <span class="toc-text">Spring Cloud Consul 支持的配置格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-git2consul-%E7%AE%A1%E7%90%86%E9%85%8D%E7%BD%AE"><span class="toc-number">6.</span> <span class="toc-text">使用 git2consul 管理配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">6.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">6.2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-number">6.3.</span> <span class="toc-text">启动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">7.</span> <span class="toc-text">配置优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Boot-%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">7.1.</span> <span class="toc-text">Spring Boot 配置优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Cloud-%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">7.2.</span> <span class="toc-text">Spring Cloud 配置优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE%E4%B8%8E%E6%9C%AC%E5%9C%B0%E9%85%8D%E7%BD%AE%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">7.3.</span> <span class="toc-text">远程配置与本地配置的优先级</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="toc-number">8.</span> <span class="toc-text">配置管理最佳实践</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">9.</span> <span class="toc-text">其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">10.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/consul-2.html"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/consul-2.html&text=Consul 使用手册 - 配置管理"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/consul-2.html&title=Consul 使用手册 - 配置管理"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/consul-2.html&is_video=false&description=Consul 使用手册 - 配置管理"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Consul 使用手册 - 配置管理&body=Check out this article: https://blog.sbx0.cn/post/consul-2.html"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/consul-2.html&title=Consul 使用手册 - 配置管理"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/consul-2.html&title=Consul 使用手册 - 配置管理"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/consul-2.html&title=Consul 使用手册 - 配置管理"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/consul-2.html&title=Consul 使用手册 - 配置管理"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/consul-2.html&name=Consul 使用手册 - 配置管理&description=&lt;p&gt;Consul 也能进行配置管理。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/consul-2.html&t=Consul 使用手册 - 配置管理"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    sbx0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

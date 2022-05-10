@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang=cn>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="本文详细探讨Spring Cloud Gateway内置的全局过滤器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="全局过滤器">
+<meta property="og:url" content="https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html">
+<meta property="og:site_name" content="sbx0&#39;s blog">
+<meta property="og:description" content="本文详细探讨Spring Cloud Gateway内置的全局过滤器。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-12-26T18:03:21.000Z">
+<meta property="article:modified_time" content="2020-12-26T18:03:21.000Z">
+<meta property="article:author" content="sbx0">
+<meta property="article:tag" content="过滤器">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>全局过滤器</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="sbx0's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/spring-cloud-gateway-monitor.html"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/spring-cloud-gateway-filter-factory-detail.html"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&text=全局过滤器"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&title=全局过滤器"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&is_video=false&description=全局过滤器"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=全局过滤器&body=Check out this article: https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&title=全局过滤器"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&title=全局过滤器"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&title=全局过滤器"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&title=全局过滤器"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&name=全局过滤器&description=&lt;p&gt;本文详细探讨Spring Cloud Gateway内置的全局过滤器。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&t=全局过滤器"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Combined-Global-Filter-and-GatewayFilter-Ordering"><span class="toc-number">1.</span> <span class="toc-text">1 Combined Global Filter and GatewayFilter Ordering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Forward-Routing-Filter"><span class="toc-number">2.</span> <span class="toc-text">2 Forward Routing Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-LoadBalancerClient-Filter"><span class="toc-number">3.</span> <span class="toc-text">3 LoadBalancerClient Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-ReactiveLoadBalancerClient-Filter"><span class="toc-number">4.</span> <span class="toc-text">4 ReactiveLoadBalancerClient Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Netty-Routing-Filter"><span class="toc-number">5.</span> <span class="toc-text">5 Netty Routing Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Netty-Write-Response-Filter"><span class="toc-number">6.</span> <span class="toc-text">6 Netty Write Response Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-RouteToRequestUrl-Filter"><span class="toc-number">7.</span> <span class="toc-text">7 RouteToRequestUrl Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Websocket-Routing-Filter"><span class="toc-number">8.</span> <span class="toc-text">8 Websocket Routing Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Gateway-Metrics-Filter"><span class="toc-number">9.</span> <span class="toc-text">9  Gateway Metrics Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Marking-An-Exchange-As-Routed"><span class="toc-number">10.</span> <span class="toc-text">10 Marking An Exchange As Routed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">11.</span> <span class="toc-text">参考文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">12.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        全局过滤器
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sbx0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-12-26T18:03:21.000Z" itemprop="datePublished">2020-12-26</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> › <a class="category-link" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>本文详细探讨Spring Cloud Gateway内置的全局过滤器。</p>
+<span id="more"></span>
+
+<p><code>GlobalFilter</code> 接口和 <code>GatewayFilter</code> 有一样的接口定义，只不过， <code>GlobalFilter</code> 会作用于所有路由。</p>
+<blockquote>
+<p><strong>TIPS</strong></p>
+<p><strong>官方声明</strong>：GlobalFilter的接口定义以及用法在未来的版本可能会发生变化。</p>
+<p><strong>个人判断</strong>：GlobalFilter可用于生产；如果有自定义GlobalFilter的需求，理论上也可放心使用——未来即使接口定义以及使用方式发生变化，应该也是平滑过渡的（比如Zuul的Fallback，原先叫ZuulFallbackProvider，后来改叫FallbackProvider，中间就有段时间新旧使用方式都支持，后面才逐步废弃老的使用方式）。</p>
+</blockquote>
+<h2 id="1-Combined-Global-Filter-and-GatewayFilter-Ordering"><a href="#1-Combined-Global-Filter-and-GatewayFilter-Ordering" class="headerlink" title="1 Combined Global Filter and GatewayFilter Ordering"></a>1 Combined Global Filter and GatewayFilter Ordering</h2><p>当请求到来时，<code>Filtering Web Handler</code> 处理器会添加所有 <code>GlobalFilter</code> 实例和匹配的 <code>GatewayFilter</code> 实例到过滤器链中。<br>过滤器链会使用 <code>org.springframework.core.Ordered</code> 注解所指定的顺序，进行排序。Spring Cloud Gateway区分了过滤器逻辑执行的”pre”和”post”阶段，所以优先级高的过滤器将会在pre阶段最先执行，优先级最低的过滤器则在post阶段最后执行。</p>
+<blockquote>
+<p><strong>TIPS</strong></p>
+<p>数值越小越靠前执行，记得这一点就OK了。<br>示例代码：</p>
+</blockquote>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Bean</span>
+<span class="token keyword">public</span> <span class="token class-name">GlobalFilter</span> <span class="token function">customFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">CustomGlobalFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CustomGlobalFilter</span> <span class="token keyword">implements</span> <span class="token class-name">GlobalFilter</span><span class="token punctuation">,</span> <span class="token class-name">Ordered</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">Mono</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Void</span><span class="token punctuation">></span></span> <span class="token function">filter</span><span class="token punctuation">(</span><span class="token class-name">ServerWebExchange</span> exchange<span class="token punctuation">,</span> <span class="token class-name">GatewayFilterChain</span> chain<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"custom global filter"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> chain<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>exchange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getOrder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="2-Forward-Routing-Filter"><a href="#2-Forward-Routing-Filter" class="headerlink" title="2 Forward Routing Filter"></a>2 Forward Routing Filter</h2><p><code>ForwardRoutingFilter</code> 会查看exchange的属性 <code>ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR</code> 的值（一个URI），如果该值l的scheme是 <code>forward</code>，比如：<code>forward://localendpoint</code>，则它会使用Spirng的<code>DispatcherHandler</code> 处理该请求。请求URL的路径部分，会被forward URL中的路径覆盖。未修改的原始URL，会被追加到 <code>ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR</code> 属性中。</p>
+<blockquote>
+<p><strong>TIPS</strong></p>
+<p>这段文档太学术了，讲解了 LoadBalancerClientFilter&#96; 的实现原理，对使用者来说，意义不大；对使用者来说，只要知道这个Filter是用来做本地forward就OK了。</p>
+<p>建议：如对原理感兴趣的，建议直接研究源码，源码比官方文档好理解。</p>
+</blockquote>
+<h2 id="3-LoadBalancerClient-Filter"><a href="#3-LoadBalancerClient-Filter" class="headerlink" title="3 LoadBalancerClient Filter"></a>3 LoadBalancerClient Filter</h2><p><code>LoadBalancerClientFilter</code> 会查看exchange的属性 <code>ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR</code> 的值（一个URI），如果该值的scheme是 <code>lb</code>，比如：<code>lb://myservice</code> ，它将会使用Spring Cloud的<code>LoadBalancerClient</code> 来将 <code>myservice</code> 解析成实际的host和port，并替换掉 <code>ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR</code> 的内容。原始地址会追加到 <code>ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR</code> 中。该过滤器还会查看 <code>ServerWebExchangeUtils.GATEWAY_SCHEME_PREFIX_ATTR</code> 属性，如果发现该属性的值是 <code>lb</code> ，也会执行相同逻辑。<br>示例：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+    <span class="token key atrule">gateway</span><span class="token punctuation">:</span>
+      <span class="token key atrule">routes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">id</span><span class="token punctuation">:</span> myRoute
+        <span class="token key atrule">uri</span><span class="token punctuation">:</span> lb<span class="token punctuation">:</span>//service
+        <span class="token key atrule">predicates</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> Path=/service/<span class="token important">**</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>默认情况下，如果无法在 <code>LoadBalancer</code> 找到指定服务的实例，那么会返回503（对应如上的例子，找不到service实例，就返回503）；可使用 <code>spring.cloud.gateway.loadbalancer.use404=true</code> 让其返回404。<br><code>LoadBalancer</code>  返回的 <code>ServiceInstance</code> 的 <code>isSecure</code> 的值，会覆盖请求的scheme。举个例子，如果请求打到Gateway上使用的是 <code>HTTPS</code> ，但 <code>ServiceInstance</code> 的 <code>isSecure</code> 是false，那么下游收到的则是HTTP请求，反之亦然。然而，如果该路由指定了 <code>GATEWAY_SCHEME_PREFIX_ATTR</code> 属性，那么前缀将会被剥离，并且路由URL中的scheme会覆盖 <code>ServiceInstance</code> 的配置<br>该过滤器底层用的是Ribbon，如果你希望使用基于Reactive编程模型下的非阻塞实现，可使用 <code>ReactiveLoadBalancerClientFilter</code> ，只需添加配置： <code>spring.cloud.loadbalancer.ribbon.enabled=false</code> 即可。<br><strong>TIPS</strong></p>
+<p>这段文档太学术了，讲解了<code>LoadBalancerClientFilter</code> 的实现原理，对使用者来说，意义不大；<strong>对使用者来说，其实只要知道这个Filter是用来整合Ribbon的就OK了</strong>。</p>
+<p>建议：如对原理感兴趣的，建议直接研究源码，源码比官方文档好理解。</p>
+</blockquote>
+<h2 id="4-ReactiveLoadBalancerClient-Filter"><a href="#4-ReactiveLoadBalancerClient-Filter" class="headerlink" title="4 ReactiveLoadBalancerClient Filter"></a>4 ReactiveLoadBalancerClient Filter</h2><blockquote>
+<p><strong>TIPS</strong></p>
+<ul>
+<li>该Filter从Hoxton M3开始提供支持。</li>
+<li>功能同LoadBalancerClient Filter，只是底层使用的不是Ribbon，而是Spring Cloud Loadbalancer。</li>
+<li>要想使用ReactiveLoadBalancerClient Filter替换默认的LoadBalancerClient Filter，只需添加配置： <code>spring.cloud.loadbalancer.ribbon.enabled=false</code> 即可。<br>配置示例：</li>
+</ul>
+</blockquote>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+    <span class="token key atrule">gateway</span><span class="token punctuation">:</span>
+      <span class="token key atrule">routes</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">id</span><span class="token punctuation">:</span> myRoute
+        <span class="token key atrule">uri</span><span class="token punctuation">:</span> lb<span class="token punctuation">:</span>//service
+        <span class="token key atrule">predicates</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> Path=/service/<span class="token important">**</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="5-Netty-Routing-Filter"><a href="#5-Netty-Routing-Filter" class="headerlink" title="5 Netty Routing Filter"></a>5 Netty Routing Filter</h2><p>如果 <code>ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR</code> 的值的scheme是 <code>http</code> 或 <code>https</code> ，则运行Netty Routing Filter 。它使用Netty <code>HttpClient</code> 向下游发送代理请求。获得的响应将放在exchange的  <code>ServerWebExchangeUtils.CLIENT_RESPONSE_ATTR</code> 属性中，以便在后面的filter中使用。（有一个实验性的过滤器： <code>WebClientHttpRoutingFilter</code> 可实现相同功能，但无需Netty）</p>
+<h2 id="6-Netty-Write-Response-Filter"><a href="#6-Netty-Write-Response-Filter" class="headerlink" title="6 Netty Write Response Filter"></a>6 Netty Write Response Filter</h2><p>如果exchange中的 <code>ServerWebExchangeUtils.CLIENT_RESPONSE_ATTR</code> 属性中有  <code>HttpClientResponse</code> ，则运行 <code>NettyWriteResponseFilter</code> 。该过滤器在所有其他过滤器执行完成后执行，并将代理响应协会网关的客户端侧。（有一个实验性的过滤器： <code>WebClientWriteResponseFilter</code> 可实现相同功能，但无需Netty）</p>
+<h2 id="7-RouteToRequestUrl-Filter"><a href="#7-RouteToRequestUrl-Filter" class="headerlink" title="7 RouteToRequestUrl Filter"></a>7 RouteToRequestUrl Filter</h2><p>如果exchange中的  <code>ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR</code> 属性中有一个 <code>Route</code> 对象，则运行 <code>RouteToRequestUrlFilter</code> 。它根据请求URI创建一个新URI，但会使用该 <code>Route</code> 对象的URI属性进行更新。新URI放到exchange的 <code>ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR</code> 属性中。<br>如果URI具有scheme前缀，例如 <code>lb:ws://serviceid</code> ，该 <code>lb</code> scheme将从URI中剥离，并放到 <code>ServerWebExchangeUtils.GATEWAY_SCHEME_PREFIX_ATTR</code> 中，方便后面的过滤器使用。</p>
+<h2 id="8-Websocket-Routing-Filter"><a href="#8-Websocket-Routing-Filter" class="headerlink" title="8 Websocket Routing Filter"></a>8 Websocket Routing Filter</h2><p>如果exchange中的 <code>ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR</code> 属性的值的scheme是 <code>ws</code>或者 <code>wss</code> ，则运行Websocket Routing Filter。它底层使用Spring Web Socket将Websocket请求转发到下游。<br>可为URI添加 <code>lb</code> 前缀实现负载均衡，例如 <code>lb:ws://serviceid</code> 。</p>
+<blockquote>
+<p>如果你使用 <a target="_blank" rel="noopener" href="https://github.com/sockjs">SockJS</a> 所谓普通http的后备，则应配置正常的HTTP路由以及Websocket路由。</p>
+</blockquote>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">cloud</span><span class="token punctuation">:</span>
+    <span class="token key atrule">gateway</span><span class="token punctuation">:</span>
+      <span class="token key atrule">routes</span><span class="token punctuation">:</span>
+      <span class="token comment"># SockJS route</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">id</span><span class="token punctuation">:</span> websocket_sockjs_route
+        <span class="token key atrule">uri</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">3001</span>
+        <span class="token key atrule">predicates</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> Path=/websocket/info/<span class="token important">**</span>
+      <span class="token comment"># Normwal Websocket route</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">id</span><span class="token punctuation">:</span> websocket_route
+        <span class="token key atrule">uri</span><span class="token punctuation">:</span> ws<span class="token punctuation">:</span>//localhost<span class="token punctuation">:</span><span class="token number">3001</span>
+        <span class="token key atrule">predicates</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> Path=/websocket/<span class="token important">**</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="9-Gateway-Metrics-Filter"><a href="#9-Gateway-Metrics-Filter" class="headerlink" title="9  Gateway Metrics Filter"></a>9  Gateway Metrics Filter</h2><p>要启用Gateway Metrics，需添加 <code>spring-boot-starter-actuator</code> 依赖。然后，只要<code>spring.cloud.gateway.metrics.enabled</code> 的值不是false，就会运行Gateway Metrics Filter。此过滤器添加名为 <code>gateway.requests</code> 的时序度量（timer metric），其中包含以下标记：</p>
+<ul>
+<li><code>routeId</code>：路由ID</li>
+<li><code>routeUri</code>：API将路由到的URI</li>
+<li><code>outcome</code>：由 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/HttpStatus.Series.html">HttpStatus.Series</a> 分类</li>
+<li><code>status</code>：返回给客户端的Http Status</li>
+<li><code>httpStatusCode</code>：返回给客户端的请求的Http Status</li>
+<li><code>httpMethod</code>：请求所使用的Http方法<br>这些指标暴露在 <code>/actuator/metrics/gateway.requests</code> 端点中，并且可以轻松与Prometheus整合，从而创建一个 <a target="_blank" rel="noopener" href="https://cloud.spring.io/spring-cloud-gateway/reference/html/images/gateway-grafana-dashboard.jpeg">Grafana</a> <a target="_blank" rel="noopener" href="https://cloud.spring.io/spring-cloud-gateway/reference/html/gateway-grafana-dashboard.json">dashboard</a> 。<blockquote>
+<p><strong>TIPS</strong></p>
+<p>Prometheus是一款监控工具，Grafana是一款监控可视化工具；Spring Boot Actuator可与这两款工具进行整合。关于整合，笔者写过手把手的博客，有兴趣可以看一下：</p>
+<p><a target="_blank" rel="noopener" href="http://www.itmuch.com/spring-boot/actuator-prometheus-grafana/">Spring Boot 2.x监控数据可视化(Actuator + Prometheus + Grafana手把手)</a></p>
+</blockquote>
+<h2 id="10-Marking-An-Exchange-As-Routed"><a href="#10-Marking-An-Exchange-As-Routed" class="headerlink" title="10 Marking An Exchange As Routed"></a>10 Marking An Exchange As Routed</h2><p>在网关路由 <code>ServerWebExchange</code> 后，它将通过在exchange添加一个 <code>gatewayAlreadyRouted</code> 属性，从而将exchange标记为 <code>routed</code> 。一旦请求被标记为 <code>routed</code> ，其他路由过滤器将不会再次路由请求，而是直接跳过。您可以使用便捷方法将exchange标记为 <code>routed</code> ，或检查exchange是否是  <code>routed</code> 。</p>
+</li>
+<li><code>ServerWebExchangeUtils.isAlreadyRouted</code> 检查是否已被路由</li>
+<li><code>ServerWebExchangeUtils.setAlreadyRouted</code> 设置routed状态<blockquote>
+<p><strong>TIPS</strong></p>
+<p>简单来说，就是网关通过 <code>gatewayAlreadyRouted</code> 属性表示这个请求已经转发过了，而无需其他过滤器重复路由。从而防止重复的路由操作。</p>
+</blockquote>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2></li>
+</ul>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://cloud.spring.io/spring-cloud-static/spring-cloud-gateway/2.2.0.M3/reference/html/#global-filters">Global Filters</a></li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://ke.qq.com/classroom/index.html#course_id=475173&term_id=100569009&ch_id=689945&vch_id=655&section_id=2120&task_id=4165800450015269">BAT架构师带你从零打造微服务项目</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Combined-Global-Filter-and-GatewayFilter-Ordering"><span class="toc-number">1.</span> <span class="toc-text">1 Combined Global Filter and GatewayFilter Ordering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Forward-Routing-Filter"><span class="toc-number">2.</span> <span class="toc-text">2 Forward Routing Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-LoadBalancerClient-Filter"><span class="toc-number">3.</span> <span class="toc-text">3 LoadBalancerClient Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-ReactiveLoadBalancerClient-Filter"><span class="toc-number">4.</span> <span class="toc-text">4 ReactiveLoadBalancerClient Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Netty-Routing-Filter"><span class="toc-number">5.</span> <span class="toc-text">5 Netty Routing Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Netty-Write-Response-Filter"><span class="toc-number">6.</span> <span class="toc-text">6 Netty Write Response Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-RouteToRequestUrl-Filter"><span class="toc-number">7.</span> <span class="toc-text">7 RouteToRequestUrl Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Websocket-Routing-Filter"><span class="toc-number">8.</span> <span class="toc-text">8 Websocket Routing Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Gateway-Metrics-Filter"><span class="toc-number">9.</span> <span class="toc-text">9  Gateway Metrics Filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Marking-An-Exchange-As-Routed"><span class="toc-number">10.</span> <span class="toc-text">10 Marking An Exchange As Routed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">11.</span> <span class="toc-text">参考文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">12.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&text=全局过滤器"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&title=全局过滤器"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&is_video=false&description=全局过滤器"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=全局过滤器&body=Check out this article: https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&title=全局过滤器"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&title=全局过滤器"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&title=全局过滤器"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&title=全局过滤器"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&name=全局过滤器&description=&lt;p&gt;本文详细探讨Spring Cloud Gateway内置的全局过滤器。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/spring-cloud-gateway-global-filter.html&t=全局过滤器"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    sbx0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang=cn>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="本文基于Spring Cloud Hoxton M2，理论支持Spring Cloud Finchley及更高版本。本文总结Feign常见问题及解决方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Feign常见问题总结">
+<meta property="og:url" content="https://blog.sbx0.cn/post/feign-faq-summary.html">
+<meta property="og:site_name" content="sbx0&#39;s blog">
+<meta property="og:description" content="本文基于Spring Cloud Hoxton M2，理论支持Spring Cloud Finchley及更高版本。本文总结Feign常见问题及解决方案。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-11-22T16:56:02.000Z">
+<meta property="article:modified_time" content="2020-11-22T16:56:02.000Z">
+<meta property="article:author" content="sbx0">
+<meta property="article:tag" content="Feign">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Feign常见问题总结</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="sbx0's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/resilience4j.html"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/feign-multi-parameter-request-structure.html"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/feign-faq-summary.html"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/feign-faq-summary.html&text=Feign常见问题总结"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/feign-faq-summary.html&title=Feign常见问题总结"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/feign-faq-summary.html&is_video=false&description=Feign常见问题总结"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Feign常见问题总结&body=Check out this article: https://blog.sbx0.cn/post/feign-faq-summary.html"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/feign-faq-summary.html&title=Feign常见问题总结"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/feign-faq-summary.html&title=Feign常见问题总结"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/feign-faq-summary.html&title=Feign常见问题总结"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/feign-faq-summary.html&title=Feign常见问题总结"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/feign-faq-summary.html&name=Feign常见问题总结&description=&lt;p&gt;本文基于Spring Cloud Hoxton M2，理论支持Spring Cloud Finchley及更高版本。&lt;br&gt;本文总结Feign常见问题及解决方案。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/feign-faq-summary.html&t=Feign常见问题总结"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">一、使用案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81FeignClient%E6%8E%A5%E5%8F%A3%E5%A6%82%E4%BD%BF%E7%94%A8-PathVariable-%EF%BC%8C%E5%BF%85%E9%A1%BB%E6%8C%87%E5%AE%9Avalue%E5%B1%9E%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">二、FeignClient接口如使用@PathVariable ，必须指定value属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Java%E4%BB%A3%E7%A0%81%E8%87%AA%E5%AE%9A%E4%B9%89Feign-Client%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9%E4%B8%8E%E5%9D%91"><span class="toc-number">3.</span> <span class="toc-text">三、Java代码自定义Feign Client的注意点与坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81-FeignClient-%E6%B3%A8%E8%A7%A3%E5%B1%9E%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">四、@FeignClient 注解属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%B1%BB%E7%BA%A7%E5%88%AB%E7%9A%84-RequestMapping%E4%BC%9A%E8%A2%ABSpring-MVC%E5%8A%A0%E8%BD%BD"><span class="toc-number">5.</span> <span class="toc-text">五、类级别的@RequestMapping会被Spring MVC加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E9%A6%96%E6%AC%A1%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5"><span class="toc-number">6.</span> <span class="toc-text">六、首次请求失败</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%A6%82%E9%9C%80%E4%BA%A7%E7%94%9FHystrix-Stream%E7%9B%91%E6%8E%A7%E4%BF%A1%E6%81%AF%EF%BC%8C%E9%9C%80%E8%A6%81%E5%81%9A%E4%B8%80%E4%BA%9B%E9%A2%9D%E5%A4%96%E6%93%8D%E4%BD%9C"><span class="toc-number">7.</span> <span class="toc-text">七、如需产生Hystrix Stream监控信息，需要做一些额外操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">8.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Feign常见问题总结
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sbx0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-11-22T16:56:02.000Z" itemprop="datePublished">2020-11-22</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> › <a class="category-link" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Feign/" rel="tag">Feign</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>本文基于Spring Cloud Hoxton M2，理论支持Spring Cloud Finchley及更高版本。<br>本文总结Feign常见问题及解决方案。</p>
+<span id="more"></span>
+
+<h2 id="一、使用案例"><a href="#一、使用案例" class="headerlink" title="一、使用案例"></a>一、使用案例</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.itmuch.com/spring-cloud-sum/feign-multiple-params-2/">如何使用Feign构造多参数的请求</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.itmuch.com/spring-cloud-sum/spring-cloud-feign-upload/">使用Spring Cloud Feign上传文件</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.itmuch.com/spring-cloud-sum/feign-form-params/">使用Feign实现Form表单提交</a></li>
+</ul>
+<h2 id="二、FeignClient接口如使用-PathVariable-，必须指定value属性"><a href="#二、FeignClient接口如使用-PathVariable-，必须指定value属性" class="headerlink" title="二、FeignClient接口如使用@PathVariable ，必须指定value属性"></a>二、FeignClient接口如使用<code>@PathVariable</code> ，必须指定value属性</h2><p>代码示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span><span class="token string">"microservice-provider-user"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserFeignClient</span> <span class="token punctuation">&#123;</span>
+  <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"/simple/&#123;id&#125;"</span><span class="token punctuation">,</span> method <span class="token operator">=</span> <span class="token class-name">RequestMethod</span><span class="token punctuation">.</span>GET<span class="token punctuation">)</span>
+  <span class="token keyword">public</span> <span class="token class-name">User</span> <span class="token function">findById</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token class-name">Long</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在一些版本中， <code>@PathVariable(&quot;id&quot;)</code> 中的 <code>&quot;id&quot;</code> ，也就是value属性，必须指定，不能省略。</p>
+<h2 id="三、Java代码自定义Feign-Client的注意点与坑"><a href="#三、Java代码自定义Feign-Client的注意点与坑" class="headerlink" title="三、Java代码自定义Feign Client的注意点与坑"></a>三、Java代码自定义Feign Client的注意点与坑</h2><p>代码示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"microservice-provider-user"</span><span class="token punctuation">,</span> configuration <span class="token operator">=</span> <span class="token class-name">UserFeignConfig</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserFeignClient</span> <span class="token punctuation">&#123;</span>
+  <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/users/&#123;id&#125;"</span><span class="token punctuation">)</span>
+  <span class="token class-name">User</span> <span class="token function">findById</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> <span class="token class-name">Long</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/**
+ * 该Feign Client的配置类，注意：
+ * 1. 该类可以独立出去；
+ * 2. 该类上也可添加@Configuration声明是一个配置类；
+ * 配置类上也可添加@Configuration注解，声明这是一个配置类；
+ * 但此时千万别将该放置在主应用程序上下文@ComponentScan所扫描的包中，
+ * 否则，该配置将会被所有Feign Client共享，无法实现细粒度配置！
+ * 个人建议：像我一样，不加@Configuration注解
+ *
+ * @author zhouli
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">UserFeignConfig</span> <span class="token punctuation">&#123;</span>
+  <span class="token annotation punctuation">@Bean</span>
+  <span class="token keyword">public</span> <span class="token class-name">Logger<span class="token punctuation">.</span>Level</span> <span class="token function">logger</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token class-name">Logger<span class="token punctuation">.</span>Level</span><span class="token punctuation">.</span>FULL<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>配置类上也可添加<code>@Configuraiton</code> 注解，声明这是一个配置类；但此时千万别将该放置在主应用程序上下文<code>@ComponentScan</code> 所扫描的包中，<strong>否则，该配置将会被所有Feign Client共享</strong>（相当于变成了通用配置，其实本质还是Spring父子上下文扫描包重叠导致的问题），无法实现细粒度配置！</li>
+<li><strong>个人建议</strong>：像我一样，不加@Configuration注解，省得进坑。</li>
+<li><strong>最佳实践</strong>：尽量用配置属性自定义Feign的配置！！！详见：<a target="_blank" rel="noopener" href="http://www.itmuch.com/spring-cloud/finchley-10/">跟我学Spring Cloud（Finchley版）-10-Feign深入</a></li>
+</ul>
+<h2 id="四、-FeignClient-注解属性"><a href="#四、-FeignClient-注解属性" class="headerlink" title="四、@FeignClient 注解属性"></a>四、<code>@FeignClient</code> 注解属性</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"microservice-provider-user"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在早期的Spring Cloud版本中，无需提供name属性，从Brixton版开始，@FeignClient必须提供name属性，否则应用将无法正常启动！<br>另外，name、url等属性支持占位符。例如：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"$&#123;feign.name&#125;"</span><span class="token punctuation">,</span> url <span class="token operator">=</span> <span class="token string">"$&#123;feign.url&#125;"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="五、类级别的-RequestMapping会被Spring-MVC加载"><a href="#五、类级别的-RequestMapping会被Spring-MVC加载" class="headerlink" title="五、类级别的@RequestMapping会被Spring MVC加载"></a>五、类级别的@RequestMapping会被Spring MVC加载</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@FeignClient</span><span class="token punctuation">(</span>name <span class="token operator">=</span> <span class="token string">"microservice-user"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestFeignClient</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>类上的<code>@RequestMapping</code> 注解也会被Spring MVC加载。<strong>该问题现已经被解决</strong>，早期的版本有两种解决方案：<br><strong>方案1</strong>：不在类上加<code>@RequestMapping</code> 注解；<br><strong>方案2</strong>：添加如下代码：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token annotation punctuation">@ConditionalOnClass</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span> <span class="token class-name">Feign</span><span class="token punctuation">.</span><span class="token keyword">class</span> <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">FeignMappingDefaultConfiguration</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">WebMvcRegistrations</span> <span class="token function">feignWebRegistrations</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">WebMvcRegistrationsAdapter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token class-name">RequestMappingHandlerMapping</span> <span class="token function">getRequestMappingHandlerMapping</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">FeignFilterRequestMappingHandlerMapping</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">FeignFilterRequestMappingHandlerMapping</span> <span class="token keyword">extends</span> <span class="token class-name">RequestMappingHandlerMapping</span> <span class="token punctuation">&#123;</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">protected</span> <span class="token keyword">boolean</span> <span class="token function">isHandler</span><span class="token punctuation">(</span><span class="token class-name">Class</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span><span class="token punctuation">></span></span> beanType<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">isHandler</span><span class="token punctuation">(</span>beanType<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>beanType<span class="token punctuation">.</span><span class="token function">isInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>相关Issue：<a target="_blank" rel="noopener" href="https://github.com/spring-cloud/spring-cloud-netflix/issues/466">https://github.com/spring-cloud/spring-cloud-netflix/issues/466</a></p>
+<h2 id="六、首次请求失败"><a href="#六、首次请求失败" class="headerlink" title="六、首次请求失败"></a>六、首次请求失败</h2><p>详见：<a target="_blank" rel="noopener" href="http://www.itmuch.com/spring-cloud-feign-ribbon-first-request-fail/">Spring Cloud中，如何解决Feign&#x2F;Ribbon第一次请求失败的问题？</a></p>
+<h2 id="七、如需产生Hystrix-Stream监控信息，需要做一些额外操作"><a href="#七、如需产生Hystrix-Stream监控信息，需要做一些额外操作" class="headerlink" title="七、如需产生Hystrix Stream监控信息，需要做一些额外操作"></a>七、如需产生Hystrix Stream监控信息，需要做一些额外操作</h2><p>Feign本身已经整合了Hystrix，可直接使用<code>@FeignClient(value = &quot;microservice-provider-user&quot;, fallback = XXX.class)</code> 来指定fallback类，fallback类继承@FeignClient所标注的接口即可。<br>但是假设如需使用Hystrix Stream进行监控，默认情况下，访问<code>http://IP:PORT/actuator/hystrix.stream</code> 是会返回404，这是因为Feign虽然整合了Hystrix，但并没有整合Hystrix的监控。如何添加监控支持呢？需要以下几步：<br>第一步：添加依赖，示例：</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- 整合hystrix，其实feign中自带了hystrix，引入该依赖主要是为了使用其中的hystrix-metrics-event-stream，用于dashboard --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.cloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-cloud-starter-hystrix<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第二步：在启动类上添加<code>@EnableCircuitBreaker</code> 注解，示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@SpringBootApplication</span>
+<span class="token annotation punctuation">@EnableFeignClients</span>
+<span class="token annotation punctuation">@EnableDiscoveryClient</span>
+<span class="token annotation punctuation">@EnableCircuitBreaker</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MovieFeignHystrixApplication</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">SpringApplication</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token class-name">MovieFeignHystrixApplication</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>第三步：在application.yml中添加如下内容，暴露hystrix.stream端点：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">management</span><span class="token punctuation">:</span>
+  <span class="token key atrule">endpoints</span><span class="token punctuation">:</span>
+    <span class="token key atrule">web</span><span class="token punctuation">:</span>
+      <span class="token key atrule">exposure</span><span class="token punctuation">:</span>
+        <span class="token key atrule">include</span><span class="token punctuation">:</span> <span class="token string">'hystrix.stream'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样，访问任意Feign Client接口的API后，再访问<code>http://IP:PORT/actuator/hystrix.stream</code> ，就会展示一大堆Hystrix监控数据了。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://ke.qq.com/classroom/index.html#course_id=475173&term_id=100569009&ch_id=689945&vch_id=655&section_id=2120&task_id=4165800450015269">BAT架构师带你从零打造微服务项目</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">一、使用案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81FeignClient%E6%8E%A5%E5%8F%A3%E5%A6%82%E4%BD%BF%E7%94%A8-PathVariable-%EF%BC%8C%E5%BF%85%E9%A1%BB%E6%8C%87%E5%AE%9Avalue%E5%B1%9E%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">二、FeignClient接口如使用@PathVariable ，必须指定value属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Java%E4%BB%A3%E7%A0%81%E8%87%AA%E5%AE%9A%E4%B9%89Feign-Client%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9%E4%B8%8E%E5%9D%91"><span class="toc-number">3.</span> <span class="toc-text">三、Java代码自定义Feign Client的注意点与坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81-FeignClient-%E6%B3%A8%E8%A7%A3%E5%B1%9E%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">四、@FeignClient 注解属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%B1%BB%E7%BA%A7%E5%88%AB%E7%9A%84-RequestMapping%E4%BC%9A%E8%A2%ABSpring-MVC%E5%8A%A0%E8%BD%BD"><span class="toc-number">5.</span> <span class="toc-text">五、类级别的@RequestMapping会被Spring MVC加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E9%A6%96%E6%AC%A1%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5"><span class="toc-number">6.</span> <span class="toc-text">六、首次请求失败</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%A6%82%E9%9C%80%E4%BA%A7%E7%94%9FHystrix-Stream%E7%9B%91%E6%8E%A7%E4%BF%A1%E6%81%AF%EF%BC%8C%E9%9C%80%E8%A6%81%E5%81%9A%E4%B8%80%E4%BA%9B%E9%A2%9D%E5%A4%96%E6%93%8D%E4%BD%9C"><span class="toc-number">7.</span> <span class="toc-text">七、如需产生Hystrix Stream监控信息，需要做一些额外操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">8.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/feign-faq-summary.html"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/feign-faq-summary.html&text=Feign常见问题总结"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/feign-faq-summary.html&title=Feign常见问题总结"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/feign-faq-summary.html&is_video=false&description=Feign常见问题总结"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Feign常见问题总结&body=Check out this article: https://blog.sbx0.cn/post/feign-faq-summary.html"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/feign-faq-summary.html&title=Feign常见问题总结"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/feign-faq-summary.html&title=Feign常见问题总结"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/feign-faq-summary.html&title=Feign常见问题总结"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/feign-faq-summary.html&title=Feign常见问题总结"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/feign-faq-summary.html&name=Feign常见问题总结&description=&lt;p&gt;本文基于Spring Cloud Hoxton M2，理论支持Spring Cloud Finchley及更高版本。&lt;br&gt;本文总结Feign常见问题及解决方案。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/feign-faq-summary.html&t=Feign常见问题总结"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    sbx0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

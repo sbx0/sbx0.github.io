@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang=cn>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Java 基础、容器、多线程、反射、对象拷贝、Java Web 、异常、网络、设计模式、Spring&#x2F;Spring MVC、Spring Boot&#x2F;Spring Cloud、Hibernate、MyBatis、RabbitMQ、Kafka、ZooKeeper、MySQL、Redis、JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题储备【2月27日更新】">
+<meta property="og:url" content="https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html">
+<meta property="og:site_name" content="sbx0&#39;s blog">
+<meta property="og:description" content="Java 基础、容器、多线程、反射、对象拷贝、Java Web 、异常、网络、设计模式、Spring&#x2F;Spring MVC、Spring Boot&#x2F;Spring Cloud、Hibernate、MyBatis、RabbitMQ、Kafka、ZooKeeper、MySQL、Redis、JVM">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-02-27T16:18:23.000Z">
+<meta property="article:modified_time" content="2022-05-10T09:20:30.362Z">
+<meta property="article:author" content="sbx0">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="ZooKeeper">
+<meta property="article:tag" content="刷题">
+<meta property="article:tag" content="反射">
+<meta property="article:tag" content="容器">
+<meta property="article:tag" content="对象拷贝">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="Hibernate">
+<meta property="article:tag" content="MyBatis">
+<meta property="article:tag" content="RabbitMQ">
+<meta property="article:tag" content="Kafka">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>面试题储备【2月27日更新】</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="sbx0's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/%E7%AC%94%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/%E6%9B%B4%E5%8A%A0%E4%BC%98%E9%9B%85%E7%9A%84%E9%83%A8%E7%BD%B2.html"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&text=面试题储备【2月27日更新】"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&title=面试题储备【2月27日更新】"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&is_video=false&description=面试题储备【2月27日更新】"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=面试题储备【2月27日更新】&body=Check out this article: https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&title=面试题储备【2月27日更新】"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&title=面试题储备【2月27日更新】"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&title=面试题储备【2月27日更新】"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&title=面试题储备【2月27日更新】"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&name=面试题储备【2月27日更新】&description=&lt;p&gt; Java 基础、容器、多线程、反射、对象拷贝、Java Web 、异常、网络、设计模式、Spring&amp;#x2F;Spring MVC、Spring Boot&amp;#x2F;Spring Cloud、Hibernate、MyBatis、RabbitMQ、Kafka、ZooKeeper、MySQL、Redis、JVM&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&t=面试题储备【2月27日更新】"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.</span> <span class="toc-text">Java 基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84"><span class="toc-number">1.4.</span> <span class="toc-text">反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%8B%B7%E8%B4%9D"><span class="toc-number">1.5.</span> <span class="toc-text">对象拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-Web"><span class="toc-number">1.6.</span> <span class="toc-text">Java Web</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-number">1.7.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C"><span class="toc-number">1.8.</span> <span class="toc-text">网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.9.</span> <span class="toc-text">设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-x2F-Spring-MVC"><span class="toc-number">1.10.</span> <span class="toc-text">Spring&#x2F;Spring MVC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hibernate"><span class="toc-number">1.11.</span> <span class="toc-text">Hibernate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MyBatis"><span class="toc-number">1.12.</span> <span class="toc-text">MyBatis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ"><span class="toc-number">1.13.</span> <span class="toc-text">RabbitMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka"><span class="toc-number">1.14.</span> <span class="toc-text">Kafka</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZooKeeper"><span class="toc-number">1.15.</span> <span class="toc-text">ZooKeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL"><span class="toc-number">1.16.</span> <span class="toc-text">MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis"><span class="toc-number">1.17.</span> <span class="toc-text">Redis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-%E5%9F%BA%E7%A1%80-1"><span class="toc-number">2.1.</span> <span class="toc-text">Java 基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8-1"><span class="toc-number">2.2.</span> <span class="toc-text">容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B-1"><span class="toc-number">2.3.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84-1"><span class="toc-number">2.4.</span> <span class="toc-text">反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%8B%B7%E8%B4%9D-1"><span class="toc-number">2.5.</span> <span class="toc-text">对象拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-Web-1"><span class="toc-number">2.6.</span> <span class="toc-text">Java Web</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8-1"><span class="toc-number">2.7.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C-1"><span class="toc-number">2.8.</span> <span class="toc-text">网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1"><span class="toc-number">2.9.</span> <span class="toc-text">设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-x2F-Spring-MVC-1"><span class="toc-number">2.10.</span> <span class="toc-text">Spring&#x2F;Spring MVC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hibernate-1"><span class="toc-number">2.11.</span> <span class="toc-text">Hibernate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MyBatis-1"><span class="toc-number">2.12.</span> <span class="toc-text">MyBatis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ-1"><span class="toc-number">2.13.</span> <span class="toc-text">RabbitMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka-1"><span class="toc-number">2.14.</span> <span class="toc-text">Kafka</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZooKeeper-1"><span class="toc-number">2.15.</span> <span class="toc-text">ZooKeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-1"><span class="toc-number">2.16.</span> <span class="toc-text">MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis-1"><span class="toc-number">2.17.</span> <span class="toc-text">Redis</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        面试题储备【2月27日更新】
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sbx0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-02-27T16:18:23.000Z" itemprop="datePublished">2020-02-27</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Hibernate/" rel="tag">Hibernate</a>, <a class="tag-link-link" href="/tags/JVM/" rel="tag">JVM</a>, <a class="tag-link-link" href="/tags/Java/" rel="tag">Java</a>, <a class="tag-link-link" href="/tags/Kafka/" rel="tag">Kafka</a>, <a class="tag-link-link" href="/tags/MyBatis/" rel="tag">MyBatis</a>, <a class="tag-link-link" href="/tags/MySQL/" rel="tag">MySQL</a>, <a class="tag-link-link" href="/tags/RabbitMQ/" rel="tag">RabbitMQ</a>, <a class="tag-link-link" href="/tags/Redis/" rel="tag">Redis</a>, <a class="tag-link-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a>, <a class="tag-link-link" href="/tags/ZooKeeper/" rel="tag">ZooKeeper</a>, <a class="tag-link-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a>, <a class="tag-link-link" href="/tags/%E5%8F%8D%E5%B0%84/" rel="tag">反射</a>, <a class="tag-link-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a>, <a class="tag-link-link" href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag">容器</a>, <a class="tag-link-link" href="/tags/%E5%AF%B9%E8%B1%A1%E6%8B%B7%E8%B4%9D/" rel="tag">对象拷贝</a>, <a class="tag-link-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p> Java 基础、容器、多线程、反射、对象拷贝、Java Web 、异常、网络、设计模式、Spring&#x2F;Spring MVC、Spring Boot&#x2F;Spring Cloud、Hibernate、MyBatis、RabbitMQ、Kafka、ZooKeeper、MySQL、Redis、JVM</p>
+ <span id="more"></span>
+
+<h2 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h2><h3 id="Java-基础"><a href="#Java-基础" class="headerlink" title="Java 基础"></a>Java 基础</h3><ol>
+<li>JDK 和 JRE 有什么区别？</li>
+<li>&#x3D;&#x3D; 和 equals 的区别是什么？</li>
+<li>两个对象的 hashCode() 相同，则 equals() 也一定为 true，对吗？</li>
+<li>final 在 Java 中有什么作用？</li>
+<li>Java 中的 Math. round(-1. 5) 等于多少？</li>
+<li>String 属于基础的数据类型吗？</li>
+<li>Java 中操作字符串都有哪些类？它们之间有什么区别？</li>
+<li>String str&#x3D;”i”与 String str&#x3D;new String(“i”)一样吗？</li>
+<li>如何将字符串反转？</li>
+<li>String 类的常用方法都有那些？</li>
+<li>抽象类必须要有抽象方法吗？</li>
+<li>普通类和抽象类有哪些区别？</li>
+<li>抽象类能使用 final 修饰吗？</li>
+<li>接口和抽象类有什么区别？</li>
+<li>Java 中 IO 流分为几种？</li>
+<li>BIO、NIO、AIO 有什么区别？</li>
+<li>Files的常用方法都有哪些？<h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3></li>
+<li>Java 容器都有哪些？</li>
+<li>Collection 和 Collections 有什么区别？</li>
+<li>List、Set、Map 之间的区别是什么？</li>
+<li>HashMap 和 Hashtable 有什么区别？</li>
+<li>如何决定使用 HashMap 还是 TreeMap？</li>
+<li>说一下 HashMap 的实现原理？</li>
+<li>说一下 HashSet 的实现原理？</li>
+<li>ArrayList 和 LinkedList 的区别是什么？</li>
+<li>如何实现数组和 List 之间的转换？</li>
+<li>ArrayList 和 Vector 的区别是什么？</li>
+<li>Array 和 ArrayList 有何区别？</li>
+<li>在 Queue 中 poll()和 remove()有什么区别？</li>
+<li>哪些集合类是线程安全的？</li>
+<li>迭代器 Iterator 是什么？</li>
+<li>Iterator 怎么使用？有什么特点？</li>
+<li>Iterator 和 ListIterator 有什么区别？</li>
+<li>怎么确保一个集合不能被修改？<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3></li>
+<li>并行和并发有什么区别？</li>
+<li>线程和进程的区别？</li>
+<li>守护线程是什么？</li>
+<li>创建线程有哪几种方式？</li>
+<li>说一下 runnable 和 callable 有什么区别？</li>
+<li>线程有哪些状态？</li>
+<li>sleep() 和 wait() 有什么区别？</li>
+<li>notify() 和 notifyAll() 有什么区别？</li>
+<li>线程的 run() 和 start() 有什么区别？</li>
+<li>创建线程池有哪几种方式？</li>
+<li>线程池都有哪些状态？</li>
+<li>线程池中 submit() 和 execute() 方法有什么区别？</li>
+<li>在 Java 程序中怎么保证多线程的运行安全？</li>
+<li>多线程中 synchronized 锁升级的原理是什么？</li>
+<li>什么是死锁？</li>
+<li>怎么防止死锁？</li>
+<li>ThreadLocal 是什么？有哪些使用场景？</li>
+<li>说一下 synchronized 底层实现原理？</li>
+<li>synchronized 和 volatile 的区别是什么？</li>
+<li>synchronized 和 Lock 有什么区别？</li>
+<li>synchronized 和 ReentrantLock 区别是什么？</li>
+<li>说一下 atomic 的原理？<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3></li>
+<li>什么是反射？</li>
+<li>什么是 Java 序列化？什么情况下需要序列化？</li>
+<li>动态代理是什么？有哪些应用？</li>
+<li>怎么实现动态代理？<h3 id="对象拷贝"><a href="#对象拷贝" class="headerlink" title="对象拷贝"></a>对象拷贝</h3></li>
+<li>为什么要使用克隆？</li>
+<li>如何实现对象克隆？</li>
+<li>深拷贝和浅拷贝区别是什么？<h3 id="Java-Web"><a href="#Java-Web" class="headerlink" title="Java Web"></a>Java Web</h3></li>
+<li>JSP 和 servlet 有什么区别？</li>
+<li>JSP 有哪些内置对象？作用分别是什么？</li>
+<li>说一下 JSP 的 4 种作用域？</li>
+<li>session 和 cookie 有什么区别？</li>
+<li>说一下 session 的工作原理？</li>
+<li>如果客户端禁止 cookie 能实现 session 还能用吗？</li>
+<li>spring mvc 和 struts 的区别是什么？</li>
+<li>如何避免 SQL 注入？</li>
+<li>什么是 XSS 攻击，如何避免？</li>
+<li>什么是 CSRF 攻击，如何避免？<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3></li>
+<li>throw 和 throws 的区别？</li>
+<li>final、finally、finalize 有什么区别？</li>
+<li>try-catch-finally 中哪个部分可以省略？</li>
+<li>try-catch-finally 中，如果 catch 中 return 了，finally 还会执行吗？</li>
+<li>常见的异常类有哪些？<h3 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h3></li>
+<li>http 响应码 301 和 302 代表的是什么？有什么区别？</li>
+<li>forward 和 redirect 的区别？</li>
+<li>简述 tcp 和 udp的区别？</li>
+<li>tcp 为什么要三次握手，两次不行吗？为什么？</li>
+<li>说一下 tcp 粘包是怎么产生的？</li>
+<li>OSI 的七层模型都有哪些？</li>
+<li>get 和 post 请求有哪些区别？</li>
+<li>如何实现跨域？</li>
+<li>说一下 JSONP 实现原理？<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3></li>
+<li>说一下你熟悉的设计模式？</li>
+<li>简单工厂和抽象工厂有什么区别？<h3 id="Spring-x2F-Spring-MVC"><a href="#Spring-x2F-Spring-MVC" class="headerlink" title="Spring&#x2F;Spring MVC"></a>Spring&#x2F;Spring MVC</h3></li>
+<li>为什么要使用 spring？</li>
+<li>解释一下什么是 aop？</li>
+<li>解释一下什么是 ioc？</li>
+<li>spring 有哪些主要模块？</li>
+<li>spring 常用的注入方式有哪些？</li>
+<li>spring 中的 bean 是线程安全的吗？</li>
+<li>spring 支持几种 bean 的作用域？</li>
+<li>spring 自动装配 bean 有哪些方式？</li>
+<li>spring 事务实现方式有哪些？</li>
+<li>说一下 spring 的事务隔离？</li>
+<li>说一下 spring mvc 运行流程？</li>
+<li>spring mvc 有哪些组件？</li>
+<li>@RequestMapping 的作用是什么？</li>
+<li>@Autowired 的作用是什么？<br>Spring Boot&#x2F;Spring Cloud</li>
+<li>什么是 spring boot？</li>
+<li>为什么要用 spring boot？</li>
+<li>spring boot 核心配置文件是什么？</li>
+<li>spring boot 配置文件有哪几种类型？它们有什么区别？</li>
+<li>spring boot 有哪些方式可以实现热部署？</li>
+<li>jpa 和 hibernate 有什么区别？</li>
+<li>什么是 spring cloud？</li>
+<li>spring cloud 断路器的作用是什么？</li>
+<li>spring cloud 的核心组件有哪些？<h3 id="Hibernate"><a href="#Hibernate" class="headerlink" title="Hibernate"></a>Hibernate</h3></li>
+<li>为什么要使用 hibernate？</li>
+<li>什么是 ORM 框架？</li>
+<li>hibernate 中如何在控制台查看打印的 SQL 语句？</li>
+<li>hibernate 有几种查询方式？</li>
+<li>hibernate 实体类可以被定义为 final 吗？</li>
+<li>在 hibernate 中使用 Integer 和 int 做映射有什么区别？</li>
+<li>hibernate 是如何工作的？</li>
+<li>get()和 load()的区别？</li>
+<li>说一下 hibernate 的缓存机制？</li>
+<li>hibernate 对象有哪些状态？</li>
+<li>在 hibernate 中 getCurrentSession 和 openSession 的区别是什么？</li>
+<li>hibernate 实体类必须要有无参构造函数吗？为什么？<h3 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h3></li>
+<li>MyBatis 中 #{}和 ${}的区别是什么？</li>
+<li>MyBatis 有几种分页方式？</li>
+<li>RowBounds 是一次性查询全部结果吗？为什么？</li>
+<li>MyBatis 逻辑分页和物理分页的区别是什么？</li>
+<li>MyBatis 是否支持延迟加载？延迟加载的原理是什么？</li>
+<li>说一下 MyBatis 的一级缓存和二级缓存？</li>
+<li>MyBatis 和 hibernate 的区别有哪些？</li>
+<li>MyBatis 有哪些执行器（Executor）？</li>
+<li>MyBatis 分页插件的实现原理是什么？</li>
+<li>MyBatis 如何编写一个自定义插件？<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3></li>
+<li>RabbitMQ 的使用场景有哪些？</li>
+<li>RabbitMQ 有哪些重要的角色？</li>
+<li>RabbitMQ 有哪些重要的组件？</li>
+<li>RabbitMQ 中 vhost 的作用是什么？</li>
+<li>RabbitMQ 的消息是怎么发送的？</li>
+<li>RabbitMQ 怎么保证消息的稳定性？</li>
+<li>RabbitMQ 怎么避免消息丢失？</li>
+<li>要保证消息持久化成功的条件有哪些？</li>
+<li>RabbitMQ 持久化有什么缺点？</li>
+<li>RabbitMQ 有几种广播类型？</li>
+<li>RabbitMQ 怎么实现延迟消息队列？</li>
+<li>RabbitMQ 集群有什么用？</li>
+<li>RabbitMQ 节点的类型有哪些？</li>
+<li>RabbitMQ 集群搭建需要注意哪些问题？</li>
+<li>RabbitMQ 每个节点是其他节点的完整拷贝吗？为什么？</li>
+<li>RabbitMQ 集群中唯一一个磁盘节点崩溃了会发生什么情况？</li>
+<li>RabbitMQ 对集群节点停止顺序有要求吗？<h3 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h3></li>
+<li>kafka 可以脱离 ZooKeeper 单独使用吗？为什么？</li>
+<li>kafka 有几种数据保留的策略？</li>
+<li>kafka 同时设置了 7 天和 10G 清除数据，到第五天的时候消息达到了 10G，这个时候 kafka 将如何处理？</li>
+<li>什么情况会导致 kafka 运行变慢？</li>
+<li>使用 kafka 集群需要注意什么？<h3 id="ZooKeeper"><a href="#ZooKeeper" class="headerlink" title="ZooKeeper"></a>ZooKeeper</h3></li>
+<li>ZooKeeper 是什么？</li>
+<li>ZooKeeper 都有哪些功能？</li>
+<li>ZooKeeper 有几种部署模式？</li>
+<li>ZooKeeper 怎么保证主从节点的状态同步？</li>
+<li>集群中为什么要有主节点？</li>
+<li>集群中有 3 台服务器，其中一个节点宕机，这个时候 ZooKeeper 还可以使用吗？</li>
+<li>说一下 ZooKeeper 的通知机制？<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3></li>
+<li>数据库的三范式是什么？</li>
+<li>一张自增表里面总共有 7 条数据，删除了最后 2 条数据，重启 MySQL 数据库，又插入了一条数据，此时 id 是几？</li>
+<li>如何获取当前数据库版本？</li>
+<li>说一下 ACID 是什么？</li>
+<li>char 和 varchar 的区别是什么？</li>
+<li>float 和 double 的区别是什么？</li>
+<li>MySQL 的内连接、左连接、右连接有什么区别？</li>
+<li>MySQL 索引是怎么实现的？</li>
+<li>怎么验证 MySQL 的索引是否满足需求？</li>
+<li>说一下数据库的事务隔离？</li>
+<li>说一下 MySQL 常用的引擎？</li>
+<li>说一下 MySQL 的行锁和表锁？</li>
+<li>说一下乐观锁和悲观锁？</li>
+<li>MySQL 问题排查都有哪些手段？</li>
+<li>如何做 MySQL 的性能优化？<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3></li>
+<li>Redis 是什么？都有哪些使用场景？</li>
+<li>Redis 有哪些功能？</li>
+<li>Redis 和 memcache 有什么区别？</li>
+<li>Redis 为什么是单线程的？</li>
+<li>什么是缓存穿透？怎么解决？</li>
+<li>Redis 支持的数据类型有哪些？</li>
+<li>Redis 支持的 Java 客户端都有哪些？</li>
+<li>jedis 和 Redisson 有哪些区别？</li>
+<li>怎么保证缓存和数据库数据的一致性？</li>
+<li>Redis 持久化有几种方式？</li>
+<li>Redis 怎么实现分布式锁？</li>
+<li>Redis 分布式锁有什么缺陷？</li>
+<li>Redis 如何做内存优化？</li>
+<li>Redis 淘汰策略有哪些？</li>
+<li>Redis 常见的性能问题有哪些？该如何解决？<br>JVM</li>
+<li>说一下 JVM 的主要组成部分？及其作用？</li>
+<li>说一下 JVM 运行时数据区？</li>
+<li>说一下堆栈的区别？</li>
+<li>队列和栈是什么？有什么区别？</li>
+<li>什么是双亲委派模型？</li>
+<li>说一下类装载的执行过程？</li>
+<li>怎么判断对象是否可以被回收？</li>
+<li>Java 中都有哪些引用类型？</li>
+<li>说一下 JVM 有哪些垃圾回收算法？</li>
+<li>说一下 JVM 有哪些垃圾回收器？</li>
+<li>详细介绍一下 CMS 垃圾回收器？</li>
+<li>新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？</li>
+<li>简述分代垃圾回收器是怎么工作的？</li>
+<li>说一下 JVM 调优的工具？</li>
+<li>常用的 JVM 调优的参数都有哪些？</li>
+</ol>
+<hr>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><h3 id="Java-基础-1"><a href="#Java-基础-1" class="headerlink" title="Java 基础"></a>Java 基础</h3><ol>
+<li><p>JDK 和 JRE 有什么区别？  </p>
+<ul>
+<li>JDK：Java Development Kit 的简称，Java 开发工具包，提供了 Java 的开发环境和运行环境。</li>
+<li>JRE：Java Runtime Environment 的简称，Java 运行环境，为 Java 的运行提供了所需环境。<br> 具体来说 JDK 其实包含了 JRE，同时还包含了编译 Java 源码的编译器 Javac，还包含了很多 Java 程序调试和分析的工具。简单来说：如果你需要运行 Java 程序，只需安装 JRE 就可以了，如果你需要编写 Java 程序，需要安装 JDK。</li>
+</ul>
+</li>
+<li><p>&#x3D;&#x3D; 和 equals 的区别是什么？<br> <strong>&#x3D;&#x3D; 解读</strong><br> 对于基本类型和引用类型 &#x3D;&#x3D; 的作用效果是不同的，如下所示：</p>
+<ul>
+<li>基本类型：比较的是值是否相同；</li>
+<li>引用类型：比较的是引用是否相同；<br> 代码示例： <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> x <span class="token operator">=</span> <span class="token string">"string"</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> y <span class="token operator">=</span> <span class="token string">"string"</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> z <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"string"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>x<span class="token operator">==</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>x<span class="token operator">==</span>z<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ 代码解读：因为 x 和 y 指向的是同一个引用，所以 &#x3D;&#x3D; 也是 true，而 new String()方法则重写开辟了内存空间，所以 &#x3D;&#x3D; 结果为 false，而 equals 比较的一直是值，所以结果都为 true。<br> <strong>equals 解读</strong><br> equals 本质上就是 &#x3D;&#x3D;，只不过 String 和 Integer 等重写了 equals 方法，把它变成了值比较。看下面的代码就明白了。<br> 首先来看默认情况下 equals 比较一个有相同值的对象，代码如下： <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Cat</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">public</span> <span class="token class-name">Cat</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">private</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+	<span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token class-name">Cat</span> c1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cat</span><span class="token punctuation">(</span><span class="token string">"王磊"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Cat</span> c2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cat</span><span class="token punctuation">(</span><span class="token string">"王磊"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>c1<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>c2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ 输出结果出乎我们的意料，竟然是 false？这是怎么回事，看了 equals 源码就知道了，源码如下： <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">Object</span> obj<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+       <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+ 原来 equals 本质上就是 &#x3D;&#x3D;。<br> 那问题来了，两个相同值的 String 对象，为什么返回的是 true？代码如下： <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> s1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"老王"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> s2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">"老王"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>s2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+ 同样的，当我们进入 String 的 equals 方法，找到了答案，代码如下： <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">Object</span> anObject<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> anObject<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>anObject <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token class-name">String</span> anotherString <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span>anObject<span class="token punctuation">;</span>
+		<span class="token keyword">int</span> n <span class="token operator">=</span> value<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> anotherString<span class="token punctuation">.</span>value<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+			<span class="token keyword">char</span> v1<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> value<span class="token punctuation">;</span>
+			<span class="token keyword">char</span> v2<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> anotherString<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+			<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+			<span class="token keyword">while</span> <span class="token punctuation">(</span>n<span class="token operator">--</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+				<span class="token keyword">if</span> <span class="token punctuation">(</span>v1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> v2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+					<span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+				i<span class="token operator">++</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+			<span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+	<span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+ 原来是 String 重写了 Object 的 equals 方法，把引用比较改成了值比较。<br> <strong>总结</strong>：&#x3D;&#x3D; 对于基本类型来说是值比较，对于引用类型来说是比较的是引用；而 equals 默认情况下是引用比较，只是很多类重新了 equals 方法，比如 String、Integer 等把它变成了值比较，所以一般情况下 equals 比较的是值是否相等。</li>
+</ul>
+</li>
+<li><p>两个对象的 hashCode() 相同，则 equals() 也一定为 true，对吗？<br> 不对，两个对象的 hashCode() 相同，equals() 不一定 true。<br> 代码示例：</p>
+ <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">String</span> str1 <span class="token operator">=</span> <span class="token string">"通话"</span><span class="token punctuation">;</span>
+<span class="token class-name">String</span> str2 <span class="token operator">=</span> <span class="token string">"重地"</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token string">"str1：%d | str2：%d"</span><span class="token punctuation">,</span>str1<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>str2<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>str1<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>str2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p> 执行的结果：</p>
+ <pre class="line-numbers language-none"><code class="language-none">str1：1179395 | str2：1179395
+false<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p> 代码解读：很显然“通话”和“重地”的 hashCode() 相同，然而 equals() 则为 false，因为在散列表中，hashCode() 相等即两个键值对的哈希值相等，然而哈希值相等，并不一定能得出键值对相等。 </p>
+</li>
+<li><p>final 在 Java 中有什么作用？</p>
+<ul>
+<li>final 修饰的类叫最终类，该类不能被继承。</li>
+<li>final 修饰的方法不能被重写。</li>
+<li>final 修饰的变量叫常量，常量必须初始化，初始化之后值就不能被修改。</li>
+</ul>
+</li>
+<li><p>Java 中的 Math. round(-1. 5) 等于多少？<br> 等于 -1，因为在数轴上取值时，中间值（0.5）向右取整，所以正 0.5 是往上取整，负 0.5 是直接舍弃。</p>
+</li>
+<li><p>String 属于基础的数据类型吗？<br> String 不属于基础类型，基础类型有 8 种：byte、boolean、char、short、int、float、long、double，而 String 属于对象。</p>
+</li>
+<li><p>Java 中操作字符串都有哪些类？它们之间有什么区别？<br> 操作字符串的类有：String、StringBuffer、StringBuilder。<br> String 和 StringBuffer、StringBuilder 的区别在于 String 声明的是不可变的对象，每次操作都会生成新的 String 对象，然后将指针指向新的 String 对象，而 StringBuffer、StringBuilder 可以在原有对象的基础上进行操作，所以在经常改变字符串内容的情况下最好不要使用 String。<br> StringBuffer 和 StringBuilder 最大的区别在于，StringBuffer 是线程安全的，而 StringBuilder 是非线程安全的，但 StringBuilder 的性能却高于 StringBuffer，所以在单线程环境下推荐使用 StringBuilder，多线程环境下推荐使用 StringBuffer。</p>
+</li>
+<li><p>String str&#x3D;”i”与 String str&#x3D;new String(“i”)一样吗？<br> 不一样，因为内存的分配方式不一样。String str&#x3D;”i”的方式，Java 虚拟机会将其分配到常量池中；而 String str&#x3D;new String(“i”) 则会被分到堆内存中。</p>
+</li>
+<li><p>如何将字符串反转？<br> 使用 StringBuilder 或者 stringBuffer 的 reverse() 方法。<br> 示例代码：</p>
+ <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// StringBuffer reverse</span>
+<span class="token class-name">StringBuffer</span> stringBuffer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+stringBuffer<span class="token punctuation">.</span> <span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"abcdefg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span> out<span class="token punctuation">.</span> <span class="token function">println</span><span class="token punctuation">(</span>stringBuffer<span class="token punctuation">.</span> <span class="token function">reverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// gfedcba</span>
+<span class="token comment">// StringBuilder reverse</span>
+<span class="token class-name">StringBuilder</span> stringBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+stringBuilder<span class="token punctuation">.</span> <span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"abcdefg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span> out<span class="token punctuation">.</span> <span class="token function">println</span><span class="token punctuation">(</span>stringBuilder<span class="token punctuation">.</span> <span class="token function">reverse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// gfedcba</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+<li><p>String 类的常用方法都有那些？</p>
+<ul>
+<li>indexOf()：返回指定字符的索引。</li>
+<li>charAt()：返回指定索引处的字符。</li>
+<li>replace()：字符串替换。</li>
+<li>trim()：去除字符串两端空白。</li>
+<li>split()：分割字符串，返回一个分割后的字符串数组。</li>
+<li>getBytes()：返回字符串的 byte 类型数组。</li>
+<li>length()：返回字符串长度。</li>
+<li>toLowerCase()：将字符串转成小写字母。</li>
+<li>toUpperCase()：将字符串转成大写字符。</li>
+<li>substring()：截取字符串。</li>
+<li>equals()：字符串比较。</li>
+</ul>
+</li>
+<li><p>抽象类必须要有抽象方法吗？<br>不需要，抽象类不一定非要有抽象方法。<br>示例代码：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Cat</span> <span class="token punctuation">&#123;</span>
+	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">sayHi</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+		<span class="token class-name">System</span><span class="token punctuation">.</span> out<span class="token punctuation">.</span> <span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"hi~"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面代码，抽象类并没有抽象方法但完全可以正常运行。</p>
+</li>
+<li><p>普通类和抽象类有哪些区别？</p>
+<ul>
+<li>普通类不能包含抽象方法，抽象类可以包含抽象方法。</li>
+<li>抽象类不能直接实例化，普通类可以直接实例化。</li>
+</ul>
+</li>
+<li><p>抽象类能使用 final 修饰吗？<br>不能，定义抽象类就是让其他类继承的，如果定义为 final 该类就不能被继承，这样彼此就会产生矛盾，所以 final 不能修饰抽象类。</p>
+</li>
+<li><p>接口和抽象类有什么区别？  </p>
+<ul>
+<li>实现：抽象类的子类使用 extends 来继承；接口必须使用 implements 来实现接口。</li>
+<li>构造函数：抽象类可以有构造函数；接口不能有。</li>
+<li>实现数量：类可以实现很多个接口；但是只能继承一个抽象类。</li>
+<li>访问修饰符：接口中的方法默认使用 public 修饰；抽象类中的方法可以是任意访问修饰符。</li>
+</ul>
+</li>
+<li><p>Java 中 IO 流分为几种？</p>
+<ul>
+<li>按功能来分：输入流（input）、输出流（output）。</li>
+<li>按类型来分：字节流和字符流。<br>字节流和字符流的区别是：字节流按 8 位传输以字节为单位输入输出数据，字符流按 16 位传输以字符为单位输入输出数据。</li>
+</ul>
+</li>
+<li><p>BIO、NIO、AIO 有什么区别？</p>
+<ul>
+<li>BIO：Block IO 同步阻塞式 IO，就是我们平常使用的传统 IO，它的特点是模式简单使用方便，并发处理能力低。</li>
+<li>NIO：Non IO 同步非阻塞 IO，是传统 IO 的升级，客户端和服务器端通过 Channel（通道）通讯，实现了多路复用。</li>
+<li>Asynchronous IO 是 NIO 的升级，也叫 NIO2，实现了异步非堵塞 IO ，异步 IO 的操作基于事件和回调机制。</li>
+</ul>
+</li>
+<li><p>Files的常用方法都有哪些？</p>
+<ul>
+<li>Files. exists()：检测文件路径是否存在。</li>
+<li>Files. createFile()：创建文件。</li>
+<li>Files. createDirectory()：创建文件夹。</li>
+<li>Files. delete()：删除一个文件或目录。</li>
+<li>Files. copy()：复制文件。</li>
+<li>Files. move()：移动文件。</li>
+<li>Files. size()：查看文件个数。</li>
+<li>Files. read()：读取文件。</li>
+<li>Files. write()：写入文件。<h3 id="容器-1"><a href="#容器-1" class="headerlink" title="容器"></a>容器</h3></li>
+</ul>
+</li>
+<li><p>Java 容器都有哪些？<br>Java 容器分为 Collection 和 Map 两大类，其下又有很多子类，如下所示：</p>
+<ul>
+<li>Collection<ul>
+<li>List<ul>
+<li>ArrayList</li>
+<li>LinkedList</li>
+<li>Vector</li>
+<li>Stack</li>
+</ul>
+</li>
+<li>Set<ul>
+<li>HashSet</li>
+<li>LinkedHashSet</li>
+<li>TreeSet</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Map<ul>
+<li>HashMap</li>
+<li>LinkedHashMap</li>
+<li>TreeMap</li>
+<li>ConcurrentHashMap</li>
+<li>Hashtable</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Collection 和 Collections 有什么区别？</p>
+<ul>
+<li>Collection 是一个集合接口，它提供了对集合对象进行基本操作的通用接口方法，所有集合都是它的子类，比如 List、Set 等。</li>
+<li>Collections 是一个包装类，包含了很多静态方法，不能被实例化，就像一个工具类，比如提供的排序方法： Collections. sort(list)。</li>
+</ul>
+</li>
+<li><p>List、Set、Map 之间的区别是什么？<br>List、Set、Map 的区别主要体现在两个方面：元素是否有序、是否允许元素重复。<br>三者之间的区别，如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">元素有序</th>
+<th align="center">允许元素重复</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">List</td>
+<td align="center">是</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">AbstractSet</td>
+<td align="center">否</td>
+<td align="center">否</td>
+</tr>
+<tr>
+<td align="center">HashSet</td>
+<td align="center">否</td>
+<td align="center">否</td>
+</tr>
+<tr>
+<td align="center">TreeSet</td>
+<td align="center">是（用二叉树排序）</td>
+<td align="center">否</td>
+</tr>
+<tr>
+<td align="center">AbstractMap</td>
+<td align="center">否</td>
+<td align="center">key值必须唯一，value值可以重复</td>
+</tr>
+<tr>
+<td align="center">HashMap</td>
+<td align="center">否</td>
+<td align="center">key值必须唯一，value值可以重复</td>
+</tr>
+<tr>
+<td align="center">TreeMap</td>
+<td align="center">是（用二叉树排序）</td>
+<td align="center">key值必须唯一，value值可以重复</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>HashMap 和 Hashtable 有什么区别？  </p>
+<ul>
+<li>存储：HashMap 允许 key 和 value 为 null，而 Hashtable 不允许。</li>
+<li>线程安全：Hashtable 是线程安全的，而 HashMap 是非线程安全的。</li>
+<li>推荐使用：在 Hashtable 的类注释可以看到，Hashtable 是保留类不建议使用，推荐在单线程环境下使用 HashMap 替代，如果需要多线程使用则用 ConcurrentHashMap 替代。</li>
+</ul>
+</li>
+<li><p>如何决定使用 HashMap 还是 TreeMap？<br>对于在 Map 中插入、删除、定位一个元素这类操作，HashMap 是最好的选择，因为相对而言 HashMap 的插入会更快，但如果你要对一个 key 集合进行有序的遍历，那 TreeMap 是更好的选择。</p>
+</li>
+<li><p>说一下 HashMap 的实现原理？<br>HashMap 基于 Hash 算法实现的，我们通过 put(key,value)存储，get(key)来获取。当传入 key 时，HashMap 会根据 key. hashCode() 计算出 hash 值，根据 hash 值将 value 保存在 bucket 里。当计算出的 hash 值相同时，我们称之为 hash 冲突，HashMap 的做法是用链表和红黑树存储相同 hash 值的 value。当 hash 冲突的个数比较少时，使用链表否则使用红黑树。</p>
+</li>
+<li><p>说一下 HashSet 的实现原理？<br>HashSet 是基于 HashMap 实现的，HashSet 底层使用 HashMap 来保存所有元素，因此 HashSet 的实现比较简单，相关 HashSet 的操作，基本上都是直接调用底层 HashMap 的相关方法来完成，HashSet 不允许重复的值。</p>
+</li>
+<li><p>ArrayList 和 LinkedList 的区别是什么？  </p>
+<ul>
+<li>数据结构实现：ArrayList 是动态数组的数据结构实现，而 LinkedList 是双向链表的数据结构实现。</li>
+<li>随机访问效率：ArrayList 比 LinkedList 在随机访问的时候效率要高，因为 LinkedList 是线性的数据存储方式，所以需要移动指针从前往后依次查找。</li>
+<li>增加和删除效率：在非首尾的增加和删除操作，LinkedList 要比 ArrayList 效率要高，因为 ArrayList 增删操作要影响数组内的其他数据的下标。</li>
+</ul>
+<p>综合来说，在需要频繁读取集合中的元素时，更推荐使用 ArrayList，而在插入和删除操作较多时，更推荐使用 LinkedList。</p>
+</li>
+<li><p>如何实现数组和 List 之间的转换？</p>
+<ul>
+<li>数组转 List：使用 Arrays. asList(array) 进行转换。</li>
+<li>List 转数组：使用 List 自带的 toArray() 方法。</li>
+</ul>
+<p>代码示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// list to array</span>
+<span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"王磊"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"的博客"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+list<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// array to list</span>
+<span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> array <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">&#123;</span><span class="token string">"王磊"</span><span class="token punctuation">,</span><span class="token string">"的博客"</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>ArrayList 和 Vector 的区别是什么？</p>
+<ul>
+<li>线程安全：Vector 使用了 Synchronized 来实现线程同步，是线程安全的，而 ArrayList 是非线程安全的。</li>
+<li>性能：ArrayList 在性能方面要优于 Vector。</li>
+<li>扩容：ArrayList 和 Vector 都会根据实际的需要动态的调整容量，只不过在 Vector 扩容每次会增加 1 倍，而 ArrayList 只会增加 50%。</li>
+</ul>
+</li>
+<li><p>Array 和 ArrayList 有何区别？</p>
+<ul>
+<li>Array 可以存储基本数据类型和对象，ArrayList 只能存储对象。</li>
+<li>Array 是指定固定大小的，而 ArrayList 大小是自动扩展的。</li>
+<li>Array 内置方法没有 ArrayList 多，比如 addAll、removeAll、iteration 等方法只有 ArrayList 有。</li>
+</ul>
+</li>
+<li><p>在 Queue 中 poll()和 remove()有什么区别？</p>
+<ul>
+<li>相同点：都是返回第一个元素，并在队列中删除返回的对象。</li>
+<li>不同点：如果没有元素 poll()会返回 null，而 remove()会直接抛出 NoSuchElementException 异常。</li>
+</ul>
+<p>代码示例：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Queue</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> queue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+queue<span class="token punctuation">.</span><span class="token function">offer</span><span class="token punctuation">(</span><span class="token string">"string"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// add</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>queue<span class="token punctuation">.</span><span class="token function">poll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>queue<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>queue<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>哪些集合类是线程安全的？<br>Vector、Hashtable、Stack 都是线程安全的，而像 HashMap 则是非线程安全的，不过在 JDK 1.5 之后随着 Java. util. concurrent 并发包的出现，它们也有了自己对应的线程安全类，比如 HashMap 对应的线程安全类就是 ConcurrentHashMap。</p>
+</li>
+<li><p>迭代器 Iterator 是什么？<br>Iterator 接口提供遍历任何 Collection 的接口。我们可以从一个 Collection 中使用迭代器方法来获取迭代器实例。迭代器取代了 Java 集合框架中的 Enumeration，迭代器允许调用者在迭代过程中移除元素。</p>
+</li>
+<li><p>Iterator 怎么使用？有什么特点？<br>Iterator 使用代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Iterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> it <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>it<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token class-name">String</span> obj <span class="token operator">=</span> it<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Iterator 的特点是更加安全，因为它可以确保，在当前遍历的集合元素被更改的时候，就会抛出 ConcurrentModificationException 异常。</p>
+</li>
+<li><p>Iterator 和 ListIterator 有什么区别？</p>
+<ul>
+<li>Iterator 可以遍历 Set 和 List 集合，而 ListIterator 只能遍历 List。</li>
+<li>Iterator 只能单向遍历，而 ListIterator 可以双向遍历（向前&#x2F;后遍历）。</li>
+<li>ListIterator 从 Iterator 接口继承，然后添加了一些额外的功能，比如添加一个元素、替换一个元素、获取前面或后面元素的索引位置。</li>
+</ul>
+</li>
+<li><p>怎么确保一个集合不能被修改？<br>可以使用 Collections. unmodifiableCollection(Collection c) 方法来创建一个只读集合，这样改变集合的任何操作都会抛出 Java.lang.UnsupportedOperationException 异常。<br>示例代码如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"x"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> clist <span class="token operator">=</span> <span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">unmodifiableCollection</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+clist<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"y"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 运行时此行报错</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>list<span class="token punctuation">.</span> <span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="多线程-1"><a href="#多线程-1" class="headerlink" title="多线程"></a>多线程</h3></li>
+<li><p>并行和并发有什么区别？  </p>
+<ul>
+<li>并行：多个处理器或多核处理器同时处理多个任务。</li>
+<li>并发：多个任务在同一个 CPU 核上，按细分的时间片轮流(交替)执行，从逻辑上来看那些任务是同时执行。<br>并发 &#x3D; 两个队列和一台咖啡机。<br>并行 &#x3D; 两个队列和两台咖啡机。</li>
+</ul>
+</li>
+<li><p>线程和进程的区别？<br>一个程序下至少有一个进程，一个进程下至少有一个线程，一个进程下也可以有多个线程来增加程序的执行速度。</p>
+</li>
+<li><p>守护线程是什么？<br>守护线程是运行在后台的一种特殊进程。它独立于控制终端并且周期性地执行某种任务或等待处理某些发生的事件。在 Java 中垃圾回收线程就是特殊的守护线程。</p>
+</li>
+<li><p>创建线程有哪几种方式？<br>创建线程有三种方式：</p>
+<ul>
+<li>继承 Thread 重写 run 方法；</li>
+<li>实现 Runnable 接口；</li>
+<li>实现 Callable 接口。</li>
+</ul>
+</li>
+<li><p>说一下 runnable 和 callable 有什么区别？<br>runnable 没有返回值，callable 可以拿到有返回值，callable 可以看作是 runnable 的补充。</p>
+</li>
+<li><p>线程有哪些状态？<br>线程的状态：</p>
+<ul>
+<li>NEW 尚未启动</li>
+<li>RUNNABLE 正在执行中</li>
+<li>BLOCKED 阻塞的（被同步锁或者IO锁阻塞）</li>
+<li>WAITING 永久等待状态</li>
+<li>TIMED_WAITING 等待指定的时间重新被唤醒的状态</li>
+<li>TERMINATED 执行完成</li>
+</ul>
+</li>
+<li><p>sleep() 和 wait() 有什么区别？</p>
+<ul>
+<li>类的不同：sleep() 来自 Thread，wait() 来自 Object。</li>
+<li>释放锁：sleep() 不释放锁；wait() 释放锁。</li>
+<li>用法不同：sleep() 时间到会自动恢复；wait() 可以使用 notify()&#x2F;notifyAll()直接唤醒。</li>
+</ul>
+</li>
+<li><p>notify() 和 notifyAll() 有什么区别？<br>notifyAll() 会唤醒所有的线程，notify() 只会唤醒一个线程。notifyAll() 调用后，会将全部线程由等待池移到锁池，然后参与锁的竞争，竞争成功则继续执行，如果不成功则留在锁池等待锁被释放后再次参与竞争。而 notify()只会唤醒一个线程，具体唤醒哪一个线程由虚拟机控制。</p>
+</li>
+<li><p>线程的 run() 和 start() 有什么区别？<br>start() 方法用于启动线程，run() 方法用于执行线程的运行时代码。run() 可以重复调用，而 start() 只能调用一次。</p>
+</li>
+<li><p>创建线程池有哪几种方式？<br>线程池创建有七种方式，最核心的是最后一种：</p>
+<ul>
+<li>newSingleThreadExecutor()：它的特点在于工作线程数目被限制为 1，操作一个无界的工作队列，所以它保证了所有任务的都是被顺序执行，最多会有一个任务处于活动状态，并且不允许使用者改动线程池实例，因此可以避免其改变线程数目；</li>
+<li>newCachedThreadPool()：它是一种用来处理大量短时间工作任务的线程池，具有几个鲜明特点：它会试图缓存线程并重用，当无缓存线程可用时，就会创建新的工作线程；如果线程闲置的时间超过 60 秒，则被终止并移出缓存；长时间闲置时，这种线程池，不会消耗什么资源。其内部使用 SynchronousQueue 作为工作队列；</li>
+<li>newFixedThreadPool(int nThreads)：重用指定数目（nThreads）的线程，其背后使用的是无界的工作队列，任何时候最多有 nThreads 个工作线程是活动的。这意味着，如果任务数量超过了活动队列数目，将在工作队列中等待空闲线程出现；如果有工作线程退出，将会有新的工作线程被创建，以补足指定的数目 nThreads；</li>
+<li>newSingleThreadScheduledExecutor()：创建单线程池，返回 ScheduledExecutorService，可以进行定时或周期性的工作调度；</li>
+<li>newScheduledThreadPool(int corePoolSize)：和newSingleThreadScheduledExecutor()类似，创建的是个 ScheduledExecutorService，可以进行定时或周期性的工作调度，区别在于单一工作线程还是多个工作线程；</li>
+<li>newWorkStealingPool(int parallelism)：这是一个经常被人忽略的线程池，Java 8 才加入这个创建方法，其内部会构建ForkJoinPool，利用Work-Stealing算法，并行地处理任务，不保证处理顺序；</li>
+<li>ThreadPoolExecutor()：是最原始的线程池创建，上面1-3创建方式都是对ThreadPoolExecutor的封装。</li>
+</ul>
+</li>
+<li><p>线程池都有哪些状态？</p>
+<ul>
+<li>RUNNING：这是最正常的状态，接受新的任务，处理等待队列中的任务。</li>
+<li>SHUTDOWN：不接受新的任务提交，但是会继续处理等待队列中的任务。</li>
+<li>STOP：不接受新的任务提交，不再处理等待队列中的任务，中断正在执行任务的线程。</li>
+<li>TIDYING：所有的任务都销毁了，workCount 为 0，线程池的状态在转换为 TIDYING 状态时，会执行钩子方法 terminated()。</li>
+<li>TERMINATED：terminated()方法结束后，线程池的状态就会变成这个。</li>
+</ul>
+</li>
+<li><p>线程池中 submit() 和 execute() 方法有什么区别？</p>
+<ul>
+<li>execute()：只能执行 Runnable 类型的任务。</li>
+<li>submit()：可以执行 Runnable 和 Callable 类型的任务。<br>Callable 类型的任务可以获取执行的返回值，而 Runnable 执行无返回值。</li>
+</ul>
+</li>
+<li><p>在 Java 程序中怎么保证多线程的运行安全？</p>
+<ul>
+<li>方法一：使用安全类，比如 Java. util. concurrent 下的类。</li>
+<li>方法二：使用自动锁 synchronized。</li>
+<li>方法三：使用手动锁 Lock。<br>手动锁 Java 示例代码如下：<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Lock</span> lock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReentrantLock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+lock<span class="token punctuation">.</span> <span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span> out<span class="token punctuation">.</span> <span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"获得锁"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// TODO: handle exception</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">finally</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span> out<span class="token punctuation">.</span> <span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"释放锁"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    lock<span class="token punctuation">.</span> <span class="token function">unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li>
+</ul>
+</li>
+<li><p>多线程中 synchronized 锁升级的原理是什么？<br>synchronized 锁升级原理：在锁对象的对象头里面有一个 threadid 字段，在第一次访问的时候 threadid 为空，jvm 让其持有偏向锁，并将 threadid 设置为其线程 id，再次进入的时候会先判断 threadid 是否与其线程 id 一致，如果一致则可以直接使用此对象，如果不一致，则升级偏向锁为轻量级锁，通过自旋循环一定次数来获取锁，执行一定次数之后，如果还没有正常获取到要使用的对象，此时就会把锁从轻量级升级为重量级锁，此过程就构成了 synchronized 锁的升级。<br>锁的升级的目的：锁升级是为了减低了锁带来的性能消耗。在 Java 6 之后优化 synchronized 的实现方式，使用了偏向锁升级为轻量级锁再升级到重量级锁的方式，从而减低了锁带来的性能消耗。</p>
+</li>
+<li><p>什么是死锁？<br>当线程 A 持有独占锁a，并尝试去获取独占锁 b 的同时，线程 B 持有独占锁 b，并尝试获取独占锁 a 的情况下，就会发生 AB 两个线程由于互相持有对方需要的锁，而发生的阻塞现象，我们称为死锁。</p>
+</li>
+<li><p>怎么防止死锁？</p>
+<ul>
+<li>尽量使用 tryLock(long timeout, TimeUnit unit)的方法(ReentrantLock、ReentrantReadWriteLock)，设置超时时间，超时可以退出防止死锁。</li>
+<li>尽量使用 Java. util. concurrent 并发类代替自己手写锁。</li>
+<li>尽量降低锁的使用粒度，尽量不要几个功能用同一把锁。</li>
+<li>尽量减少同步的代码块。</li>
+</ul>
+</li>
+<li><p>ThreadLocal 是什么？有哪些使用场景？<br>ThreadLocal 为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本。<br>ThreadLocal 的经典使用场景是数据库连接和 session 管理等。</p>
+</li>
+<li><p>说一下 synchronized 底层实现原理？<br>synchronized 是由一对 monitorenter&#x2F;monitorexit 指令实现的，monitor 对象是同步的基本实现单元。在 Java 6 之前，monitor 的实现完全是依靠操作系统内部的互斥锁，因为需要进行用户态到内核态的切换，所以同步操作是一个无差别的重量级操作，性能也很低。但在 Java 6 的时候，Java 虚拟机 对此进行了大刀阔斧地改进，提供了三种不同的 monitor 实现，也就是常说的三种不同的锁：偏向锁（Biased Locking）、轻量级锁和重量级锁，大大改进了其性能。</p>
+</li>
+<li><p>synchronized 和 volatile 的区别是什么？</p>
+<ul>
+<li>volatile 是变量修饰符；synchronized 是修饰类、方法、代码段。</li>
+<li>volatile 仅能实现变量的修改可见性，不能保证原子性；而 synchronized 则可以保证变量的修改可见性和原子性。</li>
+<li>volatile 不会造成线程的阻塞；synchronized 可能会造成线程的阻塞。</li>
+</ul>
+</li>
+<li><p>synchronized 和 Lock 有什么区别？</p>
+<ul>
+<li>synchronized 可以给类、方法、代码块加锁；而 lock 只能给代码块加锁。</li>
+<li>synchronized 不需要手动获取锁和释放锁，使用简单，发生异常会自动释放锁，不会造成死锁；而 lock 需要自己加锁和释放锁，如果使用不当没有 unLock()去释放锁就会造成死锁。</li>
+<li>通过 Lock 可以知道有没有成功获取锁，而 synchronized 却无法办到。</li>
+</ul>
+</li>
+<li><p>synchronized 和 ReentrantLock 区别是什么？<br>synchronized 早期的实现比较低效，对比 ReentrantLock，大多数场景性能都相差较大，但是在 Java 6 中对 synchronized 进行了非常多的改进。<br>主要区别如下：  </p>
+<ul>
+<li>ReentrantLock 使用起来比较灵活，但是必须有释放锁的配合动作；</li>
+<li>ReentrantLock 必须手动获取与释放锁，而 synchronized 不需要手动释放和开启锁；</li>
+<li>ReentrantLock 只适用于代码块锁，而 synchronized 可用于修饰方法、代码块等。</li>
+</ul>
+</li>
+<li><p>说一下 atomic 的原理？<br>atomic 主要利用 CAS (Compare And Wwap) 和 volatile 和 native 方法来保证原子操作，从而避免 synchronized 的高开销，执行效率大为提升。</p>
+<h3 id="反射-1"><a href="#反射-1" class="headerlink" title="反射"></a>反射</h3></li>
+<li><p>什么是反射？<br>反射是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为 Java 语言的反射机制。</p>
+</li>
+<li><p>什么是 Java 序列化？什么情况下需要序列化？<br>Java 序列化是为了保存各种对象在内存中的状态，并且可以把保存的对象状态再读出来。<br>以下情况需要使用 Java 序列化：  </p>
+<ul>
+<li>想把的内存中的对象状态保存到一个文件中或者数据库中时候；</li>
+<li>想用套接字在网络上传送对象的时候；</li>
+<li>想通过RMI（远程方法调用）传输对象的时候。</li>
+</ul>
+</li>
+<li><p>动态代理是什么？有哪些应用？<br>动态代理是运行时动态生成代理类。<br>动态代理的应用有 spring aop、hibernate 数据查询、测试框架的后端 mock、rpc，Java注解对象获取等。  </p>
+</li>
+<li><p>怎么实现动态代理？<br>JDK 原生动态代理和 cglib 动态代理。JDK 原生动态代理是基于接口实现的，而 cglib 是基于继承当前类的子类实现的。  </p>
+<h3 id="对象拷贝-1"><a href="#对象拷贝-1" class="headerlink" title="对象拷贝"></a>对象拷贝</h3></li>
+<li><p>为什么要使用克隆？<br>克隆的对象可能包含一些已经修改过的属性，而 new 出来的对象的属性都还是初始化时候的值，所以当需要一个新的对象来保存当前对象的“状态”就靠克隆方法了。  </p>
+</li>
+<li><p>如何实现对象克隆？  </p>
+<ul>
+<li>实现 Cloneable 接口并重写 Object 类中的 clone() 方法。  </li>
+<li>实现 Serializable 接口，通过对象的序列化和反序列化实现克隆，可以实现真正的深度克隆。</li>
+</ul>
+</li>
+<li><p>深拷贝和浅拷贝区别是什么？  </p>
+<ul>
+<li>浅克隆：当对象被复制时只复制它本身和其中包含的值类型的成员变量，而引用类型的成员对象并没有复制。  </li>
+<li>深克隆：除了对象本身被复制外，对象所包含的所有成员变量也将复制。    <h3 id="Java-Web-1"><a href="#Java-Web-1" class="headerlink" title="Java Web"></a>Java Web</h3></li>
+</ul>
+</li>
+<li><p>JSP 和 servlet 有什么区别？<br>JSP 是 servlet 技术的扩展，本质上就是 servlet 的简易方式。servlet 和 JSP 最主要的不同点在于，servlet 的应用逻辑是在 Java 文件中，并且完全从表示层中的 html 里分离开来，而 JSP 的情况是 Java 和 html 可以组合成一个扩展名为 JSP 的文件。JSP 侧重于视图，servlet 主要用于控制逻辑。  </p>
+</li>
+<li><p>JSP 有哪些内置对象？作用分别是什么？<br>JSP 有 9 大内置对象：  </p>
+<ul>
+<li>request：封装客户端的请求，其中包含来自 get 或 post 请求的参数；</li>
+<li>response：封装服务器对客户端的响应；</li>
+<li>pageContext：通过该对象可以获取其他对象；</li>
+<li>session：封装用户会话的对象；</li>
+<li>application：封装服务器运行环境的对象；</li>
+<li>out：输出服务器响应的输出流对象；</li>
+<li>config：Web 应用的配置对象；</li>
+<li>page：JSP 页面本身（相当于 Java 程序中的 this）；</li>
+<li>exception：封装页面抛出异常的对象。</li>
+</ul>
+</li>
+<li><p>说一下 JSP 的 4 种作用域？  </p>
+<ul>
+<li>page：代表与一个页面相关的对象和属性。</li>
+<li>request：代表与客户端发出的一个请求相关的对象和属性。一个请求可能跨越多个页面，涉及多个 Web 组件；需要在页面显示的临时数据可以置于此作用域。</li>
+<li>session：代表与某个用户与服务器建立的一次会话相关的对象和属性。跟某个用户相关的数据应该放在用户自己的 session 中。</li>
+<li>application：代表与整个 Web 应用程序相关的对象和属性，它实质上是跨越整个 Web 应用程序，包括多个页面、请求和会话的一个全局作用域。</li>
+</ul>
+</li>
+<li><p>session 和 cookie 有什么区别？  </p>
+<ul>
+<li>存储位置不同：session 存储在服务器端；cookie 存储在浏览器端。</li>
+<li>安全性不同：cookie 安全性一般，在浏览器存储，可以被伪造和修改。</li>
+<li>容量和个数限制：cookie 有容量限制，每个站点下的 cookie 也有个数限制。</li>
+<li>存储的多样性：session 可以存储在 Redis 中、数据库中、应用程序中；而 cookie 只能存储在浏览器中。</li>
+</ul>
+</li>
+<li><p>说一下 session 的工作原理？  </p>
+<ul>
+<li>session 的工作原理是客户端登录完成之后，服务器会创建对应的 session，session 创建完之后，会把 session 的 id 发送给客户端，客户端再存储到浏览器中。这样客户端每次访问服务器时，都会带着 sessionid，服务器拿到 sessionid 之后，在内存找到与之对应的 session 这样就可以正常工作了。</li>
+</ul>
+</li>
+<li><p>如果客户端禁止 cookie 能实现 session 还能用吗？</p>
+<ul>
+<li>可以用，session 只是依赖 cookie 存储 sessionid，如果 cookie 被禁用了，可以使用 url 中添加 sessionid 的方式保证 session 能正常使用。</li>
+</ul>
+</li>
+<li><p>spring mvc 和 struts 的区别是什么？  </p>
+<ul>
+<li>拦截级别：struts2 是类级别的拦截；spring mvc 是方法级别的拦截。</li>
+<li>数据独立性：spring mvc 的方法之间基本上独立的，独享 request 和 response 数据，请求数据通过参数获取，处理结果通过 ModelMap 交回给框架，方法之间不共享变量；而 struts2 虽然方法之间也是独立的，但其所有 action 变量是共享的，这不会影响程序运行，却给我们编码和读程序时带来了一定的麻烦。</li>
+<li>拦截机制：struts2 有以自己的 interceptor 机制，spring mvc 用的是独立的 aop 方式，这样导致struts2 的配置文件量比 spring mvc 大。</li>
+<li>对 ajax 的支持：spring mvc 集成了ajax，所有 ajax 使用很方便，只需要一个注解 @ResponseBody 就可以实现了；而 struts2 一般需要安装插件或者自己写代码才行。</li>
+</ul>
+</li>
+<li><p>如何避免 SQL 注入？  </p>
+<ul>
+<li>使用预处理 PreparedStatement。c使用预处理 PreparedStatement。</li>
+<li>使用正则表达式过滤掉字符中的特殊字符。</li>
+</ul>
+</li>
+<li><p>什么是 XSS 攻击，如何避免？<br>XSS 攻击：即跨站脚本攻击，它是 Web 程序中常见的漏洞。原理是攻击者往 Web 页面里插入恶意的脚本代码（css 代码、Javascript 代码等），当用户浏览该页面时，嵌入其中的脚本代码会被执行，从而达到恶意攻击用户的目的，如盗取用户 cookie、破坏页面结构、重定向到其他网站等。<br>预防 XSS 的核心是必须对输入的数据做过滤处理。  </p>
+</li>
+<li><p>什么是 CSRF 攻击，如何避免？<br>CSRF：Cross-Site Request Forgery（中文：跨站请求伪造），可以理解为攻击者盗用了你的身份，以你的名义发送恶意请求，比如：以你名义发送邮件、发消息、购买商品，虚拟货币转账等。<br>防御手段：  </p>
+<ul>
+<li>验证请求来源地址；</li>
+<li>关键操作添加验证码；</li>
+<li>在请求地址添加 token 并验证。<h3 id="异常-1"><a href="#异常-1" class="headerlink" title="异常"></a>异常</h3></li>
+</ul>
+</li>
+<li><p>throw 和 throws 的区别？  </p>
+<ul>
+<li>throw：是真实抛出一个异常。</li>
+<li>throws：是声明可能会抛出一个异常。</li>
+</ul>
+</li>
+<li><p>final、finally、finalize 有什么区别？  </p>
+<ul>
+<li>final：是修饰符，如果修饰类，此类不能被继承；如果修饰方法和变量，则表示此方法和此变量不能在被改变，只能使用。</li>
+<li>finally：是 try{} catch{} finally{} 最后一部分，表示不论发生任何情况都会执行，finally 部分可以省略，但如果 finally 部分存在，则一定会执行 finally 里面的代码。</li>
+<li>finalize： 是 Object 类的一个方法，在垃圾收集器执行的时候会调用被回收对象的此方法。</li>
+</ul>
+</li>
+<li><p>try-catch-finally 中哪个部分可以省略？<br>try-catch-finally 其中 catch 和 finally 都可以被省略，但是不能同时省略，也就是说有 try 的时候，必须后面跟一个 catch 或者 finally。</p>
+</li>
+<li><p>try-catch-finally 中，如果 catch 中 return 了，finally 还会执行吗？<br>finally 一定会执行，即使是 catch 中 return 了，catch 中的 return 会等 finally 中的代码执行完之后，才会执行。</p>
+</li>
+<li><p>常见的异常类有哪些？  </p>
+<ul>
+<li>NullPointerException 空指针异常</li>
+<li>ClassNotFoundException 指定类不存在</li>
+<li>NumberFormatException 字符串转换为数字异常</li>
+<li>IndexOutOfBoundsException 数组下标越界异常</li>
+<li>ClassCastException 数据类型转换异常</li>
+<li>FileNotFoundException 文件未找到异常</li>
+<li>NoSuchMethodException 方法不存在异常</li>
+<li>IOException IO 异常</li>
+<li>SocketException Socket 异常<h3 id="网络-1"><a href="#网络-1" class="headerlink" title="网络"></a>网络</h3></li>
+</ul>
+</li>
+<li><p>http 响应码 301 和 302 代表的是什么？有什么区别？<br>301：永久重定向。<br>302：暂时重定向。<br>它们的区别是，301 对搜索引擎优化（SEO）更加有利；302 有被提示为网络拦截的风险。  </p>
+</li>
+<li><p>forward 和 redirect 的区别？<br>forward 是转发 和 redirect 是重定向：  </p>
+<ul>
+<li>地址栏 url 显示：foward url 不会发生改变，redirect url 会发生改变；</li>
+<li>数据共享：forward 可以共享 request 里的数据，redirect 不能共享；</li>
+<li>效率：forward 比 redirect 效率高。</li>
+</ul>
+</li>
+<li><p>简述 tcp 和 udp的区别？<br>tcp 和 udp 是 OSI 模型中的运输层中的协议。tcp 提供可靠的通信传输，而 udp 则常被用于让广播和细节控制交给应用的通信传输。<br>两者的区别大致如下：  </p>
+<ul>
+<li>tcp 面向连接，udp 面向非连接即发送数据前不需要建立链接；</li>
+<li>tcp 提供可靠的服务（数据传输），udp 无法保证；</li>
+<li>tcp 面向字节流，udp 面向报文；</li>
+<li>tcp 数据传输慢，udp 数据传输快；</li>
+</ul>
+</li>
+<li><p>tcp 为什么要三次握手，两次不行吗？为什么？<br>如果采用两次握手，那么只要服务器发出确认数据包就会建立连接，但由于客户端此时并未响应服务器端的请求，那此时服务器端就会一直在等待客户端，这样服务器端就白白浪费了一定的资源。若采用三次握手，服务器端没有收到来自客户端的再此确认，则就会知道客户端并没有要求建立请求，就不会浪费服务器的资源。</p>
+</li>
+<li><p>说一下 tcp 粘包是怎么产生的？<br>tcp 粘包可能发生在发送端或者接收端，分别来看两端各种产生粘包的原因：  </p>
+<ul>
+<li>发送端粘包：发送端需要等缓冲区满才发送出去，造成粘包；</li>
+<li>接收方粘包：接收方不及时接收缓冲区的包，造成多个包接收。</li>
+</ul>
+</li>
+<li><p>OSI 的七层模型都有哪些？</p>
+<ul>
+<li>物理层：利用传输介质为数据链路层提供物理连接，实现比特流的透明传输。</li>
+<li>数据链路层：负责建立和管理节点间的链路。</li>
+<li>网络层：通过路由选择算法，为报文或分组通过通信子网选择最适当的路径。</li>
+<li>传输层：向用户提供可靠的端到端的差错和流量控制，保证报文的正确传输。</li>
+<li>会话层：向两个实体的表示层提供建立和使用连接的方法。</li>
+<li>表示层：处理用户信息的表示问题，如编码、数据格式转换和加密解密等。</li>
+<li>应用层：直接向用户提供服务，完成用户希望在网络上完成的各种工作。</li>
+</ul>
+</li>
+<li><p>get 和 post 请求有哪些区别？  </p>
+<ul>
+<li>get 请求会被浏览器主动缓存，而 post 不会。</li>
+<li>get 传递参数有大小限制，而 post 没有。</li>
+<li>post 参数传输更安全，get 的参数会明文限制在 url 上，post 不会。</li>
+</ul>
+</li>
+<li><p>如何实现跨域？<br>实现跨域有以下几种方案：  </p>
+<ul>
+<li>服务器端运行跨域 设置 CORS 等于 *；</li>
+<li>在单个接口使用注解 @CrossOrigin 运行跨域；</li>
+<li>使用 jsonp 跨域；</li>
+</ul>
+</li>
+<li><p>说一下 JSONP 实现原理？<br>jsonp：JSON with Padding，它是利用script标签的 src 连接可以访问不同源的特性，加载远程返回的“JS 函数”来执行的。</p>
+<h3 id="设计模式-1"><a href="#设计模式-1" class="headerlink" title="设计模式"></a>设计模式</h3></li>
+<li><p>说一下你熟悉的设计模式？  </p>
+<ul>
+<li>单例模式：保证被创建一次，节省系统开销。</li>
+<li>工厂模式（简单工厂、抽象工厂）：解耦代码。</li>
+<li>观察者模式：定义了对象之间的一对多的依赖，这样一来，当一个对象改变时，它的所有的依赖者都会收到通知并自动更新。</li>
+<li>外观模式：提供一个统一的接口，用来访问子系统中的一群接口，外观定义了一个高层的接口，让子系统更容易使用。</li>
+<li>模版方法模式：定义了一个算法的骨架，而将一些步骤延迟到子类中，模版方法使得子类可以在不改变算法结构的情况下，重新定义算法的步骤。</li>
+<li>状态模式：允许对象在内部状态改变时改变它的行为，对象看起来好像修改了它的类。</li>
+</ul>
+</li>
+<li><p>简单工厂和抽象工厂有什么区别？  </p>
+<ul>
+<li>简单工厂：用来生产同一等级结构中的任意产品，对于增加新的产品，无能为力。</li>
+<li>工厂方法：用来生产同一等级结构中的固定产品，支持增加任意产品。</li>
+<li>抽象工厂：用来生产不同产品族的全部产品，对于增加新的产品，无能为力；支持增加产品族。<h3 id="Spring-x2F-Spring-MVC-1"><a href="#Spring-x2F-Spring-MVC-1" class="headerlink" title="Spring&#x2F;Spring MVC"></a>Spring&#x2F;Spring MVC</h3></li>
+</ul>
+</li>
+<li><p>为什么要使用 spring？  </p>
+<ul>
+<li>spring 提供 ioc 技术，容器会帮你管理依赖的对象，从而不需要自己创建和管理依赖对象了，更轻松的实现了程序的解耦。</li>
+<li>spring 提供了事务支持，使得事务操作变的更加方便。</li>
+<li>spring 提供了面向切片编程，这样可以更方便的处理某一类的问题。</li>
+<li>更方便的框架集成，spring 可以很方便的集成其他框架，比如 MyBatis、hibernate 等。</li>
+</ul>
+</li>
+<li><p>解释一下什么是 aop？  </p>
+<ul>
+<li>aop 是面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。</li>
+<li>简单来说就是统一处理某一“切面”（类）的问题的编程思想，比如统一处理日志、异常等。</li>
+</ul>
+</li>
+<li><p>解释一下什么是 ioc？<br>ioc：Inversionof Control（中文：控制反转）是 spring 的核心，对于 spring 框架来说，就是由 spring 来负责控制对象的生命周期和对象间的关系。<br>简单来说，控制指的是当前对象对内部成员的控制权；控制反转指的是，这种控制权不由当前对象管理了，由其他（类,第三方容器）来管理。</p>
+</li>
+<li><p>spring 有哪些主要模块？  </p>
+<ul>
+<li>spring core：框架的最基础部分，提供 ioc 和依赖注入特性。  </li>
+<li>spring context：构建于 core 封装包基础上的 context 封装包，提供了一种框架式的对象访问方法。  </li>
+<li>spring dao：Data Access Object 提供了JDBC的抽象层。  </li>
+<li>spring aop：提供了面向切面的编程实现，让你可以自定义拦截器、切点等。</li>
+<li>spring Web：提供了针对 Web 开发的集成特性，例如文件上传，利用 servlet listeners 进行 ioc 容器初始化和针对 Web 的 ApplicationContext。</li>
+<li>spring Web mvc：spring 中的 mvc 封装包提供了 Web 应用的 Model-View-Controller（MVC）的实现。</li>
+</ul>
+</li>
+<li><p>spring 常用的注入方式有哪些？  </p>
+<ul>
+<li>setter 属性注入</li>
+<li>构造方法注入</li>
+<li>注解方式注入</li>
+</ul>
+</li>
+<li><p>spring 中的 bean 是线程安全的吗？<br>spring 中的 bean 默认是单例模式，spring 框架并没有对单例 bean 进行多线程的封装处理。<br>实际上大部分时候 spring bean 无状态的（比如 dao 类），所有某种程度上来说 bean 也是安全的，但如果 bean 有状态的话（比如 view model 对象），那就要开发者自己去保证线程安全了，最简单的就是改变 bean 的作用域，把“singleton”变更为“prototype”，这样请求 bean 相当于 new Bean()了，所以就可以保证线程安全了。  </p>
+<ul>
+<li>有状态就是有数据存储功能。</li>
+<li>无状态就是不会保存数据。</li>
+</ul>
+</li>
+<li><p>spring 支持几种 bean 的作用域？<br>spring 支持 5 种作用域，如下：  </p>
+<ul>
+<li>singleton：spring ioc 容器中只存在一个 bean 实例，bean 以单例模式存在，是系统默认值；</li>
+<li>prototype：每次从容器调用 bean 时都会创建一个新的示例，既每次 getBean()相当于执行 new Bean()操作；<br>Web 环境下的作用域：  </li>
+<li>request：每次 http 请求都会创建一个 bean；</li>
+<li>session：同一个 http session 共享一个 bean 实例；</li>
+<li>global-session：用于 portlet 容器，因为每个 portlet 有单独的 session，globalsession 提供一个全局性的 http session。<br><strong>注意</strong>：使用 prototype 作用域需要慎重的思考，因为频繁创建和销毁 bean 会带来很大的性能开销。</li>
+</ul>
+</li>
+<li><p>spring 自动装配 bean 有哪些方式？  </p>
+<ul>
+<li>no：默认值，表示没有自动装配，应使用显式 bean 引用进行装配。</li>
+<li>byName：它根据 bean 的名称注入对象依赖项。</li>
+<li>byType：它根据类型注入对象依赖项。</li>
+<li>构造函数：通过构造函数来注入依赖项，需要设置大量的参数。</li>
+<li>autodetect：容器首先通过构造函数使用 autowire 装配，如果不能，则通过 byType 自动装配。</li>
+</ul>
+</li>
+<li><p>spring 事务实现方式有哪些？  </p>
+<ul>
+<li>声明式事务：声明式事务也有两种实现方式，基于 xml 配置文件的方式和注解方式（在类上添加 @Transaction 注解）。</li>
+<li>编码方式：提供编码的形式管理和维护事务。</li>
+</ul>
+</li>
+<li><p>说一下 spring 的事务隔离？<br>spring 有五大隔离级别，默认值为 ISOLATION_DEFAULT（使用数据库的设置），其他四个隔离级别和数据库的隔离级别一致：  </p>
+<ul>
+<li>ISOLATION_DEFAULT：用底层数据库的设置隔离级别，数据库设置的是什么我就用什么；</li>
+<li>ISOLATIONREADUNCOMMITTED：未提交读，最低隔离级别、事务未提交前，就可被其他事务读取（会出现幻读、脏读、不可重复读）；</li>
+<li>ISOLATIONREADCOMMITTED：提交读，一个事务提交后才能被其他事务读取到（会造成幻读、不可重复读），SQL server 的默认级别；</li>
+<li>ISOLATIONREPEATABLEREAD：可重复读，保证多次读取同一个数据时，其值都和事务开始时候的内容是一致，禁止读取到别的事务未提交的数据（会造成幻读），MySQL 的默认级别；</li>
+<li>ISOLATION_SERIALIZABLE：序列化，代价最高最可靠的隔离级别，该隔离级别能防止脏读、不可重复读、幻读。<br><strong>脏读</strong> ：表示一个事务能够读取另一个事务中还未提交的数据。比如，某个事务尝试插入记录 A，此时该事务还未提交，然后另一个事务尝试读取到了记录 A。<br><strong>不可重复读</strong> ：是指在一个事务内，多次读同一数据。<br><strong>幻读</strong> ：指同一个事务内多次查询返回的结果集不一样。比如同一个事务 A 第一次查询时候有 n 条记录，但是第二次同等条件下查询却有 n+1 条记录，这就好像产生了幻觉。发生幻读的原因也是另外一个事务新增或者删除或者修改了第一个事务结果集里面的数据，同一个记录的数据内容被修改了，所有数据行的记录就变多或者变少了。</li>
+</ul>
+</li>
+<li><p>说一下 spring mvc 运行流程？<br>- spring mvc 先将请求发送给 DispatcherServlet。<br>- DispatcherServlet 查询一个或多个 HandlerMapping，找到处理请求的 Controller。<br>- DispatcherServlet 再把请求提交到对应的 Controller。<br>- Controller 进行业务逻辑处理后，会返回一个ModelAndView。<br>- Dispathcher 查询一个或多个 ViewResolver 视图解析器，找到 ModelAndView 对象指定的视图对象。<br>- 视图对象负责渲染返回给客户端。</p>
+</li>
+<li><p>spring mvc 有哪些组件？<br>- 前置控制器 DispatcherServlet。<br>- 映射控制器 HandlerMapping。<br>- 处理器 Controller。<br>- 模型和视图 ModelAndView。<br>- 视图解析器 ViewResolver。</p>
+</li>
+<li><p>@RequestMapping 的作用是什么？<br>将 http 请求映射到相应的类&#x2F;方法上。  </p>
+</li>
+<li><p>@Autowired 的作用是什么？<br>@Autowired 它可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作，通过@Autowired 的使用来消除 set&#x2F;get 方法。<br>Spring Boot&#x2F;Spring Cloud</p>
+</li>
+<li><p>什么是 spring boot？</p>
+</li>
+<li><p>为什么要用 spring boot？</p>
+</li>
+<li><p>spring boot 核心配置文件是什么？</p>
+</li>
+<li><p>spring boot 配置文件有哪几种类型？它们有什么区别？</p>
+</li>
+<li><p>spring boot 有哪些方式可以实现热部署？</p>
+</li>
+<li><p>jpa 和 hibernate 有什么区别？</p>
+</li>
+<li><p>什么是 spring cloud？</p>
+</li>
+<li><p>spring cloud 断路器的作用是什么？</p>
+</li>
+<li><p>spring cloud 的核心组件有哪些？</p>
+<h3 id="Hibernate-1"><a href="#Hibernate-1" class="headerlink" title="Hibernate"></a>Hibernate</h3></li>
+<li><p>为什么要使用 hibernate？</p>
+</li>
+<li><p>什么是 ORM 框架？</p>
+</li>
+<li><p>hibernate 中如何在控制台查看打印的 SQL 语句？</p>
+</li>
+<li><p>hibernate 有几种查询方式？</p>
+</li>
+<li><p>hibernate 实体类可以被定义为 final 吗？</p>
+</li>
+<li><p>在 hibernate 中使用 Integer 和 int 做映射有什么区别？</p>
+</li>
+<li><p>hibernate 是如何工作的？</p>
+</li>
+<li><p>get()和 load()的区别？</p>
+</li>
+<li><p>说一下 hibernate 的缓存机制？</p>
+</li>
+<li><p>hibernate 对象有哪些状态？</p>
+</li>
+<li><p>在 hibernate 中 getCurrentSession 和 openSession 的区别是什么？</p>
+</li>
+<li><p>hibernate 实体类必须要有无参构造函数吗？为什么？</p>
+<h3 id="MyBatis-1"><a href="#MyBatis-1" class="headerlink" title="MyBatis"></a>MyBatis</h3></li>
+<li><p>MyBatis 中 #{}和 ${}的区别是什么？</p>
+</li>
+<li><p>MyBatis 有几种分页方式？</p>
+</li>
+<li><p>RowBounds 是一次性查询全部结果吗？为什么？</p>
+</li>
+<li><p>MyBatis 逻辑分页和物理分页的区别是什么？</p>
+</li>
+<li><p>MyBatis 是否支持延迟加载？延迟加载的原理是什么？</p>
+</li>
+<li><p>说一下 MyBatis 的一级缓存和二级缓存？</p>
+</li>
+<li><p>MyBatis 和 hibernate 的区别有哪些？</p>
+</li>
+<li><p>MyBatis 有哪些执行器（Executor）？</p>
+</li>
+<li><p>MyBatis 分页插件的实现原理是什么？</p>
+</li>
+<li><p>MyBatis 如何编写一个自定义插件？</p>
+<h3 id="RabbitMQ-1"><a href="#RabbitMQ-1" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3></li>
+<li><p>RabbitMQ 的使用场景有哪些？</p>
+</li>
+<li><p>RabbitMQ 有哪些重要的角色？</p>
+</li>
+<li><p>RabbitMQ 有哪些重要的组件？</p>
+</li>
+<li><p>RabbitMQ 中 vhost 的作用是什么？</p>
+</li>
+<li><p>RabbitMQ 的消息是怎么发送的？</p>
+</li>
+<li><p>RabbitMQ 怎么保证消息的稳定性？</p>
+</li>
+<li><p>RabbitMQ 怎么避免消息丢失？</p>
+</li>
+<li><p>要保证消息持久化成功的条件有哪些？</p>
+</li>
+<li><p>RabbitMQ 持久化有什么缺点？</p>
+</li>
+<li><p>RabbitMQ 有几种广播类型？</p>
+</li>
+<li><p>RabbitMQ 怎么实现延迟消息队列？</p>
+</li>
+<li><p>RabbitMQ 集群有什么用？</p>
+</li>
+<li><p>RabbitMQ 节点的类型有哪些？</p>
+</li>
+<li><p>RabbitMQ 集群搭建需要注意哪些问题？</p>
+</li>
+<li><p>RabbitMQ 每个节点是其他节点的完整拷贝吗？为什么？</p>
+</li>
+<li><p>RabbitMQ 集群中唯一一个磁盘节点崩溃了会发生什么情况？</p>
+</li>
+<li><p>RabbitMQ 对集群节点停止顺序有要求吗？</p>
+<h3 id="Kafka-1"><a href="#Kafka-1" class="headerlink" title="Kafka"></a>Kafka</h3></li>
+<li><p>kafka 可以脱离 ZooKeeper 单独使用吗？为什么？</p>
+</li>
+<li><p>kafka 有几种数据保留的策略？</p>
+</li>
+<li><p>kafka 同时设置了 7 天和 10G 清除数据，到第五天的时候消息达到了 10G，这个时候 kafka 将如何处理？</p>
+</li>
+<li><p>什么情况会导致 kafka 运行变慢？</p>
+</li>
+<li><p>使用 kafka 集群需要注意什么？</p>
+<h3 id="ZooKeeper-1"><a href="#ZooKeeper-1" class="headerlink" title="ZooKeeper"></a>ZooKeeper</h3></li>
+<li><p>ZooKeeper 是什么？</p>
+</li>
+<li><p>ZooKeeper 都有哪些功能？</p>
+</li>
+<li><p>ZooKeeper 有几种部署模式？</p>
+</li>
+<li><p>ZooKeeper 怎么保证主从节点的状态同步？</p>
+</li>
+<li><p>集群中为什么要有主节点？</p>
+</li>
+<li><p>集群中有 3 台服务器，其中一个节点宕机，这个时候 ZooKeeper 还可以使用吗？</p>
+</li>
+<li><p>说一下 ZooKeeper 的通知机制？</p>
+<h3 id="MySQL-1"><a href="#MySQL-1" class="headerlink" title="MySQL"></a>MySQL</h3></li>
+<li><p>数据库的三范式是什么？</p>
+</li>
+<li><p>一张自增表里面总共有 7 条数据，删除了最后 2 条数据，重启 MySQL 数据库，又插入了一条数据，此时 id 是几？</p>
+</li>
+<li><p>如何获取当前数据库版本？</p>
+</li>
+<li><p>说一下 ACID 是什么？</p>
+</li>
+<li><p>char 和 varchar 的区别是什么？</p>
+</li>
+<li><p>float 和 double 的区别是什么？</p>
+</li>
+<li><p>MySQL 的内连接、左连接、右连接有什么区别？</p>
+</li>
+<li><p>MySQL 索引是怎么实现的？</p>
+</li>
+<li><p>怎么验证 MySQL 的索引是否满足需求？</p>
+</li>
+<li><p>说一下数据库的事务隔离？</p>
+</li>
+<li><p>说一下 MySQL 常用的引擎？</p>
+</li>
+<li><p>说一下 MySQL 的行锁和表锁？</p>
+</li>
+<li><p>说一下乐观锁和悲观锁？</p>
+</li>
+<li><p>MySQL 问题排查都有哪些手段？</p>
+</li>
+<li><p>如何做 MySQL 的性能优化？</p>
+<h3 id="Redis-1"><a href="#Redis-1" class="headerlink" title="Redis"></a>Redis</h3></li>
+<li><p>Redis 是什么？都有哪些使用场景？</p>
+</li>
+<li><p>Redis 有哪些功能？</p>
+</li>
+<li><p>Redis 和 memcache 有什么区别？</p>
+</li>
+<li><p>Redis 为什么是单线程的？</p>
+</li>
+<li><p>什么是缓存穿透？怎么解决？</p>
+</li>
+<li><p>Redis 支持的数据类型有哪些？</p>
+</li>
+<li><p>Redis 支持的 Java 客户端都有哪些？</p>
+</li>
+<li><p>jedis 和 Redisson 有哪些区别？</p>
+</li>
+<li><p>怎么保证缓存和数据库数据的一致性？</p>
+</li>
+<li><p>Redis 持久化有几种方式？</p>
+</li>
+<li><p>Redis 怎么实现分布式锁？</p>
+</li>
+<li><p>Redis 分布式锁有什么缺陷？</p>
+</li>
+<li><p>Redis 如何做内存优化？</p>
+</li>
+<li><p>Redis 淘汰策略有哪些？</p>
+</li>
+<li><p>Redis 常见的性能问题有哪些？该如何解决？<br>JVM</p>
+</li>
+<li><p>说一下 JVM 的主要组成部分？及其作用？</p>
+</li>
+<li><p>说一下 JVM 运行时数据区？</p>
+</li>
+<li><p>说一下堆栈的区别？</p>
+</li>
+<li><p>队列和栈是什么？有什么区别？</p>
+</li>
+<li><p>什么是双亲委派模型？</p>
+</li>
+<li><p>说一下类装载的执行过程？</p>
+</li>
+<li><p>怎么判断对象是否可以被回收？</p>
+</li>
+<li><p>Java 中都有哪些引用类型？</p>
+</li>
+<li><p>说一下 JVM 有哪些垃圾回收算法？</p>
+</li>
+<li><p>说一下 JVM 有哪些垃圾回收器？</p>
+</li>
+<li><p>详细介绍一下 CMS 垃圾回收器？</p>
+</li>
+<li><p>新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？</p>
+</li>
+<li><p>简述分代垃圾回收器是怎么工作的？</p>
+</li>
+<li><p>说一下 JVM 调优的工具？</p>
+</li>
+<li><p>常用的 JVM 调优的参数都有哪些？</p>
+</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%86%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-%E5%9F%BA%E7%A1%80"><span class="toc-number">1.1.</span> <span class="toc-text">Java 基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84"><span class="toc-number">1.4.</span> <span class="toc-text">反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%8B%B7%E8%B4%9D"><span class="toc-number">1.5.</span> <span class="toc-text">对象拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-Web"><span class="toc-number">1.6.</span> <span class="toc-text">Java Web</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-number">1.7.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C"><span class="toc-number">1.8.</span> <span class="toc-text">网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.9.</span> <span class="toc-text">设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-x2F-Spring-MVC"><span class="toc-number">1.10.</span> <span class="toc-text">Spring&#x2F;Spring MVC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hibernate"><span class="toc-number">1.11.</span> <span class="toc-text">Hibernate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MyBatis"><span class="toc-number">1.12.</span> <span class="toc-text">MyBatis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ"><span class="toc-number">1.13.</span> <span class="toc-text">RabbitMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka"><span class="toc-number">1.14.</span> <span class="toc-text">Kafka</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZooKeeper"><span class="toc-number">1.15.</span> <span class="toc-text">ZooKeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL"><span class="toc-number">1.16.</span> <span class="toc-text">MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis"><span class="toc-number">1.17.</span> <span class="toc-text">Redis</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-%E5%9F%BA%E7%A1%80-1"><span class="toc-number">2.1.</span> <span class="toc-text">Java 基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8-1"><span class="toc-number">2.2.</span> <span class="toc-text">容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B-1"><span class="toc-number">2.3.</span> <span class="toc-text">多线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84-1"><span class="toc-number">2.4.</span> <span class="toc-text">反射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%8B%B7%E8%B4%9D-1"><span class="toc-number">2.5.</span> <span class="toc-text">对象拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-Web-1"><span class="toc-number">2.6.</span> <span class="toc-text">Java Web</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8-1"><span class="toc-number">2.7.</span> <span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C-1"><span class="toc-number">2.8.</span> <span class="toc-text">网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-1"><span class="toc-number">2.9.</span> <span class="toc-text">设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-x2F-Spring-MVC-1"><span class="toc-number">2.10.</span> <span class="toc-text">Spring&#x2F;Spring MVC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hibernate-1"><span class="toc-number">2.11.</span> <span class="toc-text">Hibernate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MyBatis-1"><span class="toc-number">2.12.</span> <span class="toc-text">MyBatis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RabbitMQ-1"><span class="toc-number">2.13.</span> <span class="toc-text">RabbitMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka-1"><span class="toc-number">2.14.</span> <span class="toc-text">Kafka</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZooKeeper-1"><span class="toc-number">2.15.</span> <span class="toc-text">ZooKeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL-1"><span class="toc-number">2.16.</span> <span class="toc-text">MySQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redis-1"><span class="toc-number">2.17.</span> <span class="toc-text">Redis</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&text=面试题储备【2月27日更新】"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&title=面试题储备【2月27日更新】"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&is_video=false&description=面试题储备【2月27日更新】"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=面试题储备【2月27日更新】&body=Check out this article: https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&title=面试题储备【2月27日更新】"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&title=面试题储备【2月27日更新】"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&title=面试题储备【2月27日更新】"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&title=面试题储备【2月27日更新】"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&name=面试题储备【2月27日更新】&description=&lt;p&gt; Java 基础、容器、多线程、反射、对象拷贝、Java Web 、异常、网络、设计模式、Spring&amp;#x2F;Spring MVC、Spring Boot&amp;#x2F;Spring Cloud、Hibernate、MyBatis、RabbitMQ、Kafka、ZooKeeper、MySQL、Redis、JVM&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/%E9%9D%A2%E8%AF%95%E9%A2%98%E5%82%A8%E5%A4%87.html&t=面试题储备【2月27日更新】"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    sbx0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang=cn>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Consul集群搭建。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Consul 使用手册 - 集群搭建">
+<meta property="og:url" content="https://blog.sbx0.cn/post/consul-3.html">
+<meta property="og:site_name" content="sbx0&#39;s blog">
+<meta property="og:description" content="Consul集群搭建。">
+<meta property="og:locale">
+<meta property="og:image" content="http://p.qpic.cn/qqconadmin/0/b534833650ef49daa93e2b09e37ec1b9/0">
+<meta property="article:published_time" content="2020-10-16T16:21:28.000Z">
+<meta property="article:modified_time" content="2020-10-16T16:21:28.000Z">
+<meta property="article:author" content="sbx0">
+<meta property="article:tag" content="Consul">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://p.qpic.cn/qqconadmin/0/b534833650ef49daa93e2b09e37ec1b9/0">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Consul 使用手册 - 集群搭建</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="sbx0's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/ribbon.html"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/consul-2.html"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/consul-3.html"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/consul-3.html&text=Consul 使用手册 - 集群搭建"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/consul-3.html&title=Consul 使用手册 - 集群搭建"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/consul-3.html&is_video=false&description=Consul 使用手册 - 集群搭建"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Consul 使用手册 - 集群搭建&body=Check out this article: https://blog.sbx0.cn/post/consul-3.html"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/consul-3.html&title=Consul 使用手册 - 集群搭建"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/consul-3.html&title=Consul 使用手册 - 集群搭建"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/consul-3.html&title=Consul 使用手册 - 集群搭建"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/consul-3.html&title=Consul 使用手册 - 集群搭建"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/consul-3.html&name=Consul 使用手册 - 集群搭建&description=&lt;p&gt;Consul集群搭建。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/consul-3.html&t=Consul 使用手册 - 集群搭建"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E9%A2%84%E7%83%AD"><span class="toc-number">1.</span> <span class="toc-text">知识预热</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Consul%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text">Consul常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">1.1.1.</span> <span class="toc-text">参考文档</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#consul-agent-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.2.</span> <span class="toc-text">consul agent 命令详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">常用选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B1%EF%BC%9A%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E6%96%B9%E5%BC%8F%E6%89%A7%E8%A1%8C"><span class="toc-number">1.2.2.</span> <span class="toc-text">示例1：命令参数方式执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B2%EF%BC%9A%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%E6%89%A7%E8%A1%8C"><span class="toc-number">1.2.3.</span> <span class="toc-text">示例2：配置文件方式执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3-1"><span class="toc-number">1.2.4.</span> <span class="toc-text">参考文档</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Consul%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">Consul集群搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA%E8%A7%84%E5%88%92"><span class="toc-number">2.1.</span> <span class="toc-text">主机规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.2.</span> <span class="toc-text">搭建步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%B5%8B%E8%AF%95"><span class="toc-number">2.3.</span> <span class="toc-text">访问测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E7%9C%8B%E6%96%87%E7%AB%A0"><span class="toc-number">3.</span> <span class="toc-text">必看文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Consul 使用手册 - 集群搭建
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sbx0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-10-16T16:21:28.000Z" itemprop="datePublished">2020-10-16</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/">你怎么又忘了</a> › <a class="category-link" href="/categories/%E4%BD%A0%E6%80%8E%E4%B9%88%E5%8F%88%E5%BF%98%E4%BA%86/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">使用手册</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Consul/" rel="tag">Consul</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Consul集群搭建。</p>
+<span id="more"></span>
+
+<h2 id="知识预热"><a href="#知识预热" class="headerlink" title="知识预热"></a>知识预热</h2><h3 id="Consul常用命令"><a href="#Consul常用命令" class="headerlink" title="Consul常用命令"></a>Consul常用命令</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>解释</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>agent</td>
+<td>运行一个consul agent</td>
+<td>consul agent -dev</td>
+</tr>
+<tr>
+<td>join</td>
+<td>将agent加入到consul集群</td>
+<td>consul join IP</td>
+</tr>
+<tr>
+<td>members</td>
+<td>列出consul cluster集群中的members</td>
+<td>consul members</td>
+</tr>
+<tr>
+<td>leave</td>
+<td>将节点移除所在集群</td>
+<td>consul leave</td>
+</tr>
+</tbody></table>
+<h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><p>这里只列出几个常用的命令，consul有将近20个命令，本文不作展开，详见：<a target="_blank" rel="noopener" href="https://www.consul.io/docs/commands/index.html">https://www.consul.io/docs/commands/index.html</a></p>
+<h3 id="consul-agent-命令详解"><a href="#consul-agent-命令详解" class="headerlink" title="consul agent 命令详解"></a><code>consul agent</code> 命令详解</h3><h4 id="常用选项"><a href="#常用选项" class="headerlink" title="常用选项"></a>常用选项</h4><p><code>consul agent</code> 命令的常用选项如下：</p>
+<ul>
+<li>-data-dir<ul>
+<li>作用：指定agent储存状态的数据目录</li>
+<li>这是所有agent都必须的</li>
+<li>对于server尤其重要，因为他们必须持久化集群的状态</li>
+</ul>
+</li>
+<li>-config-dir<ul>
+<li>作用：指定service的配置文件和检查定义所在的位置</li>
+<li>通常会指定为”某一个路径&#x2F;consul.d”（通常情况下，.d表示一系列配置文件存放的目录）</li>
+</ul>
+</li>
+<li>-config-file<ul>
+<li>作用：指定一个要装载的配置文件</li>
+<li>该选项可以配置多次，进而配置多个配置文件（后边的会合并前边的，相同的值覆盖）</li>
+</ul>
+</li>
+<li>-dev<ul>
+<li>作用：创建一个开发环境下的server节点</li>
+<li>该参数配置下，不会有任何持久化操作，即不会有任何数据写入到磁盘</li>
+<li>这种模式不能用于生产环境（因为第二条）</li>
+</ul>
+</li>
+<li>-bootstrap-expect<ul>
+<li>作用：该命令通知consul server我们现在准备加入的server节点个数，该参数是为了延迟日志复制的启动直到我们指定数量的server节点成功的加入后启动。</li>
+</ul>
+</li>
+<li>-node<ul>
+<li>作用：指定节点在集群中的名称</li>
+<li>该名称在集群中必须是唯一的（默认采用机器的host）</li>
+<li>推荐：直接采用机器的IP</li>
+</ul>
+</li>
+<li>-bind<ul>
+<li>作用：指明节点的IP地址</li>
+<li>有时候不指定绑定IP，会报<code>Failed to get advertise address: Multiple private IPs found. Please configure one.</code>的异常</li>
+</ul>
+</li>
+<li>-server<ul>
+<li>作用：指定节点为server</li>
+<li>每个数据中心（DC）的server数推荐至少为1，至多为5</li>
+<li>所有的server都采用raft一致性算法来确保事务的一致性和线性化，事务修改了集群的状态，且集群的状态保存在每一台server上保证可用性</li>
+<li>server也是与其他DC交互的门面（gateway）</li>
+</ul>
+</li>
+<li>-client<ul>
+<li>作用：指定节点为client，指定客户端接口的绑定地址，包括：HTTP、DNS、RPC</li>
+<li>默认是127.0.0.1，只允许回环接口访问</li>
+<li>若不指定为-server，其实就是-client</li>
+</ul>
+</li>
+<li>-join<ul>
+<li>作用：将节点加入到集群</li>
+</ul>
+</li>
+<li>-datacenter（老版本叫-dc，-dc已经失效）<ul>
+<li>作用：指定机器加入到哪一个数据中心中</li>
+</ul>
+</li>
+</ul>
+<h4 id="示例1：命令参数方式执行"><a href="#示例1：命令参数方式执行" class="headerlink" title="示例1：命令参数方式执行"></a>示例1：命令参数方式执行</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">consul agent -data-dir /tmp/node2 -node<span class="token operator">=</span>node2 -bind<span class="token operator">=</span><span class="token number">192.168</span>.11.145 -datacenter<span class="token operator">=</span>dc1 -ui -client<span class="token operator">=</span><span class="token number">192.168</span>.11.145<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="示例2：配置文件方式执行"><a href="#示例2：配置文件方式执行" class="headerlink" title="示例2：配置文件方式执行"></a>示例2：配置文件方式执行</h4><p>准备一个配置文件，名称任意，例如consul.json，内容如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+    <span class="token property">"datacenter"</span><span class="token operator">:</span> <span class="token string">"us-east-1"</span><span class="token punctuation">,</span>
+    <span class="token property">"data_dir"</span><span class="token operator">:</span> <span class="token string">"/Users/zhouli/develop/software/consul-data/"</span><span class="token punctuation">,</span>
+    <span class="token property">"addresses"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"https"</span><span class="token operator">:</span> <span class="token string">"0.0.0.0"</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token property">"ports"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"http"</span><span class="token operator">:</span> <span class="token number">8500</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token property">"acl"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"enabled"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"default_policy"</span><span class="token operator">:</span> <span class="token string">"deny"</span><span class="token punctuation">,</span>
+        <span class="token property">"down_policy"</span><span class="token operator">:</span> <span class="token string">"extend-cache"</span><span class="token punctuation">,</span>
+        <span class="token property">"tokens"</span> <span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+          <span class="token property">"master"</span> <span class="token operator">:</span> <span class="token string">"b1gs33cr3t"</span>
+        <span class="token punctuation">&#125;</span>
+      <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>启动时，让consul读取配置文件：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">consul agent -dev -config-file<span class="token operator">=</span><span class="token string">"consul-config/consul.json"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h4 id="参考文档-1"><a href="#参考文档-1" class="headerlink" title="参考文档"></a>参考文档</h4><p><code>consul agent</code> 有20来个选项，本文只列出了常用选项，其他选项未作展开，详见： <a target="_blank" rel="noopener" href="https://www.consul.io/docs/agent/options.html">https://www.consul.io/docs/agent/options.html</a></p>
+<h2 id="Consul集群搭建"><a href="#Consul集群搭建" class="headerlink" title="Consul集群搭建"></a>Consul集群搭建</h2><p><img src="http://p.qpic.cn/qqconadmin/0/b534833650ef49daa93e2b09e37ec1b9/0"></p>
+<h3 id="主机规划"><a href="#主机规划" class="headerlink" title="主机规划"></a>主机规划</h3><p>准备三台CentOS 7的虚拟机，主机规划如下：</p>
+<table>
+<thead>
+<tr>
+<th>主机名称</th>
+<th>IP</th>
+<th>作用</th>
+<th>是否允许远程访问</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>node0</td>
+<td>192.168.11.143</td>
+<td>consul server</td>
+<td>是</td>
+</tr>
+<tr>
+<td>node1</td>
+<td>192.168.11.144</td>
+<td>consul client</td>
+<td>否</td>
+</tr>
+<tr>
+<td>node2</td>
+<td>192.168.11.145</td>
+<td>consul client</td>
+<td>是</td>
+</tr>
+</tbody></table>
+<h3 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h3><ul>
+<li>启动node0机器上的Consul（node0机器上执行）：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">consul agent -data-dir /tmp/node0 -node<span class="token operator">=</span>node0 -bind<span class="token operator">=</span><span class="token number">192.168</span>.11.143 -datacenter<span class="token operator">=</span>dc1 -ui -client<span class="token operator">=</span><span class="token number">192.168</span>.11.143 -server -bootstrap-expect <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>启动node1机器上的Consul（node1机器上执行）：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">consul agent -data-dir /tmp/node1 -node<span class="token operator">=</span>node1 -bind<span class="token operator">=</span><span class="token number">192.168</span>.11.144 -datacenter<span class="token operator">=</span>dc1 -ui<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>启动node2机器上的Consul（node2机器上执行）：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">consul agent -data-dir /tmp/node2 -node<span class="token operator">=</span>node2 -bind<span class="token operator">=</span><span class="token number">192.168</span>.11.145 -datacenter<span class="token operator">=</span>dc1 -ui -client<span class="token operator">=</span><span class="token number">192.168</span>.11.145<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>将node1节点加入到node0上（node1机器上执行）：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">consul <span class="token function">join</span> <span class="token number">192.168</span>.11.143<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>将node2节点加入到node0上（node2机器上执行）：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">consul <span class="token function">join</span> -rpc-addr<span class="token operator">=</span><span class="token number">192.168</span>.11.145:8400  <span class="token number">192.168</span>.11.143<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>这样一个简单的Consul集群就搭建完成了，在node1上查看当前集群节点：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">consul members -rpc-addr<span class="token operator">=</span><span class="token number">192.168</span>.11.143:8400<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>结果如下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Node   Address              Status  Type    Build  Protocol  DC
+node0  <span class="token number">192.168</span>.11.143:8301  alive   server  <span class="token number">0.7</span>.0  <span class="token number">2</span>         dc1
+node1  <span class="token number">192.168</span>.11.144:8301  alive   client  <span class="token number">0.7</span>.0  <span class="token number">2</span>         dc1
+node2  <span class="token number">192.168</span>.11.145:8301  alive   client  <span class="token number">0.7</span>.0  <span class="token number">2</span>         dc1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>说明集群已经搭建成功了。</p>
+<p>我们分析一下，为什么第5步和第6步需要加<code>-rpc-addr</code> 选项，而第4步不需要加任何选项呢？原因是<code>-client</code> 指定了客户端接口的绑定地址，包括：HTTP、DNS、RPC，而<code>consul join</code> 、<code>consul members</code> 都是通过RPC与Consul交互的。</p>
+<h3 id="访问测试"><a href="#访问测试" class="headerlink" title="访问测试"></a>访问测试</h3><p>如上，我们三个节点都加了<code>-ui</code> 参数启动了内建的界面。我们可以通过：<code>http://192.168.11.143:8500/ui/</code> 或者 <code>http://192.168.11.145:8500/ui/</code> 进行访问，也可以在node1机器上通过 <code>http://127.0.0.1:8500/ui/</code> 进行访问，原因是node1没有开启远程访问 ，三种访问方式结果一致。</p>
+<h2 id="必看文章"><a href="#必看文章" class="headerlink" title="必看文章"></a>必看文章</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://blog.bossma.cn/consul/consul-service-register-and-discovery-style/">使用Consul做服务发现的若干姿势</a></li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://ke.qq.com/classroom/index.html#course_id=475173&term_id=100569009&ch_id=689945&vch_id=655&section_id=2120&task_id=4165800450015269">BAT架构师带你从零打造微服务项目</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E9%A2%84%E7%83%AD"><span class="toc-number">1.</span> <span class="toc-text">知识预热</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Consul%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text">Consul常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="toc-number">1.1.1.</span> <span class="toc-text">参考文档</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#consul-agent-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.2.</span> <span class="toc-text">consul agent 命令详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E9%80%89%E9%A1%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">常用选项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B1%EF%BC%9A%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0%E6%96%B9%E5%BC%8F%E6%89%A7%E8%A1%8C"><span class="toc-number">1.2.2.</span> <span class="toc-text">示例1：命令参数方式执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B2%EF%BC%9A%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E6%96%B9%E5%BC%8F%E6%89%A7%E8%A1%8C"><span class="toc-number">1.2.3.</span> <span class="toc-text">示例2：配置文件方式执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3-1"><span class="toc-number">1.2.4.</span> <span class="toc-text">参考文档</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Consul%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">Consul集群搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA%E8%A7%84%E5%88%92"><span class="toc-number">2.1.</span> <span class="toc-text">主机规划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.2.</span> <span class="toc-text">搭建步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%B5%8B%E8%AF%95"><span class="toc-number">2.3.</span> <span class="toc-text">访问测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E7%9C%8B%E6%96%87%E7%AB%A0"><span class="toc-number">3.</span> <span class="toc-text">必看文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/consul-3.html"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/consul-3.html&text=Consul 使用手册 - 集群搭建"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/consul-3.html&title=Consul 使用手册 - 集群搭建"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/consul-3.html&is_video=false&description=Consul 使用手册 - 集群搭建"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Consul 使用手册 - 集群搭建&body=Check out this article: https://blog.sbx0.cn/post/consul-3.html"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/consul-3.html&title=Consul 使用手册 - 集群搭建"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/consul-3.html&title=Consul 使用手册 - 集群搭建"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/consul-3.html&title=Consul 使用手册 - 集群搭建"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/consul-3.html&title=Consul 使用手册 - 集群搭建"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/consul-3.html&name=Consul 使用手册 - 集群搭建&description=&lt;p&gt;Consul集群搭建。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/consul-3.html&t=Consul 使用手册 - 集群搭建"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    sbx0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

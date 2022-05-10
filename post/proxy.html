@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang=cn>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="代理模式（英语：Proxy Pattern）是程序设计中的一种设计模式。 所谓的代理者是指一个类别可以作为其它东西的接口。代理者可以作任何东西的接口：网络连接、存储器中的大对象、文件或其它昂贵或无法复制的资源。 著名的代理模式例子为引用计数（英语：reference counting）指针对象。 当一个复杂对象的多份副本须存在时，代理模式可以结合享元模式以减少存储器用量。典型作法是创建一个复杂对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代理">
+<meta property="og:url" content="https://blog.sbx0.cn/post/proxy.html">
+<meta property="og:site_name" content="sbx0&#39;s blog">
+<meta property="og:description" content="代理模式（英语：Proxy Pattern）是程序设计中的一种设计模式。 所谓的代理者是指一个类别可以作为其它东西的接口。代理者可以作任何东西的接口：网络连接、存储器中的大对象、文件或其它昂贵或无法复制的资源。 著名的代理模式例子为引用计数（英语：reference counting）指针对象。 当一个复杂对象的多份副本须存在时，代理模式可以结合享元模式以减少存储器用量。典型作法是创建一个复杂对象">
+<meta property="og:locale">
+<meta property="og:image" content="https://blog.sbx0.cn/post/proxy/1.jpg">
+<meta property="og:image" content="https://blog.sbx0.cn/post/proxy/2.jpg">
+<meta property="og:image" content="https://blog.sbx0.cn/post/proxy/3.jpg">
+<meta property="og:image" content="https://blog.sbx0.cn/post/proxy/4.jpg">
+<meta property="og:image" content="https://blog.sbx0.cn/post/proxy/5.jpg">
+<meta property="og:image" content="https://blog.sbx0.cn/post/proxy/6.jpg">
+<meta property="og:image" content="https://blog.sbx0.cn/post/proxy/7.jpg">
+<meta property="article:published_time" content="2020-04-09T18:55:30.000Z">
+<meta property="article:modified_time" content="2020-04-09T18:55:30.000Z">
+<meta property="article:author" content="sbx0">
+<meta property="article:tag" content="代理">
+<meta property="article:tag" content="静态代理">
+<meta property="article:tag" content="动态代理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.sbx0.cn/post/proxy/1.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>代理</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="sbx0's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/polymorphism.html"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/design-pattern.html"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/proxy.html"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/proxy.html&text=代理"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/proxy.html&title=代理"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/proxy.html&is_video=false&description=代理"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=代理&body=Check out this article: https://blog.sbx0.cn/post/proxy.html"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/proxy.html&title=代理"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/proxy.html&title=代理"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/proxy.html&title=代理"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/proxy.html&title=代理"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/proxy.html&name=代理&description=&lt;p&gt;代理模式（英语：Proxy Pattern）是程序设计中的一种设计模式。&lt;/p&gt;
+&lt;p&gt;所谓的代理者是指一个类别可以作为其它东西的接口。代理者可以作任何东西的接口：网络连接、存储器中的大对象、文件或其它昂贵或无法复制的资源。&lt;/p&gt;
+&lt;p&gt;著名的代理模式例子为引用计数（英语：reference counting）指针对象。&lt;/p&gt;
+&lt;p&gt;当一个复杂对象的多份副本须存在时，代理模式可以结合享元模式以减少存储器用量。典型作法是创建一个复杂对象及多个代理者，每个代理者会引用到原本的复杂对象。而作用在代理者的运算会转送到原本对象。一旦所有的代理者都不存在时，复杂对象会被移除。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/proxy.html&t=代理"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BB%A3%E7%90%86%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">什么是代理？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">2.1.</span> <span class="toc-text">继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%9A%E5%90%88"><span class="toc-number">2.2.</span> <span class="toc-text">聚合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">深入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">静态代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">动态代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90TimeProxy%E6%BA%90%E7%A0%81"><span class="toc-number">5.1.</span> <span class="toc-text">生成TimeProxy源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91TimeProxy%E6%BA%90%E7%A0%81"><span class="toc-number">5.2.</span> <span class="toc-text">编译TimeProxy源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E5%88%B0%E5%86%85%E5%AD%98%E4%B8%AD%E5%B9%B6%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-number">5.3.</span> <span class="toc-text">加载到内存中并创建对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0InvocationHandler%E6%8E%A5%E5%8F%A3"><span class="toc-number">5.4.</span> <span class="toc-text">增加InvocationHandler接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-number">6.</span> <span class="toc-text">测试代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%9A%84TimeProxy-java%E6%BA%90%E7%A0%81"><span class="toc-number">7.</span> <span class="toc-text">生成的TimeProxy.java源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyInvocationHandler-java"><span class="toc-number">8.</span> <span class="toc-text">MyInvocationHandler.java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-number">9.</span> <span class="toc-text">如何使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK%E5%AE%9E%E7%8E%B0%E6%8F%AD%E7%A7%98"><span class="toc-number">10.</span> <span class="toc-text">JDK实现揭秘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Proxy-java"><span class="toc-number">10.1.</span> <span class="toc-text">Proxy.java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InvocationHandler"><span class="toc-number">10.2.</span> <span class="toc-text">InvocationHandler</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%94%E7%96%91%E8%A7%A3%E6%83%91"><span class="toc-number">11.</span> <span class="toc-text">答疑解惑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#invoke%E6%96%B9%E6%B3%95%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0proxy%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="toc-number">11.1.</span> <span class="toc-text">invoke方法的第一个参数proxy到底有什么作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="toc-number">11.2.</span> <span class="toc-text">动态代理到底有什么用？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">12.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">13.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        代理
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sbx0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-09T18:55:30.000Z" itemprop="datePublished">2020-04-09</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a> › <a class="category-link" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/%E4%B8%8D%E6%87%82%E5%B0%B1%E6%9F%A5/">不懂就查</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E4%BB%A3%E7%90%86/" rel="tag">代理</a>, <a class="tag-link-link" href="/tags/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">动态代理</a>, <a class="tag-link-link" href="/tags/%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86/" rel="tag">静态代理</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>代理模式（英语：Proxy Pattern）是程序设计中的一种设计模式。</p>
+<p>所谓的代理者是指一个类别可以作为其它东西的接口。代理者可以作任何东西的接口：网络连接、存储器中的大对象、文件或其它昂贵或无法复制的资源。</p>
+<p>著名的代理模式例子为引用计数（英语：reference counting）指针对象。</p>
+<p>当一个复杂对象的多份副本须存在时，代理模式可以结合享元模式以减少存储器用量。典型作法是创建一个复杂对象及多个代理者，每个代理者会引用到原本的复杂对象。而作用在代理者的运算会转送到原本对象。一旦所有的代理者都不存在时，复杂对象会被移除。</p>
+<span id="more"></span>
+
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>util<span class="token punctuation">.</span></span><span class="token operator">*</span></span><span class="token punctuation">;</span>
+ 
+<span class="token keyword">interface</span> <span class="token class-name">Image</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">displayImage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//on System A </span>
+<span class="token keyword">class</span> <span class="token class-name">RealImage</span> <span class="token keyword">implements</span> <span class="token class-name">Image</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> filename<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token class-name">RealImage</span><span class="token punctuation">(</span><span class="token class-name">String</span> filename<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+        <span class="token keyword">this</span><span class="token punctuation">.</span>filename <span class="token operator">=</span> filename<span class="token punctuation">;</span>
+        <span class="token function">loadImageFromDisk</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">loadImageFromDisk</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Loading   "</span> <span class="token operator">+</span> filename<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">displayImage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Displaying "</span> <span class="token operator">+</span> filename<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">//on System B </span>
+<span class="token keyword">class</span> <span class="token class-name">ProxyImage</span> <span class="token keyword">implements</span> <span class="token class-name">Image</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> filename<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Image</span> image<span class="token punctuation">;</span>
+ 
+    <span class="token keyword">public</span> <span class="token class-name">ProxyImage</span><span class="token punctuation">(</span><span class="token class-name">String</span> filename<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> 
+        <span class="token keyword">this</span><span class="token punctuation">.</span>filename <span class="token operator">=</span> filename<span class="token punctuation">;</span> 
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">displayImage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>image <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+              image <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RealImage</span><span class="token punctuation">(</span>filename<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        image<span class="token punctuation">.</span><span class="token function">displayImage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+ 
+<span class="token keyword">class</span> <span class="token class-name">ProxyExample</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Image</span> image1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ProxyImage</span><span class="token punctuation">(</span><span class="token string">"HiRes_10MB_Photo1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Image</span> image2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ProxyImage</span><span class="token punctuation">(</span><span class="token string">"HiRes_10MB_Photo2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     
+        
+        image1<span class="token punctuation">.</span><span class="token function">displayImage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// loading necessary</span>
+        image2<span class="token punctuation">.</span><span class="token function">displayImage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// loading necessary</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>输出：</p>
+<pre class="line-numbers language-none"><code class="language-none">Loading    HiRes_10MB_Photo1
+Displaying HiRes_10MB_Photo1
+Loading    HiRes_10MB_Photo2
+Displaying HiRes_10MB_Photo2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="什么是代理？"><a href="#什么是代理？" class="headerlink" title="什么是代理？"></a>什么是代理？</h2><p>从字面意思来看，代理比较好理解，无非就是代为处理的意思。举个例子，你在上大学的时候，总是喜欢逃课。因此，你拜托你的同学帮你答到，而自己却窝在宿舍玩游戏… 你的这个同学恰好就充当了代理的作用，代替你去上课。<br>是的，你没有看错，代理就是这么简单！<br>理解了代理的意思，你脑海中恐怕还有两个巨大的疑问：</p>
+<p>怎么实现代理模式<br>代理模式有什么实际用途</p>
+<p>要理解这两个问题，看一个简单的例子：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Flyable</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bird</span> <span class="token keyword">implements</span> <span class="token class-name">Flyable</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Bird is flying..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>很简单的一个例子，用一个随机睡眠时间模拟小鸟在空中的飞行时间。接下来问题来了，如果我要知道小鸟在天空中飞行了多久，怎么办？</p>
+<p>有人说，很简单，在Bird-&gt;fly()方法的开头记录起始时间，在方法结束记录完成时间，两个时间相减就得到了飞行时间。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">long</span> start <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Bird is flying..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">Thread</span><span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">long</span> end <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Fly time = "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>end <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>的确，这个方法没有任何问题，接下来加大问题的难度。如果Bird这个类来自于某个SDK（或者说Jar包）提供，你无法改动源码，怎么办？</p>
+<p>一定会有人说，我可以在调用的地方这样写：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">Bird</span> bird <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Bird</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">long</span> start <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        bird<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">long</span> end <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Fly time = "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>end <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这个方案看起来似乎没有问题，但其实你忽略了准备这些方法所需要的时间，执行一个方法，需要开辟栈内存、压栈、出栈等操作，这部分时间也是不可以忽略的。因此，这个解决方案不可行。那么，还有什么方法可以做到呢？</p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>继承是最直观的解决方案，相信你已经想到了，至少我最开始想到的解决方案就是继承。 为此，我们重新创建一个类Bird2，在Bird2中我们只做一件事情，就是调用父类的fly方法，在前后记录时间，并打印时间差：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bird2</span> <span class="token keyword">extends</span> <span class="token class-name">Bird</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">long</span> start <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        <span class="token keyword">long</span> end <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Fly time = "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>end <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h3><p>我们再次创建新类Bird3，在Bird3的构造方法中传入Bird实例。同时，让Bird3也实现Flyable接口，并在fly方法中调用传入的Bird实例的fly方法：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bird3</span> <span class="token keyword">implements</span> <span class="token class-name">Flyable</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Bird</span> bird<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Bird3</span><span class="token punctuation">(</span><span class="token class-name">Bird</span> bird<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>bird <span class="token operator">=</span> bird<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">long</span> start <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        bird<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">long</span> end <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Fly time = "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>end <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="深入"><a href="#深入" class="headerlink" title="深入"></a>深入</h2><p>为了记录Bird-&gt;fly()方法的执行时间，我们在前后添加了记录时间的代码。同样地，通过这种方法我们也可以获得小鸟的飞行时间。那么，这两种方法孰优孰劣呢？咋一看，不好评判！</p>
+<p>继续深入思考，用问题推导来解答这个问题：</p>
+<p>问题一：如果我还需要在fly方法前后打印日志，记录飞行开始和飞行结束，怎么办？ 有人说，很简单！继承Bird2并在在前后添加打印语句即可。那么，问题来了，请看问题二。</p>
+<p>问题二：如果我需要调换执行顺序，先打印日志，再获取飞行时间，怎么办？ 有人说，再新建一个类Bird4继承Bird，打印日志。再新建一个类Bird5继承Bird4，获取方法执行时间。</p>
+<p>问题显而易见：使用继承将导致类无限制扩展，同时灵活性也无法获得保障。那么，使用 聚合 是否可以避免这个问题呢？ 答案是：可以！但我们的类需要稍微改造一下。修改Bird3类，将聚合对象Bird类型修改为Flyable</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Bird3</span> <span class="token keyword">implements</span> <span class="token class-name">Flyable</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Flyable</span> flyable<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Bird3</span><span class="token punctuation">(</span><span class="token class-name">Flyable</span> flyable<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>flyable <span class="token operator">=</span> flyable<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">long</span> start <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        flyable<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">long</span> end <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Fly time = "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>end <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>为了让你看的更清楚，我将Bird3更名为BirdTimeProxy，即用于获取方法执行时间的代理的意思。同时我们新建BirdLogProxy代理类用于打印日志：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BirdLogProxy</span> <span class="token keyword">implements</span> <span class="token class-name">Flyable</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Flyable</span> flyable<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">BirdLogProxy</span><span class="token punctuation">(</span><span class="token class-name">Flyable</span> flyable<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>flyable <span class="token operator">=</span> flyable<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Bird fly start..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        flyable<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Bird fly end..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>接下来神奇的事情发生了，如果我们需要先记录日志，再获取飞行时间，可以在调用的地方这么做：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">Bird</span> bird <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Bird</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">BirdLogProxy</span> p1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BirdLogProxy</span><span class="token punctuation">(</span>bird<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">BirdTimeProxy</span> p2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BirdTimeProxy</span><span class="token punctuation">(</span>p1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    p2<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>反过来，可以这么做：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+   <span class="token class-name">Bird</span> bird <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Bird</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token class-name">BirdTimeProxy</span> p2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BirdTimeProxy</span><span class="token punctuation">(</span>bird<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token class-name">BirdLogProxy</span> p1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BirdLogProxy</span><span class="token punctuation">(</span>p2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   p1<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>看到这里，有同学可能会有疑问了。虽然现象看起来，聚合可以灵活调换执行顺序。可是，为什么 聚合 可以做到，而继承不行呢。我们用一张图来解释一下：</p>
+<img src="/post/proxy/1.jpg" class="" title="聚合vs继承">
+
+<h2 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h2><p>接下来，观察上面的类BirdTimeProxy，在它的fly方法中我们直接调用了flyable-&gt;fly()方法。换而言之，BirdTimeProxy其实代理了传入的Flyable对象，这就是典型的静态代理实现。<br>从表面上看，静态代理已经完美解决了我们的问题。可是，试想一下，如果我们需要计算SDK中100个方法的运行时间，同样的代码至少需要重复100次，并且创建至少100个代理类。往小了说，如果Bird类有多个方法，我们需要知道其他方法的运行时间，同样的代码也至少需要重复多次。因此，静态代理至少有以下两个局限性问题：</p>
+<ol>
+<li>如果同时代理多个类，依然会导致类无限制扩展</li>
+<li>如果类中有多个方法，同样的逻辑需要反复实现</li>
+</ol>
+<p>那么，我们是否可以使用同一个代理类来代理任意对象呢？我们以获取方法运行时间为例，是否可以使用同一个类（例如：TimeProxy）来计算任意对象的任一方法的执行时间呢？甚至再大胆一点，代理的逻辑也可以自己指定。比如，获取方法的执行时间，打印日志，这类逻辑都可以自己指定。这就是本文重点探讨的问题，也是最难理解的部分：动态代理。</p>
+<h2 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h2><p>继续回到上面这个问题：是否可以使用同一个类（例如：TimeProxy）来计算任意对象的任一方法的执行时间呢。</p>
+<p>这个部分需要一定的抽象思维，我想，你脑海中的第一个解决方案应该是使用 <a href="/post/reflection.html" title="反射">反射</a> 。反射是用于获取已创建实例的方法或者属性，并对其进行调用或者赋值。很明显，在这里，反射解决不了问题。但是，再大胆一点，如果我们可以动态生成TimeProxy这个类，并且动态编译。然后，再通过反射创建对象并加载到内存中，不就实现了对任意对象进行代理了吗？为了防止你依然一头雾水，我们用一张图来描述接下来要做什么：</p>
+<img src="/post/proxy/2.jpg" class="" title="大胆">
+
+<p>动态生成Java源文件并且排版是一个非常繁琐的工作，为了简化操作，我们使用 JavaPoet 这个第三方库帮我们生成TimeProxy的源码。希望 JavaPoet  不要成为你的负担，不理解 JavaPoet 没有关系，你只要把它当成一个Java源码生成工具使用即可。<br>PS：你记住，任何工具库的使用都不会太难，它是为了简化某些操作而出现的，目标是简化而不是繁琐。因此，只要你适应它的规则就轻车熟路了。</p>
+<h3 id="生成TimeProxy源码"><a href="#生成TimeProxy源码" class="headerlink" title="生成TimeProxy源码"></a>生成TimeProxy源码</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Proxy</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Object</span> <span class="token function">newProxyInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">TypeSpec<span class="token punctuation">.</span>Builder</span> typeSpecBuilder <span class="token operator">=</span> <span class="token class-name">TypeSpec</span><span class="token punctuation">.</span><span class="token function">classBuilder</span><span class="token punctuation">(</span><span class="token string">"TimeProxy"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">addSuperinterface</span><span class="token punctuation">(</span><span class="token class-name">Flyable</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">FieldSpec</span> fieldSpec <span class="token operator">=</span> <span class="token class-name">FieldSpec</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token class-name">Flyable</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string">"flyable"</span><span class="token punctuation">,</span> <span class="token class-name">Modifier</span><span class="token punctuation">.</span>PRIVATE<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        typeSpecBuilder<span class="token punctuation">.</span><span class="token function">addField</span><span class="token punctuation">(</span>fieldSpec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">MethodSpec</span> constructorMethodSpec <span class="token operator">=</span> <span class="token class-name">MethodSpec</span><span class="token punctuation">.</span><span class="token function">constructorBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">addModifiers</span><span class="token punctuation">(</span><span class="token class-name">Modifier</span><span class="token punctuation">.</span>PUBLIC<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">addParameter</span><span class="token punctuation">(</span><span class="token class-name">Flyable</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string">"flyable"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">addStatement</span><span class="token punctuation">(</span><span class="token string">"this.flyable = flyable"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        typeSpecBuilder<span class="token punctuation">.</span><span class="token function">addMethod</span><span class="token punctuation">(</span>constructorMethodSpec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">Method</span><span class="token punctuation">[</span><span class="token punctuation">]</span> methods <span class="token operator">=</span> <span class="token class-name">Flyable</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getDeclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Method</span> method <span class="token operator">:</span> methods<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token class-name">MethodSpec</span> methodSpec <span class="token operator">=</span> <span class="token class-name">MethodSpec</span><span class="token punctuation">.</span><span class="token function">methodBuilder</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">addModifiers</span><span class="token punctuation">(</span><span class="token class-name">Modifier</span><span class="token punctuation">.</span>PUBLIC<span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">addAnnotation</span><span class="token punctuation">(</span><span class="token class-name">Override</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getReturnType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">addStatement</span><span class="token punctuation">(</span><span class="token string">"long start = $T.currentTimeMillis()"</span><span class="token punctuation">,</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">addCode</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">addStatement</span><span class="token punctuation">(</span><span class="token string">"this.flyable."</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"()"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">addCode</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">addStatement</span><span class="token punctuation">(</span><span class="token string">"long end = $T.currentTimeMillis()"</span><span class="token punctuation">,</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">addStatement</span><span class="token punctuation">(</span><span class="token string">"$T.out.println(\"Fly Time =\" + (end - start))"</span><span class="token punctuation">,</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            typeSpecBuilder<span class="token punctuation">.</span><span class="token function">addMethod</span><span class="token punctuation">(</span>methodSpec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token class-name">JavaFile</span> javaFile <span class="token operator">=</span> <span class="token class-name">JavaFile</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token string">"com.youngfeng.proxy"</span><span class="token punctuation">,</span> typeSpecBuilder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 为了看的更清楚，我将源码文件生成到桌面</span>
+        javaFile<span class="token punctuation">.</span><span class="token function">writeTo</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span><span class="token string">"/Users/ouyangfeng/Desktop/"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在main方法中调用Proxy.newProxyInstance()，你将看到桌面已经生成了TimeProxy.java文件，生成的内容如下：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>youngfeng<span class="token punctuation">.</span>proxy</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span></span><span class="token class-name">Override</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span></span><span class="token class-name">System</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">TimeProxy</span> <span class="token keyword">implements</span> <span class="token class-name">Flyable</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> <span class="token class-name">Flyable</span> flyable<span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span> <span class="token class-name">TimeProxy</span><span class="token punctuation">(</span><span class="token class-name">Flyable</span> flyable<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>flyable <span class="token operator">=</span> flyable<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">long</span> start <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>flyable<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">long</span> end <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Fly Time ="</span> <span class="token operator">+</span> <span class="token punctuation">(</span>end <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="编译TimeProxy源码"><a href="#编译TimeProxy源码" class="headerlink" title="编译TimeProxy源码"></a>编译TimeProxy源码</h3><p>编译TimeProxy源码我们直接使用JDK提供的编译工具即可，为了使你看起来更清晰，我使用一个新的辅助类来完成编译操作：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JavaCompiler</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">compile</span><span class="token punctuation">(</span><span class="token class-name">File</span> javaFile<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name"><span class="token namespace">javax<span class="token punctuation">.</span>tools<span class="token punctuation">.</span></span>JavaCompiler</span> javaCompiler <span class="token operator">=</span> <span class="token class-name">ToolProvider</span><span class="token punctuation">.</span><span class="token function">getSystemJavaCompiler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">StandardJavaFileManager</span> fileManager <span class="token operator">=</span> javaCompiler<span class="token punctuation">.</span><span class="token function">getStandardFileManager</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Iterable</span> iterable <span class="token operator">=</span> fileManager<span class="token punctuation">.</span><span class="token function">getJavaFileObjects</span><span class="token punctuation">(</span>javaFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name"><span class="token namespace">javax<span class="token punctuation">.</span>tools<span class="token punctuation">.</span></span>JavaCompiler<span class="token punctuation">.</span>CompilationTask</span> task <span class="token operator">=</span> javaCompiler<span class="token punctuation">.</span><span class="token function">getTask</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> fileManager<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> iterable<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        task<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fileManager<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在Proxy-&gt;newProxyInstance()方法中调用该方法，编译顺利完成：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 为了看的更清楚，我将源码文件生成到桌面</span>
+<span class="token class-name">String</span> sourcePath <span class="token operator">=</span> <span class="token string">"/Users/ouyangfeng/Desktop/"</span><span class="token punctuation">;</span>
+javaFile<span class="token punctuation">.</span><span class="token function">writeTo</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>sourcePath<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 编译</span>
+<span class="token class-name">JavaCompiler</span><span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>sourcePath <span class="token operator">+</span> <span class="token string">"/com/youngfeng/proxy/TimeProxy.java"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="加载到内存中并创建对象"><a href="#加载到内存中并创建对象" class="headerlink" title="加载到内存中并创建对象"></a>加载到内存中并创建对象</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">URL<span class="token punctuation">[</span><span class="token punctuation">]</span> urls <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">URL</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">&#123;</span><span class="token keyword">new</span> <span class="token class-name">URL</span><span class="token punctuation">(</span><span class="token string">"file:/"</span> <span class="token operator">+</span> sourcePath<span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token class-name">URLClassLoader</span> classLoader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">URLClassLoader</span><span class="token punctuation">(</span>urls<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Class</span> clazz <span class="token operator">=</span> classLoader<span class="token punctuation">.</span><span class="token function">loadClass</span><span class="token punctuation">(</span><span class="token string">"com.youngfeng.proxy.TimeProxy"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Constructor</span> constructor <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span><span class="token class-name">Flyable</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Flyable</span> flyable <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Flyable</span><span class="token punctuation">)</span> constructor<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Bird</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+flyable<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过以上三个步骤，我们至少解决了下面两个问题：</p>
+<ul>
+<li>不再需要手动创建TimeProxy</li>
+<li>可以代理任意实现了Flyable接口的类对象，并获取接口方法的执行时间</li>
+</ul>
+<p>可是，说好的任意对象呢？</p>
+<h3 id="增加InvocationHandler接口"><a href="#增加InvocationHandler接口" class="headerlink" title="增加InvocationHandler接口"></a>增加InvocationHandler接口</h3><p>查看Proxy-&gt;newProxyInstance()的源码，代理类继承的接口我们是写死的，为了增加灵活性，我们将接口类型作为参数传入：</p>
+<img src="/post/proxy/3.jpg" class="" title="InvocationHandler">
+
+<p>接口的灵活性问题解决了，TimeProxy的局限性依然存在，它只能用于获取方法的执行时间，而如果要在方法执行前后打印日志则需要重新创建一个代理类，显然这是不妥的！<br>为了增加控制的灵活性，我们考虑针将代理的处理逻辑也抽离出来（这里的处理就是打印方法的执行时间）。新增InvocationHandler接口，用于处理自定义逻辑：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">InvocationHandler</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">void</span> <span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">Object</span> proxy<span class="token punctuation">,</span> <span class="token class-name">Method</span> method<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>想象一下，如果客户程序员需要对代理类进行自定义的处理，只要实现该接口，并在invoke方法中进行相应的处理即可。这里我们在接口中设置了三个参数（其实也是为了和JDK源码保持一致）：</p>
+<ul>
+<li>proxy &#x3D;&gt; 这个参数指定动态生成的代理类，这里是TimeProxy</li>
+<li>method &#x3D;&gt; 这个参数表示传入接口中的所有Method对象</li>
+<li>args &#x3D;&gt; 这个参数对应当前method方法中的参数</li>
+</ul>
+<p>引入了InvocationHandler接口之后，我们的调用顺序应该变成了这样：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">MyInvocationHandler</span> handler <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyInvocationHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">Flyable</span> proxy <span class="token operator">=</span> <span class="token class-name">Proxy</span><span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span><span class="token class-name">Flyable</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+proxy<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>方法执行流：proxy.fly() &#x3D;&gt; handler.invoke()</p>
+<p>为此，我们需要在Proxy.newProxyInstance()方法中做如下改动：</p>
+<ul>
+<li>在newProxyInstance方法中传入InvocationHandler</li>
+<li>在生成的代理类中增加成员变量handler</li>
+<li>在生成的代理类方法中，调用invoke方法</li>
+</ul>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"> <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Object</span> <span class="token function">newProxyInstance</span><span class="token punctuation">(</span><span class="token class-name">Class</span> inf<span class="token punctuation">,</span> <span class="token class-name">InvocationHandler</span> handler<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+       <span class="token class-name">TypeSpec<span class="token punctuation">.</span>Builder</span> typeSpecBuilder <span class="token operator">=</span> <span class="token class-name">TypeSpec</span><span class="token punctuation">.</span><span class="token function">classBuilder</span><span class="token punctuation">(</span><span class="token string">"TimeProxy"</span><span class="token punctuation">)</span>
+               <span class="token punctuation">.</span><span class="token function">addModifiers</span><span class="token punctuation">(</span><span class="token class-name">Modifier</span><span class="token punctuation">.</span>PUBLIC<span class="token punctuation">)</span>
+               <span class="token punctuation">.</span><span class="token function">addSuperinterface</span><span class="token punctuation">(</span>inf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       <span class="token class-name">FieldSpec</span> fieldSpec <span class="token operator">=</span> <span class="token class-name">FieldSpec</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token class-name">InvocationHandler</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string">"handler"</span><span class="token punctuation">,</span> <span class="token class-name">Modifier</span><span class="token punctuation">.</span>PRIVATE<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       typeSpecBuilder<span class="token punctuation">.</span><span class="token function">addField</span><span class="token punctuation">(</span>fieldSpec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       <span class="token class-name">MethodSpec</span> constructorMethodSpec <span class="token operator">=</span> <span class="token class-name">MethodSpec</span><span class="token punctuation">.</span><span class="token function">constructorBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+               <span class="token punctuation">.</span><span class="token function">addModifiers</span><span class="token punctuation">(</span><span class="token class-name">Modifier</span><span class="token punctuation">.</span>PUBLIC<span class="token punctuation">)</span>
+               <span class="token punctuation">.</span><span class="token function">addParameter</span><span class="token punctuation">(</span><span class="token class-name">InvocationHandler</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string">"handler"</span><span class="token punctuation">)</span>
+               <span class="token punctuation">.</span><span class="token function">addStatement</span><span class="token punctuation">(</span><span class="token string">"this.handler = handler"</span><span class="token punctuation">)</span>
+               <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       typeSpecBuilder<span class="token punctuation">.</span><span class="token function">addMethod</span><span class="token punctuation">(</span>constructorMethodSpec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       <span class="token class-name">Method</span><span class="token punctuation">[</span><span class="token punctuation">]</span> methods <span class="token operator">=</span> inf<span class="token punctuation">.</span><span class="token function">getDeclaredMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">Method</span> method <span class="token operator">:</span> methods<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+           <span class="token class-name">MethodSpec</span> methodSpec <span class="token operator">=</span> <span class="token class-name">MethodSpec</span><span class="token punctuation">.</span><span class="token function">methodBuilder</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                   <span class="token punctuation">.</span><span class="token function">addModifiers</span><span class="token punctuation">(</span><span class="token class-name">Modifier</span><span class="token punctuation">.</span>PUBLIC<span class="token punctuation">)</span>
+                   <span class="token punctuation">.</span><span class="token function">addAnnotation</span><span class="token punctuation">(</span><span class="token class-name">Override</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+                   <span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>method<span class="token punctuation">.</span><span class="token function">getReturnType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                   <span class="token punctuation">.</span><span class="token function">addCode</span><span class="token punctuation">(</span><span class="token string">"try &#123;\n"</span><span class="token punctuation">)</span>
+                   <span class="token punctuation">.</span><span class="token function">addStatement</span><span class="token punctuation">(</span><span class="token string">"\t$T method = "</span> <span class="token operator">+</span> inf<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">".class.getMethod(\""</span> <span class="token operator">+</span> method<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"\")"</span><span class="token punctuation">,</span> <span class="token class-name">Method</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+                   <span class="token comment">// 为了简单起见，这里参数直接写死为空</span>
+                   <span class="token punctuation">.</span><span class="token function">addStatement</span><span class="token punctuation">(</span><span class="token string">"\tthis.handler.invoke(this, method, null)"</span><span class="token punctuation">)</span>
+                   <span class="token punctuation">.</span><span class="token function">addCode</span><span class="token punctuation">(</span><span class="token string">"&#125; catch(Exception e) &#123;\n"</span><span class="token punctuation">)</span>
+                   <span class="token punctuation">.</span><span class="token function">addCode</span><span class="token punctuation">(</span><span class="token string">"\te.printStackTrace();\n"</span><span class="token punctuation">)</span>
+                   <span class="token punctuation">.</span><span class="token function">addCode</span><span class="token punctuation">(</span><span class="token string">"&#125;\n"</span><span class="token punctuation">)</span>
+                   <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           typeSpecBuilder<span class="token punctuation">.</span><span class="token function">addMethod</span><span class="token punctuation">(</span>methodSpec<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token punctuation">&#125;</span>
+
+       <span class="token class-name">JavaFile</span> javaFile <span class="token operator">=</span> <span class="token class-name">JavaFile</span><span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token string">"com.youngfeng.proxy"</span><span class="token punctuation">,</span> typeSpecBuilder<span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token comment">// 为了看的更清楚，我将源码文件生成到桌面</span>
+       <span class="token class-name">String</span> sourcePath <span class="token operator">=</span> <span class="token string">"/Users/ouyangfeng/Desktop/"</span><span class="token punctuation">;</span>
+       javaFile<span class="token punctuation">.</span><span class="token function">writeTo</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>sourcePath<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       <span class="token comment">// 编译</span>
+       <span class="token class-name">JavaCompiler</span><span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>sourcePath <span class="token operator">+</span> <span class="token string">"/com/youngfeng/proxy/TimeProxy.java"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       <span class="token comment">// 使用反射load到内存</span>
+       URL<span class="token punctuation">[</span><span class="token punctuation">]</span> urls <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">URL</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">&#123;</span><span class="token keyword">new</span> <span class="token class-name">URL</span><span class="token punctuation">(</span><span class="token string">"file:"</span> <span class="token operator">+</span> sourcePath<span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+       <span class="token class-name">URLClassLoader</span> classLoader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">URLClassLoader</span><span class="token punctuation">(</span>urls<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token class-name">Class</span> clazz <span class="token operator">=</span> classLoader<span class="token punctuation">.</span><span class="token function">loadClass</span><span class="token punctuation">(</span><span class="token string">"com.youngfeng.proxy.TimeProxy"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token class-name">Constructor</span> constructor <span class="token operator">=</span> clazz<span class="token punctuation">.</span><span class="token function">getConstructor</span><span class="token punctuation">(</span><span class="token class-name">InvocationHandler</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token class-name">Object</span> obj <span class="token operator">=</span> constructor<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span>handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+       <span class="token keyword">return</span> obj<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>上面的代码你可能看起来比较吃力，我们直接调用该方法，查看最后生成的源码。在main方法中测试newProxyInstance查看生成的TimeProxy源码：</p>
+<h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">Proxy</span><span class="token punctuation">.</span><span class="token function">newProxyInstance</span><span class="token punctuation">(</span><span class="token class-name">Flyable</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">MyInvocationHandler</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Bird</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="生成的TimeProxy-java源码"><a href="#生成的TimeProxy-java源码" class="headerlink" title="生成的TimeProxy.java源码"></a>生成的TimeProxy.java源码</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>youngfeng<span class="token punctuation">.</span>proxy</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span></span><span class="token class-name">Override</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>reflect<span class="token punctuation">.</span></span><span class="token class-name">Method</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TimeProxy</span> <span class="token keyword">implements</span> <span class="token class-name">Flyable</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">private</span> <span class="token class-name">InvocationHandler</span> handler<span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span> <span class="token class-name">TimeProxy</span><span class="token punctuation">(</span><span class="token class-name">InvocationHandler</span> handler<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>handler <span class="token operator">=</span> handler<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+    	<span class="token class-name">Method</span> method <span class="token operator">=</span> <span class="token class-name"><span class="token namespace">com<span class="token punctuation">.</span>youngfeng<span class="token punctuation">.</span>proxy<span class="token punctuation">.</span></span>Flyable</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getMethod</span><span class="token punctuation">(</span><span class="token string">"fly"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    	<span class="token keyword">this</span><span class="token punctuation">.</span>handler<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> method<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    	e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="MyInvocationHandler-java"><a href="#MyInvocationHandler-java" class="headerlink" title="MyInvocationHandler.java"></a>MyInvocationHandler.java</h2><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MyInvocationHandler</span> <span class="token keyword">implements</span> <span class="token class-name">InvocationHandler</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Bird</span> bird<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">MyInvocationHandler</span><span class="token punctuation">(</span><span class="token class-name">Bird</span> bird<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>bird <span class="token operator">=</span> bird<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">invoke</span><span class="token punctuation">(</span><span class="token class-name">Object</span> proxy<span class="token punctuation">,</span> <span class="token class-name">Method</span> method<span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">long</span> start <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">&#123;</span>
+            method<span class="token punctuation">.</span><span class="token function">invoke</span><span class="token punctuation">(</span>bird<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IllegalAccessException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InvocationTargetException</span> e<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+
+        <span class="token keyword">long</span> end <span class="token operator">=</span> <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Fly time = "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>end <span class="token operator">-</span> start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>至此，整个方法栈的调用栈变成了这样：</p>
+<img src="/post/proxy/4.jpg" class="" title="调用栈">
+
+<p>看到这里，估计很多同学已经晕了，在静态代理部分，我们在代理类中传入了被代理对象。可是，使用newProxyInstance生成动态代理对象的时候，我们居然不再需要传入被代理对象了。我们传入了的实际对象是InvocationHandler实现类的实例，这看起来有点像生成了InvocationHandler的代理对象，在动态生成的代理类的任意方法中都会间接调用InvocationHandler-&gt;invoke(proxy, method, args)方法。</p>
+<p>其实的确是这样。TimeProxy真正代理的对象就是InvocationHandler，不过这里设计的巧妙之处在于，InvocationHandler是一个接口，真正的实现由用户指定。另外，在每一个方法执行的时候，invoke方法都会被调用 ，这个时候如果你需要对某个方法进行自定义逻辑处理，可以根据method的特征信息进行判断分别处理。</p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>上面这段解释是告诉你在执行Proxy-&gt;newProxyInstance方法的时候真正发生的事情，而在实际使用过程中你完全可以忘掉上面的解释。按照设计者的初衷，我们做如下简单归纳：</p>
+<ul>
+<li>Proxy-&gt;newProxyInstance(infs, handler) 用于生成代理对象</li>
+<li>InvocationHandler：这个接口主要用于自定义代理逻辑处理</li>
+<li>为了完成对被代理对象的方法拦截，我们需要在InvocationHandler对象中传入被代理对象实例。</li>
+</ul>
+<p>查看上面的代码，你可以看到我将Bird实例已经传入到了MyInvocationHandler中，原因就是第三点。</p>
+<p>这样设计有什么好处呢？有人说，我们大费周章，饶了一大圈，最终变成了这个样子，到底图什么呢？<br>想象一下，到此为止，如果我们还需要对其它任意对象进行代理，是否还需要改动newProxyInstance方法的源码，答案是：完全不需要！</p>
+<p>只要你在newProxyInstance方法中指定代理需要实现的接口，指定用于自定义处理的InvocationHandler对象，整个代理的逻辑处理都在你自定义的InvocationHandler实现类中进行处理。至此，而我们终于可以从不断地写代理类用于实现自定义逻辑的重复工作中解放出来了，从此需要做什么，交给InvocationHandler。</p>
+<p>事实上，我们之前给自己定下的目标“使用同一个类来计算任意对象的任一方法的执行时间”已经实现了。严格来说，是我们超额完成了任务，TimeProxy不仅可以计算方法执行的时间，也可以打印方法执行日志，这完全取决于你的InvocationHandler接口实现。因此，这里取名为TimeProxy其实已经不合适了。我们可以修改为和JDK命名一致，即$Proxy0。</p>
+<h2 id="JDK实现揭秘"><a href="#JDK实现揭秘" class="headerlink" title="JDK实现揭秘"></a>JDK实现揭秘</h2><p>通过上面的这些步骤，我们完成了一个简易的仿JDK实现的动态代理逻辑。接下来，我们一起来看一看JDK实现的动态代理和我们到底有什么不同。</p>
+<h3 id="Proxy-java"><a href="#Proxy-java" class="headerlink" title="Proxy.java"></a>Proxy.java</h3><img src="/post/proxy/5.jpg" class="" title="Proxy">
+
+<h3 id="InvocationHandler"><a href="#InvocationHandler" class="headerlink" title="InvocationHandler"></a>InvocationHandler</h3><img src="/post/proxy/6.jpg" class="" title="InvocationHandler">
+
+<p>可以看到，官方版本Proxy类提供的方法多一些，而我们主要使用的接口newProxyInstance参数也和我们设计的不太一样。这里给大家简单解释一下，每个参数的意义：</p>
+<p>Classloader：类加载器，你可以使用自定义的类加载器，我们的实现版本为了简化，直接在代码中写死了Classloader。<br>Class&lt;?&gt;[]：第二个参数也和我们的实现版本不一致，这个其实很容易理解，我们应该允许我们自己实现的代理类同时实现多个接口。前面设计只传入一个接口，只是为了简化实现，让你专注核心逻辑实现而已。</p>
+<p>最后一个参数就不用说了，和我们实现的版本完全是一样的。<br>仔细观察官方版本的InvocationHandler，它和我们自己的实现的版本也有一个细微的差别：官方版本invoke方法有返回值，而我们的版本中是没有返回值的。那么，返回值到底有什么作用呢？直接来看官方文档：</p>
+<img src="/post/proxy/7.jpg" class="" title="官方文档">
+
+<p><em>核心思想：这里的返回值类型必须和传入接口的返回值类型一致，或者与其封装对象的类型一致。</em></p>
+<p>遗憾的是，这里并没有说明返回值的用途，其实这里稍微发挥一下想象力就知道了。在我们的版本实现中，Flyable接口的所有方法都是没有返回值的，问题是，如果有返回值呢？是的，你没有猜错，这里的invoke方法对应的就是传入接口中方法的返回值。</p>
+<h2 id="答疑解惑"><a href="#答疑解惑" class="headerlink" title="答疑解惑"></a>答疑解惑</h2><h3 id="invoke方法的第一个参数proxy到底有什么作用？"><a href="#invoke方法的第一个参数proxy到底有什么作用？" class="headerlink" title="invoke方法的第一个参数proxy到底有什么作用？"></a>invoke方法的第一个参数proxy到底有什么作用？</h3><p>这个问题其实也好理解，如果你的接口中有方法需要返回自身，如果在invoke中没有传入这个参数，将导致实例无法正常返回。在这种场景中，proxy的用途就表现出来了。简单来说，这其实就是最近非常火的链式编程的一种应用实现。</p>
+<h3 id="动态代理到底有什么用？"><a href="#动态代理到底有什么用？" class="headerlink" title="动态代理到底有什么用？"></a>动态代理到底有什么用？</h3><p>学习任何一门技术，一定要问一问自己，这到底有什么用。其实，在这篇文章的讲解过程中，我们已经说出了它的主要用途。你发现没，使用动态代理我们居然可以在不改变源码的情况下，直接在方法中插入自定义逻辑。这有点不太符合我们的一条线走到底的编程逻辑，这种编程模型有一个专业名称叫 AOP。所谓的AOP，就像刀一样，抓住时机，趁机插入。</p>
+<p>基于这样一种动态特性，我们可以用它做很多事情，例如：</p>
+<ul>
+<li>事务提交或回退（Web开发中很常见）</li>
+<li>权限管理</li>
+<li>自定义缓存逻辑处理</li>
+<li>SDK Bug修复 …</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>到此为止，关于动态代理的所有讲解已经结束了，原谅我使用了一个诱导性的标题“骗”你进来阅读这篇文章。如果你不是一个久经沙场的“老司机”，10分钟完全看懂动态代理设计模式还是有一定难度的。但即使没有看懂也没关系，如果你在第一次阅读完这篇文章后依然一头雾水，就不妨再仔细阅读一次。在阅读的过程中，一定要跟着文章思路去敲代码。反反复复，一定会看懂的。我在刚刚学习动态代理设计模式的时候就反复看了不下5遍，并且亲自敲代码实践了多次。<br>为了让你少走弯路，我认为看懂这篇文章，你至少需要学习以下知识点：</p>
+<ul>
+<li>至少已经理解了面向对象语言的多态特性</li>
+<li>了解简单的反射用法</li>
+<li>会简单使用 JavaPoet 生成Java源码</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F">维基百科</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5a99048a6fb9a028d5668e62">欧阳锋 | 掘金</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BB%A3%E7%90%86%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">什么是代理？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">2.1.</span> <span class="toc-text">继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%9A%E5%90%88"><span class="toc-number">2.2.</span> <span class="toc-text">聚合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">深入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">静态代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">动态代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90TimeProxy%E6%BA%90%E7%A0%81"><span class="toc-number">5.1.</span> <span class="toc-text">生成TimeProxy源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91TimeProxy%E6%BA%90%E7%A0%81"><span class="toc-number">5.2.</span> <span class="toc-text">编译TimeProxy源码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E5%88%B0%E5%86%85%E5%AD%98%E4%B8%AD%E5%B9%B6%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-number">5.3.</span> <span class="toc-text">加载到内存中并创建对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0InvocationHandler%E6%8E%A5%E5%8F%A3"><span class="toc-number">5.4.</span> <span class="toc-text">增加InvocationHandler接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-number">6.</span> <span class="toc-text">测试代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%9A%84TimeProxy-java%E6%BA%90%E7%A0%81"><span class="toc-number">7.</span> <span class="toc-text">生成的TimeProxy.java源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyInvocationHandler-java"><span class="toc-number">8.</span> <span class="toc-text">MyInvocationHandler.java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="toc-number">9.</span> <span class="toc-text">如何使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK%E5%AE%9E%E7%8E%B0%E6%8F%AD%E7%A7%98"><span class="toc-number">10.</span> <span class="toc-text">JDK实现揭秘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Proxy-java"><span class="toc-number">10.1.</span> <span class="toc-text">Proxy.java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#InvocationHandler"><span class="toc-number">10.2.</span> <span class="toc-text">InvocationHandler</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%94%E7%96%91%E8%A7%A3%E6%83%91"><span class="toc-number">11.</span> <span class="toc-text">答疑解惑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#invoke%E6%96%B9%E6%B3%95%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0proxy%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="toc-number">11.1.</span> <span class="toc-text">invoke方法的第一个参数proxy到底有什么作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F"><span class="toc-number">11.2.</span> <span class="toc-text">动态代理到底有什么用？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">12.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">13.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/proxy.html"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/proxy.html&text=代理"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/proxy.html&title=代理"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/proxy.html&is_video=false&description=代理"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=代理&body=Check out this article: https://blog.sbx0.cn/post/proxy.html"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/proxy.html&title=代理"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/proxy.html&title=代理"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/proxy.html&title=代理"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/proxy.html&title=代理"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/proxy.html&name=代理&description=&lt;p&gt;代理模式（英语：Proxy Pattern）是程序设计中的一种设计模式。&lt;/p&gt;
+&lt;p&gt;所谓的代理者是指一个类别可以作为其它东西的接口。代理者可以作任何东西的接口：网络连接、存储器中的大对象、文件或其它昂贵或无法复制的资源。&lt;/p&gt;
+&lt;p&gt;著名的代理模式例子为引用计数（英语：reference counting）指针对象。&lt;/p&gt;
+&lt;p&gt;当一个复杂对象的多份副本须存在时，代理模式可以结合享元模式以减少存储器用量。典型作法是创建一个复杂对象及多个代理者，每个代理者会引用到原本的复杂对象。而作用在代理者的运算会转送到原本对象。一旦所有的代理者都不存在时，复杂对象会被移除。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/proxy.html&t=代理"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    sbx0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

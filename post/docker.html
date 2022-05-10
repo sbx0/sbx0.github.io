@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang=cn>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Docker 是一个开放源代码软件，是一个开放平台，用于开发应用、交付应用、运行应用。 Docker允许用户将基础设施中的应用单独分割出来，形成更小的颗粒，从而提高交付软件的速度。 Docker容器 与虚拟机类似，但原理上，容器是将操作系统层虚拟化，虚拟机则是虚拟化硬件，因此容器更具有便携性、高效地利用服务器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="https://blog.sbx0.cn/post/docker.html">
+<meta property="og:site_name" content="sbx0&#39;s blog">
+<meta property="og:description" content="Docker 是一个开放源代码软件，是一个开放平台，用于开发应用、交付应用、运行应用。 Docker允许用户将基础设施中的应用单独分割出来，形成更小的颗粒，从而提高交付软件的速度。 Docker容器 与虚拟机类似，但原理上，容器是将操作系统层虚拟化，虚拟机则是虚拟化硬件，因此容器更具有便携性、高效地利用服务器。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-06-30T22:08:35.000Z">
+<meta property="article:modified_time" content="2020-06-30T22:08:35.000Z">
+<meta property="article:author" content="sbx0">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Docker</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="sbx0's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/docker-dockerfile.html"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/future-learning-plan.html"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/docker.html"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/docker.html&text=Docker"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/docker.html&title=Docker"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/docker.html&is_video=false&description=Docker"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker&body=Check out this article: https://blog.sbx0.cn/post/docker.html"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/docker.html&title=Docker"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/docker.html&title=Docker"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/docker.html&title=Docker"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/docker.html&title=Docker"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/docker.html&name=Docker&description=&lt;p&gt;Docker 是一个开放源代码软件，是一个开放平台，用于开发应用、交付应用、运行应用。 Docker允许用户将基础设施中的应用单独分割出来，形成更小的颗粒，从而提高交付软件的速度。 Docker容器 与虚拟机类似，但原理上，容器是将操作系统层虚拟化，虚拟机则是虚拟化硬件，因此容器更具有便携性、高效地利用服务器。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/docker.html&t=Docker"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8A%A0%E9%80%9F"><span class="toc-number">1.</span> <span class="toc-text">Docker安装与加速</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F"><span class="toc-number">1.2.</span> <span class="toc-text">阿里云镜像加速</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.</span> <span class="toc-text">配置远程连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89Docker%E5%87%BA%E7%8E%B0"><span class="toc-number">2.1.</span> <span class="toc-text">为什么会有Docker出现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker%E7%90%86%E5%BF%B5"><span class="toc-number">2.2.</span> <span class="toc-text">Docker理念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="toc-number">2.3.</span> <span class="toc-text">一句话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%8B%E5%89%8D%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8A%80%E6%9C%AF"><span class="toc-number">2.4.</span> <span class="toc-text">之前的虚拟机技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="toc-number">2.5.</span> <span class="toc-text">容器虚拟化技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91-x2F-%E8%BF%90%E7%BB%B4DevOps%E4%B8%80%E6%AC%A1%E6%9E%84%E5%BB%BA%E3%80%81%E9%9A%8F%E5%A4%84%E8%BF%90%E8%A1%8C"><span class="toc-number">2.6.</span> <span class="toc-text">开发&#x2F;运维DevOps一次构建、随处运行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.1.</span> <span class="toc-text">信息查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86"><span class="toc-number">3.2.</span> <span class="toc-text">容器生命周期管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-run"><span class="toc-number">3.2.1.</span> <span class="toc-text">docker run</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-start-x2F-stop-x2F-restart-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">docker start&#x2F;stop&#x2F;restart 命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-kill-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">docker kill 命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-rm-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">docker rm 命令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-pause-x2F-unpause-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.2.</span> <span class="toc-text">docker pause&#x2F;unpause 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-create-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.3.</span> <span class="toc-text">docker create 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-exec-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.4.</span> <span class="toc-text">docker exec 命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Docker
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">sbx0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-06-30T22:08:35.000Z" itemprop="datePublished">2020-06-30</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/">好东西就得大伙一起看</a> › <a class="category-link" href="/categories/%E5%A5%BD%E4%B8%9C%E8%A5%BF%E5%B0%B1%E5%BE%97%E5%A4%A7%E4%BC%99%E4%B8%80%E8%B5%B7%E7%9C%8B/%E4%B8%8D%E6%87%82%E5%B0%B1%E6%9F%A5/">不懂就查</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Docker/" rel="tag">Docker</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Docker 是一个开放源代码软件，是一个开放平台，用于开发应用、交付应用、运行应用。 Docker允许用户将基础设施中的应用单独分割出来，形成更小的颗粒，从而提高交付软件的速度。 Docker容器 与虚拟机类似，但原理上，容器是将操作系统层虚拟化，虚拟机则是虚拟化硬件，因此容器更具有便携性、高效地利用服务器。</p>
+<span id="more"></span>
+
+<h2 id="Docker安装与加速"><a href="#Docker安装与加速" class="headerlink" title="Docker安装与加速"></a>Docker安装与加速</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><a target="_blank" rel="noopener" href="https://download.daocloud.io/Docker_Mirror/Docker">DaoCloud</a></p>
+<h3 id="阿里云镜像加速"><a href="#阿里云镜像加速" class="headerlink" title="阿里云镜像加速"></a>阿里云镜像加速</h3><p><a target="_blank" rel="noopener" href="https://dev.aliyun.com/">Aliyun Dev</a><br>登录后点击<code>搜索镜像</code>，点击<code>镜像加速器</code>，根据提示配置加速。</p>
+<h3 id="配置远程连接"><a href="#配置远程连接" class="headerlink" title="配置远程连接"></a>配置远程连接</h3><pre class="line-numbers language-none"><code class="language-none">vi &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;docker.service
+systemctl daemon-reload
+systemctl restart docker
+firewall-cmd --zone&#x3D;public --add-port&#x3D;2375&#x2F;tcp --permanent
+firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在<code>ExecStart=/usr/bin/dockerd</code>后添加<code>-H tcp://0.0.0.0:2375</code><br>开启<code>2357</code>端口</p>
+<pre class="line-numbers language-none"><code class="language-none">firewall-cmd --zone&#x3D;public --add-port&#x3D;2375&#x2F;tcp --permanent
+firewall-cmd --reload<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="为什么会有Docker出现"><a href="#为什么会有Docker出现" class="headerlink" title="为什么会有Docker出现"></a>为什么会有Docker出现</h3><p>一款产品从开发到上线，从操作系统，到运行环境，再到应用配置。作为开发+运维之间的协作我们需要关心很多东西，这也是很多互联网公司都不得不面对的问题，特别是各种版本的迭代之后，不同版本环境的兼容，对运维人员都是考验</p>
+<p>Docker之所以发展如此迅速，也是因为它对此给出了一个标准化的解决方案。</p>
+<p>环境配置如此麻烦，换一台机器，就要重来一次，费力费时。很多人想到，能不能从根本上解决问题，软件可以带环境安装？也就是说，安装的时候，把原始环境一模一样地复制过来。开发人员利用 Docker 可以消除协作编码时“在我的机器上可正常工作”的问题。</p>
+<p>之前在服务器配置一个应用的运行环境，要安装各种软件，就拿尚硅谷电商项目的环境来说吧，Java&#x2F;Tomcat&#x2F;MySQL&#x2F;JDBC驱动包等。安装和配置这些东西有多麻烦就不说了，它还不能跨平台。假如我们是在 Windows 上安装的这些环境，到了 Linux 又得重新装。况且就算不跨操作系统，换另一台同样操作系统的服务器，要移植应用也是非常麻烦的。</p>
+<h3 id="Docker理念"><a href="#Docker理念" class="headerlink" title="Docker理念"></a>Docker理念</h3><p>Docker是基于Go语言实现的云开源项目。</p>
+<p>Docker的主要目标是“Build，Ship and Run Any App,Anywhere”，也就是通过对应用组件的封装、分发、部署、运行等生命周期的管理，使用户的APP（可以是一个WEB应用或数据库应用等等）及其运行环境能够做到“一次封装，到处运行”。</p>
+<p>Linux 容器技术的出现就解决了这样一个问题，而 Docker 就是在它的基础上发展过来的。将应用运行在 Docker 容器上面，而 Docker 容器在任何操作系统上都是一致的，这就实现了跨平台、跨服务器。只需要一次配置好环境，换到别的机子上就可以一键部署好，大大简化了操作。</p>
+<h3 id="一句话"><a href="#一句话" class="headerlink" title="一句话"></a>一句话</h3><p>解决了运行环境和配置问题软件容器，方便做持续集成并有助于整体发布的容器虚拟化技术。</p>
+<h3 id="之前的虚拟机技术"><a href="#之前的虚拟机技术" class="headerlink" title="之前的虚拟机技术"></a>之前的虚拟机技术</h3><p>虚拟机（virtual machine）就是带环境安装的一种解决方案。</p>
+<p>它可以在一种操作系统里面运行另一种操作系统，比如在Windows 系统里面运行Linux 系统。应用程序对此毫无感知，因为虚拟机看上去跟真实系统一模一样，而对于底层系统来说，虚拟机就是一个普通文件，不需要了就删掉，对其他部分毫无影响。这类虚拟机完美的运行了另一套系统，能够使应用程序，操作系统和硬件三者之间的逻辑不变。  </p>
+<p>虚拟机的缺点：</p>
+<ol>
+<li>资源占用多</li>
+<li>冗余步骤多</li>
+<li>启动慢</li>
+</ol>
+<h3 id="容器虚拟化技术"><a href="#容器虚拟化技术" class="headerlink" title="容器虚拟化技术"></a>容器虚拟化技术</h3><p>由于前面虚拟机存在这些缺点，Linux 发展出了另一种虚拟化技术：Linux 容器（Linux Containers，缩写为 LXC）。</p>
+<p>Linux 容器不是模拟一个完整的操作系统，而是对进程进行隔离。有了容器，就可以将软件运行所需的所有资源打包到一个隔离的容器中。容器与虚拟机不同，不需要捆绑一整套操作系统，只需要软件工作所需的库资源和设置。系统因此而变得高效轻量并保证部署在任何环境中的软件都能始终如一地运行。</p>
+<p>比较了 Docker 和传统虚拟化方式的不同之处：</p>
+<ul>
+<li><p>传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统，在该系统上再运行所需应用进程。</p>
+</li>
+<li><p>而容器内的应用进程直接运行于宿主的内核，容器内没有自己的内核，而且也没有进行硬件虚拟。因此容器要比传统虚拟机更为轻便。</p>
+</li>
+<li><p>每个容器之间互相隔离，每个容器有自己的文件系统 ，容器之间进程不会相互影响，能区分计算资源。</p>
+</li>
+</ul>
+<h3 id="开发-x2F-运维DevOps一次构建、随处运行"><a href="#开发-x2F-运维DevOps一次构建、随处运行" class="headerlink" title="开发&#x2F;运维DevOps一次构建、随处运行"></a>开发&#x2F;运维DevOps一次构建、随处运行</h3><ol>
+<li>更快速的应用交付和部署<br> 传统的应用开发完成后，需要提供一堆安装程序和配置说明文档，安装部署后需根据配置文档进行繁杂的配置才能正常运行。Docker化之后只需要交付少量容器镜像文件，在正式生产环境加载镜像并运行即可，应用安装配置在镜像里已经内置好，大大节省部署配置和测试验证时间。</li>
+<li>更便捷的升级的扩缩容<br> 随着微服务架构和Docker的发展，大量的应用会通过微服务方式架构，应用的开发构建将变成搭乐高积木一样，每个Docker容器将变成一块“积木”，应用的升级将变得非常容易。当现有的容器不足以支撑业务处理时，可通过镜像运行新的容器进行快速扩容，使应用系统的扩容从原先的天级变成分钟级甚至秒级。</li>
+<li>更简单的系统运维<br> 应用容器化运行后，生产环境运行的应用可与开发、测试环境的应用高度一致，容器会将应用程序相关的环境和状态完全封装起来，不会因为底层基础架构和操作系统的不一致性给应用带来影响，产生新的BUG。当出现程序异常时，也可以通过测试环境的相同容器进行快速定位和修复。</li>
+<li>更高效的计算资源利用<br> Docker是内核级虚拟化，其不像传统的虚拟化技术一样需要额外的Hypervisor支持，所以在一台物理机上可以运行很多个容器实例，可大大提升物理服务器的CPU和内存的利用率。</li>
+</ol>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="信息查询"><a href="#信息查询" class="headerlink" title="信息查询"></a>信息查询</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker version</td>
+<td>显示Docker版本信息</td>
+</tr>
+<tr>
+<td>docker info</td>
+<td>显示Docker系统信息，包括镜像和容器数</td>
+</tr>
+</tbody></table>
+<h3 id="容器生命周期管理"><a href="#容器生命周期管理" class="headerlink" title="容器生命周期管理"></a>容器生命周期管理</h3><h4 id="docker-run"><a href="#docker-run" class="headerlink" title="docker run"></a>docker run</h4><pre class="line-numbers language-none"><code class="language-none">docker run [OPTIONS] IMAGE [COMMAND] [ARG...]<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>OPTIONS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-a stdin</td>
+<td>指定标准输入输出内容类型，可选 STDIN&#x2F;STDOUT&#x2F;STDERR 三项</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>后台运行容器，并返回容器ID</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>以交互模式运行容器，通常与 <code>-t</code> 同时使用</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>随机端口映射，容器内部端口随机映射到主机的端口</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>指定端口映射，格式为：主机(宿主)端口:容器端口</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>为容器重新分配一个伪输入终端，通常与 <code>-i</code> 同时使用</td>
+</tr>
+<tr>
+<td>–name&#x3D;”nginx-lb”</td>
+<td>为容器指定一个名称</td>
+</tr>
+<tr>
+<td>–dns 8.8.8.8</td>
+<td>指定容器使用的DNS服务器，默认和宿主一致</td>
+</tr>
+<tr>
+<td>–dns-search example.com</td>
+<td>指定容器DNS搜索域名，默认和宿主一致</td>
+</tr>
+<tr>
+<td>-h “mars”</td>
+<td>指定容器的hostname</td>
+</tr>
+<tr>
+<td>-e username&#x3D;”ritchie”</td>
+<td>设置环境变量</td>
+</tr>
+<tr>
+<td>–env-file&#x3D;[]</td>
+<td>从指定文件读入环境变量</td>
+</tr>
+<tr>
+<td>–cpuset&#x3D;”0-2” or –cpuset&#x3D;”0,1,2”</td>
+<td>绑定容器到指定CPU运行</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>设置容器使用内存最大值</td>
+</tr>
+<tr>
+<td>–net&#x3D;”bridge”</td>
+<td>指定容器的网络连接类型，支持 bridge&#x2F;host&#x2F;none&#x2F;container: 四种类型</td>
+</tr>
+<tr>
+<td>–link&#x3D;[]</td>
+<td>添加链接到另一个容器</td>
+</tr>
+<tr>
+<td>–expose&#x3D;[]</td>
+<td>开放一个端口或一组端口</td>
+</tr>
+<tr>
+<td>–expose&#x3D;[]</td>
+<td>开放一个端口或一组端口</td>
+</tr>
+<tr>
+<td>–volume,-v</td>
+<td>绑定一个卷</td>
+</tr>
+</tbody></table>
+<p>示例：  </p>
+<ol>
+<li><p>使用镜像 nginx:latest 以后台模式启动一个容器,并将容器命名为mynginx。</p>
+ <pre class="line-numbers language-none"><code class="language-none">docker run --name mynginx -d nginx:latest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>使用镜像 nginx:latest 以后台模式启动一个容器,并将容器的80端口映射到主机随机端口。</p>
+ <pre class="line-numbers language-none"><code class="language-none">docker run -P -d nginx:latest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>使用镜像 nginx:latest，以后台模式启动一个容器,将容器的 80 端口映射到主机的 80 端口,主机的目录 &#x2F;data 映射到容器的 &#x2F;data。</p>
+ <pre class="line-numbers language-none"><code class="language-none">docker run -p 80:80 -v &#x2F;data:&#x2F;data -d nginx:latest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>绑定容器的 8080 端口，并将其映射到本地主机 127.0.0.1 的 80 端口上。</p>
+ <pre class="line-numbers language-none"><code class="language-none">docker run -p 127.0.0.1:80:8080&#x2F;tcp ubuntu bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p>使用镜像 nginx:latest 以交互模式启动一个容器,在容器内执行 &#x2F;bin&#x2F;bash 命令。</p>
+ <pre class="line-numbers language-none"><code class="language-none">docker run -it nginx:latest &#x2F;bin&#x2F;bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h5 id="docker-start-x2F-stop-x2F-restart-命令"><a href="#docker-start-x2F-stop-x2F-restart-命令" class="headerlink" title="docker start&#x2F;stop&#x2F;restart 命令"></a>docker start&#x2F;stop&#x2F;restart 命令</h5><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker start</td>
+<td>启动一个或多个已经被停止的容器</td>
+</tr>
+<tr>
+<td>docker stop</td>
+<td>停止一个运行中的容器</td>
+</tr>
+<tr>
+<td>docker restart</td>
+<td>重启容器</td>
+</tr>
+</tbody></table>
+<h5 id="docker-kill-命令"><a href="#docker-kill-命令" class="headerlink" title="docker kill 命令"></a>docker kill 命令</h5><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker kill</td>
+<td>杀掉一个运行中的容器</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-none"><code class="language-none">docker kill -s KILL mynginx
+-s: 向容器发送一个信号<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h5 id="docker-rm-命令"><a href="#docker-rm-命令" class="headerlink" title="docker rm 命令"></a>docker rm 命令</h5><pre class="line-numbers language-none"><code class="language-none">删除一个或多个容器
+docker rm [OPTIONS] CONTAINER [CONTAINER...]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>OPTIONS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-f</td>
+<td>通过 SIGKILL 信号强制删除一个运行中的容器</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>移除容器间的网络连接，而非容器本身</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>删除与容器关联的卷</td>
+</tr>
+</tbody></table>
+<p>示例：  </p>
+<ol>
+<li>强制删除容器 db01、db02： <pre class="line-numbers language-none"><code class="language-none">docker rm -f db01 db02<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>移除容器 nginx01 对容器 db01 的连接，连接名 db： <pre class="line-numbers language-none"><code class="language-none">docker rm -l db<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>删除容器 nginx01, 并删除容器挂载的数据卷： <pre class="line-numbers language-none"><code class="language-none">docker rm -v nginx01<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>删除所有已经停止的容器： <pre class="line-numbers language-none"><code class="language-none">docker rm $(docker ps -a -q)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h4 id="docker-pause-x2F-unpause-命令"><a href="#docker-pause-x2F-unpause-命令" class="headerlink" title="docker pause&#x2F;unpause 命令"></a>docker pause&#x2F;unpause 命令</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker pause</td>
+<td>暂停容器中所有的进程</td>
+</tr>
+<tr>
+<td>docker unpause</td>
+<td>恢复容器中所有的进程</td>
+</tr>
+</tbody></table>
+<h4 id="docker-create-命令"><a href="#docker-create-命令" class="headerlink" title="docker create 命令"></a>docker create 命令</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker create</td>
+<td>创建一个新的容器但不启动它</td>
+</tr>
+</tbody></table>
+<p>用法同 <code>docker run</code></p>
+<h4 id="docker-exec-命令"><a href="#docker-exec-命令" class="headerlink" title="docker exec 命令"></a>docker exec 命令</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker exec</td>
+<td>在运行的容器中执行命令</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>OPTIONS</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-d</td>
+<td>分离模式: 在后台运行</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>即使没有附加也保持STDIN 打开</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>分配一个伪终端</td>
+</tr>
+</tbody></table>
+<p>示例：  </p>
+<ol>
+<li>在容器 mynginx 中以交互模式执行容器内 &#x2F;root&#x2F;runoob.sh 脚本： <pre class="line-numbers language-none"><code class="language-none">docker exec -it mynginx &#x2F;bin&#x2F;sh &#x2F;root&#x2F;test.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li>在容器 mynginx 中开启一个交互模式的终端： <pre class="line-numbers language-none"><code class="language-none">docker exec -i -t mynginx &#x2F;bin&#x2F;bash
+root@b1a0703e41e7:&#x2F;#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li>也可以通过 docker ps -a 命令查看已经在运行的容器，然后使用容器 ID 进入容器。<br>查看已经在运行的容器 ID： <pre class="line-numbers language-none"><code class="language-none">docker ps -a
+9df70f9a0714 openjdk &quot;&#x2F;usercode&#x2F;script.sh…&quot; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+ 第一列的 9df70f9a0714 就是容器 ID。<br> 通过 exec 命令对指定的容器执行 bash: <pre class="line-numbers language-none"><code class="language-none">docker exec -it 9df70f9a0714 &#x2F;bin&#x2F;bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-command-manual.html">菜鸟教程</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%8A%A0%E9%80%9F"><span class="toc-number">1.</span> <span class="toc-text">Docker安装与加速</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F"><span class="toc-number">1.2.</span> <span class="toc-text">阿里云镜像加速</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.</span> <span class="toc-text">配置远程连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89Docker%E5%87%BA%E7%8E%B0"><span class="toc-number">2.1.</span> <span class="toc-text">为什么会有Docker出现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker%E7%90%86%E5%BF%B5"><span class="toc-number">2.2.</span> <span class="toc-text">Docker理念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%8F%A5%E8%AF%9D"><span class="toc-number">2.3.</span> <span class="toc-text">一句话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%8B%E5%89%8D%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%8A%80%E6%9C%AF"><span class="toc-number">2.4.</span> <span class="toc-text">之前的虚拟机技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF"><span class="toc-number">2.5.</span> <span class="toc-text">容器虚拟化技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91-x2F-%E8%BF%90%E7%BB%B4DevOps%E4%B8%80%E6%AC%A1%E6%9E%84%E5%BB%BA%E3%80%81%E9%9A%8F%E5%A4%84%E8%BF%90%E8%A1%8C"><span class="toc-number">2.6.</span> <span class="toc-text">开发&#x2F;运维DevOps一次构建、随处运行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.1.</span> <span class="toc-text">信息查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86"><span class="toc-number">3.2.</span> <span class="toc-text">容器生命周期管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-run"><span class="toc-number">3.2.1.</span> <span class="toc-text">docker run</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-start-x2F-stop-x2F-restart-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">docker start&#x2F;stop&#x2F;restart 命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-kill-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">docker kill 命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#docker-rm-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.1.3.</span> <span class="toc-text">docker rm 命令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-pause-x2F-unpause-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.2.</span> <span class="toc-text">docker pause&#x2F;unpause 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-create-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.3.</span> <span class="toc-text">docker create 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-exec-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.4.</span> <span class="toc-text">docker exec 命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">4.</span> <span class="toc-text">参考文献</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.sbx0.cn/post/docker.html"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.sbx0.cn/post/docker.html&text=Docker"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.sbx0.cn/post/docker.html&title=Docker"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.sbx0.cn/post/docker.html&is_video=false&description=Docker"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker&body=Check out this article: https://blog.sbx0.cn/post/docker.html"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.sbx0.cn/post/docker.html&title=Docker"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.sbx0.cn/post/docker.html&title=Docker"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.sbx0.cn/post/docker.html&title=Docker"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.sbx0.cn/post/docker.html&title=Docker"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.sbx0.cn/post/docker.html&name=Docker&description=&lt;p&gt;Docker 是一个开放源代码软件，是一个开放平台，用于开发应用、交付应用、运行应用。 Docker允许用户将基础设施中的应用单独分割出来，形成更小的颗粒，从而提高交付软件的速度。 Docker容器 与虚拟机类似，但原理上，容器是将操作系统层虚拟化，虚拟机则是虚拟化硬件，因此容器更具有便携性、高效地利用服务器。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.sbx0.cn/post/docker.html&t=Docker"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2022
+    sbx0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/probberechts">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
